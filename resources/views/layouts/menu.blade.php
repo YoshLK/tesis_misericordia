@@ -13,22 +13,22 @@
         </a>
     @endcan
     @can('ver-adulto')
-    <a class="{{ Request::is('adulto*') ? 'bg-success' : 'bg-white' }}" href="{{ route('adulto.index') }}">
-        <i class="text-logo fas fa-hiking"></i><span class="text-logo">Lista de Adultos</span>
-    </a>
+        <a class="nav-link dropdown-toggle text-logo" href="#" id="navbarDropdown2" role="button"
+            data-toggle="dropdown" aria-haspopup="true " aria-expanded="false">
+            <i class="text-logo fas fa-user"></i><span class="text-logo">Modulo Adultos Mayores</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+            <a class="{{ Request::is('adulto/create') ? 'bg-info' : 'bg-white' }}" href="{{ url('adulto/create') }}">
+                <i class="text-logo fas fa-user-plus"></i><span class="text-logo">Nuevo Adulto</span>
+            </a>
+            <a class="{{ Request::is('adulto') ? 'bg-info' : 'bg-white' }}" href="{{ route('adulto.index') }}">
+                <i class="text-logo fas fa-users"></i><span class="text-logo">LIsta de adultos</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Eliminados</a>
+        </div>
     @endcan
- 
-    
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        Adultos
-    </a>
-    <div class="dropdown-menu show" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="#">Opción 1</a>
-        <a class="dropdown-item" href="#">Opción 2</a>
-        <!-- Agrega más opciones de menú según sea necesario -->
-    </div>
-    
-    
+
 
 </li>
 
@@ -44,5 +44,4 @@
     .text-logo {
         color: #8e0432;
     }
-
 </style>

@@ -31,7 +31,7 @@ class CreateAdultosTable extends Migration
             $table->string('iggs',10)->nullable(false);
             $table->string('iggs_identificacion',100)->nullable(true);
             $table->string('cuota',10)->nullable(false);
-            $table->string('cuota_monto',10)->nullable(false);
+            $table->integer('cuota_monto')->nullable(true);
            
             $table->string('firma_pariente',10)->nullanble(false);
             $table->string('firma_adulto',10)->nullanble(false);

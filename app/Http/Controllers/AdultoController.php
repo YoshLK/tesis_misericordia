@@ -61,25 +61,53 @@ class AdultoController extends Controller
     public function store(Request $request)
     {
         //validacion de campos
+        //  $campos=[
+        //      'primer_nombre'=>'required|string|max:20',
+        //      'segundo_nombre'=>'required|string|max:50',
+        //      'primer_apellido'=>'required|string|max:20',
+        //      'segundo_apellido'=>'required|string|max:50',
+        //      'fecha_ingreso'=>'required|date',
+        // //     'DPI'=>'required|string|max:13',
+        //      'procedencia'=>'required|string|max:100',
+        //      'fecha_nacimiento'=>'required|date',
+        //      'edad'=>'required|integer',
+        //     'estado_actual'=>'required|string|max:25',
+        //      'foto'=>'mimes:jpeg,png,jpg',
+        //  ];
+
         $campos=[
-            'primer_nombre'=>'required|string|max:20',
-            'segundo_nombre'=>'required|string|max:50',
-            'primer_apellido'=>'required|string|max:20',
-            'segundo_apellido'=>'required|string|max:50',
-            'fecha_ingreso'=>'required|date',
-            'DPI'=>'required|string|max:13',
-            'procedencia'=>'required|string|max:100',
-            'fecha_nacimiento'=>'required|date',
-            'edad'=>'required|integer',
-            'estado_actual'=>'required|string|max:25',
+            'fecha_ingreso' => 'required|date',
+            'recibe' => 'required|string|max:150',
+            'primer_nombre' => 'required|string|max:20',
+            'segundo_nombre' => 'required|string|max:50',
+            'primer_apellido' => 'required|string|max:20',
+            'segundo_apellido' => 'required|string|max:50',
+            'edad' => 'required|integer',
+            'fecha_nacimiento' => 'required|date',
+            'DPI' => 'required|string|max:25',
+            'registro' => 'nullable|string|max:100',
+            'lugar_origen' => 'required|string|max:200',
+            'domicilio' => 'nullable|string|max:200',
+            'iggs' => 'required|string|max:10',
+            'iggs_identificacion' => 'nullable|string|max:100',
+            'cuota' => 'required|string|max:10',
+            'cuota_monto' => 'nullable|integer',
+            'firma_pariente' => 'required|string|max:10',
+            'firma_adulto' => 'required|string|max:10',
+            'Motivo_ingreso' => 'required|string|max:10',
+            'estado_actual' => 'required|string|max:25',
             'foto'=>'mimes:jpeg,png,jpg',
+            'fecha_salida' => 'nullable|date',
+            'motivo' => 'nullable|string|max:200',
         ];
 
-        $mensaje=[
-            'required'=> 'El :attribute es requerido.'
-        ];
 
-        $this->validate($request, $campos, $mensaje);
+
+         $mensaje=[
+             'required'=> 'El :attribute es requerido.'
+         ];
+
+         $this->validate($request, $campos, $mensaje);
         
         //$datoAdulto = request()->all();
         $datosAdulto = request()->except('_token');
@@ -89,8 +117,9 @@ class AdultoController extends Controller
         }
         //$a = $request->referencias;
         //print_r($a);
-        Adulto::insert($datosAdulto);
+        
         //return response()->json($datosAdulto );
+        Adulto::insert($datosAdulto);
         return redirect('adulto')->with('mensaje','registrado');
         
     }
@@ -113,17 +142,29 @@ class AdultoController extends Controller
     public function update(Request $request, $id)
     {
         $campos=[
-            'primer_nombre'=>'required|string|max:20',
-            'segundo_nombre'=>'required|string|max:50',
-            'primer_apellido'=>'required|string|max:20',
-            'segundo_apellido'=>'required|string|max:50',
-            'fecha_ingreso'=>'required|date',
-            'DPI'=>'required|string|max:13',
-            'procedencia'=>'required|string|max:100',
-            'fecha_nacimiento'=>'required|date',
-            'edad'=>'required|integer',
-            'estado_actual'=>'required|string|max:25',
+            'fecha_ingreso' => 'required|date',
+            'recibe' => 'required|string|max:150',
+            'primer_nombre' => 'required|string|max:20',
+            'segundo_nombre' => 'required|string|max:50',
+            'primer_apellido' => 'required|string|max:20',
+            'segundo_apellido' => 'required|string|max:50',
+            'edad' => 'required|integer',
+            'fecha_nacimiento' => 'required|date',
+            'DPI' => 'required|string|max:25',
+            'registro' => 'nullable|string|max:100',
+            'lugar_origen' => 'required|string|max:200',
+            'domicilio' => 'nullable|string|max:200',
+            'iggs' => 'required|string|max:10',
+            'iggs_identificacion' => 'nullable|string|max:100',
+            'cuota' => 'required|string|max:10',
+            'cuota_monto' => 'nullable|integer',
+            'firma_pariente' => 'required|string|max:10',
+            'firma_adulto' => 'required|string|max:10',
+            'Motivo_ingreso' => 'required|string|max:10',
+            'estado_actual' => 'required|string|max:25',
             'foto'=>'mimes:jpeg,png,jpg',
+            'fecha_salida' => 'nullable|date',
+            'motivo' => 'nullable|string|max:200',
         ];
 
         $mensaje=[
@@ -137,6 +178,20 @@ class AdultoController extends Controller
             $adulto=Adulto::findOrFail($id);
             Storage::delete('public/'.$adulto->foto);
             $datosAdulto['foto'] = $request->file('foto')->store('uploads','public');
+        }
+
+        // if ($request->hasFile('foto')){
+        //     $adulto=Adulto::findOrFail($id);
+        //     Storage::delete('public/'.$adulto->foto);
+        //     $datosAdulto['foto'] = $request->file('foto')->store('uploads','public');
+        // }
+
+        if ($datosAdulto['iggs'] === 'no') {
+            $datosAdulto['iggs_identificacion'] = null;
+        }
+
+        if ($datosAdulto['cuota'] === 'no') {
+            $datosAdulto['cuota_monto'] = null;
         }
         
         Adulto::where('id','=',$id)->update($datosAdulto);

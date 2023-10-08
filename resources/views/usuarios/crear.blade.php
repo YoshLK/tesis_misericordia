@@ -10,7 +10,6 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-
                             @if ($errors->any())
                                 <div class="alert alert-dark alert-dismissible fade show" role="alert">
                                     <strong>¡Revise los campos!</strong>
