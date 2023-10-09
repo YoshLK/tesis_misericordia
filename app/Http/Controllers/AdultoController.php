@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Models\Adultos;
+use App\Models\Responsable;
 
 class AdultoController extends Controller
 {   
@@ -60,22 +61,7 @@ class AdultoController extends Controller
     //Recibe datos Guardar en la DB
     public function store(Request $request)
     {
-        //validacion de campos
-        //  $campos=[
-        //      'primer_nombre'=>'required|string|max:20',
-        //      'segundo_nombre'=>'required|string|max:50',
-        //      'primer_apellido'=>'required|string|max:20',
-        //      'segundo_apellido'=>'required|string|max:50',
-        //      'fecha_ingreso'=>'required|date',
-        // //     'DPI'=>'required|string|max:13',
-        //      'procedencia'=>'required|string|max:100',
-        //      'fecha_nacimiento'=>'required|date',
-        //      'edad'=>'required|integer',
-        //     'estado_actual'=>'required|string|max:25',
-        //      'foto'=>'mimes:jpeg,png,jpg',
-        //  ];
-
-        $campos=[
+         $campos=[
             'fecha_ingreso' => 'required|date',
             'recibe' => 'required|string|max:150',
             'primer_nombre' => 'required|string|max:20',
@@ -94,34 +80,76 @@ class AdultoController extends Controller
             'cuota_monto' => 'nullable|integer',
             'firma_pariente' => 'required|string|max:10',
             'firma_adulto' => 'required|string|max:10',
-            'Motivo_ingreso' => 'required|string|max:10',
+            'motivo_ingreso' => 'required|string|max:200',
             'estado_actual' => 'required|string|max:25',
             'foto'=>'mimes:jpeg,png,jpg',
             'fecha_salida' => 'nullable|date',
-            'motivo' => 'nullable|string|max:200',
+            'motivo_salida' => 'nullable|string|max:200',
         ];
-
-
-
          $mensaje=[
              'required'=> 'El :attribute es requerido.'
          ];
 
-         $this->validate($request, $campos, $mensaje);
+         $this->validate($request, $campos, $mensaje); 
         
+         DB::beginTransaction();
         //$datoAdulto = request()->all();
-        $datosAdulto = request()->except('_token');
+        //$datosAdulto = request()->except('_token');
        
-        if ($request->hasFile('foto')){
-            $datosAdulto['foto'] = $request->file('foto')->store('uploads','public');
-        }
+        
         //$a = $request->referencias;
         //print_r($a);
         
         //return response()->json($datosAdulto );
-        Adulto::insert($datosAdulto);
+        //Adulto::insert($datosAdulto);
+        // redirect('adulto')->with('mensaje','registrado');
+        try {
+        $adulto = new Adulto;
+        $adulto->fecha_ingreso = $request->input('fecha_ingreso');
+        $adulto->recibe = $request->input('recibe');
+        $adulto->primer_nombre = $request->input('primer_nombre');
+        $adulto->segundo_nombre = $request->input('segundo_nombre');
+        $adulto->primer_apellido = $request->input('primer_apellido');
+        $adulto->segundo_apellido = $request->input('segundo_apellido');
+        $adulto->edad = $request->input('edad');
+        $adulto->fecha_nacimiento = $request->input('fecha_nacimiento');
+        $adulto->DPI = $request->input('DPI');
+        $adulto->registro = $request->input('registro');
+        $adulto->lugar_origen = $request->input('lugar_origen');
+        $adulto->domicilio = $request->input('domicilio');
+        $adulto->iggs = $request->input('iggs');
+        $adulto->iggs_identificacion = $request->input('iggs_identificacion');
+        $adulto->cuota = $request->input('cuota');
+        $adulto->cuota_monto = $request->input('cuota_monto');
+        $adulto->firma_pariente = $request->input('firma_pariente');
+        $adulto->firma_adulto = $request->input('firma_adulto');
+        $adulto->motivo_ingreso = $request->input('motivo_ingreso');
+        $adulto->estado_actual = $request->input('estado_actual');
+        $adulto->fecha_salida = $request->input('fecha_salida');
+        //$adulto->foto = $request->input('foto');
+        if ($request->hasFile('foto')){
+            $adulto['foto'] = $request->file('foto')->store('uploads','public');
+        } 
+        $adulto->save();
+
+        $responsable = new Responsable;
+        $responsable->procedencia = $request->input('procedencia');
+        $responsable->responsable = $request->input('responsable');
+        $responsable->dpi_encargado = $request->input('dpi_encargado');
+        $responsable->telefono = $request->input('telefono');
+        $responsable->celular = $request->input('celular');
+        $responsable->direccion = $request->input('direccion');
+        $responsable->adulto_id = $adulto->id;
+        $responsable->save();
+
+        DB::commit();
         return redirect('adulto')->with('mensaje','registrado');
-        
+
+    } catch (\Exception $e) {
+        // Revertir la transacción en caso de error
+        DB::rollback();
+        return redirect('adulto')->with('mensaje', 'error');
+    }
     }
    
     // Visualizar detalle de un solo registro
@@ -135,7 +163,9 @@ class AdultoController extends Controller
     public function edit($id)
     {
         $adulto=Adulto::findOrFail($id);
-        return view('adulto.edit', compact('adulto'));
+
+        $responsable = $adulto->responsable;
+        return view('adulto.edit', compact('adulto', 'responsable'));
     }
 
     // Actualizar la informacion editada
@@ -160,43 +190,92 @@ class AdultoController extends Controller
             'cuota_monto' => 'nullable|integer',
             'firma_pariente' => 'required|string|max:10',
             'firma_adulto' => 'required|string|max:10',
-            'Motivo_ingreso' => 'required|string|max:10',
+            'motivo_ingreso' => 'required|string|max:200',
             'estado_actual' => 'required|string|max:25',
             'foto'=>'mimes:jpeg,png,jpg',
             'fecha_salida' => 'nullable|date',
-            'motivo' => 'nullable|string|max:200',
+            'motivo_salida' => 'nullable|string|max:200',
         ];
+         $mensaje=[
+             'required'=> 'El :attribute es requerido.'
+         ];
 
-        $mensaje=[
-            'required'=> 'El :attribute es requerido.'
-        ];
-        $this->validate($request, $campos, $mensaje);
+         $this->validate($request, $campos, $mensaje); 
 
-        $datosAdulto = request()->except(['_token','_method']);
-        
+         DB::beginTransaction();
+         try {
+        // nueva actualizacion 
+        $adulto = Adulto::findOrFail($id);
+        $adulto->fecha_ingreso = $request->input('fecha_ingreso');
+        $adulto->recibe = $request->input('recibe');
+        $adulto->primer_nombre = $request->input('primer_nombre');
+        $adulto->segundo_nombre = $request->input('segundo_nombre');
+        $adulto->primer_apellido = $request->input('primer_apellido');
+        $adulto->segundo_apellido = $request->input('segundo_apellido');
+        $adulto->edad = $request->input('edad');
+        $adulto->fecha_nacimiento = $request->input('fecha_nacimiento');
+        $adulto->DPI = $request->input('DPI');
+        $adulto->registro = $request->input('registro');
+        $adulto->lugar_origen = $request->input('lugar_origen');
+        $adulto->domicilio = $request->input('domicilio');
+        $adulto->iggs = $request->input('iggs');
+        $adulto->iggs_identificacion = $request->input('iggs_identificacion');
+        $adulto->cuota = $request->input('cuota');
+        $adulto->cuota_monto = $request->input('cuota_monto');
+        $adulto->firma_pariente = $request->input('firma_pariente');
+        $adulto->firma_adulto = $request->input('firma_adulto');
+        $adulto->motivo_ingreso = $request->input('motivo_ingreso');
+        $adulto->estado_actual = $request->input('estado_actual');
+        $adulto->fecha_salida = $request->input('fecha_salida');
+
         if ($request->hasFile('foto')){
+            $adultoFoto=Adulto::findOrFail($id);
+            Storage::delete('public/'.$adultoFoto->foto);
+            $adulto['foto'] = $request->file('foto')->store('uploads','public');
+        }
+        if ($adulto->iggs === 'no') {
+            $adulto->iggs_identificacion = null;
+        }
+
+        if ( $adulto->cuota === 'no') {
+            $adulto->cuota_monto  = null;
+        }
+        $adulto->save();
+
+        $responsable = $adulto->responsable;
+        $responsable->procedencia = $request->input('procedencia');
+        $responsable->responsable = $request->input('responsable');
+        $responsable->dpi_encargado = $request->input('dpi_encargado');
+        $responsable->telefono = $request->input('telefono');
+        $responsable->celular = $request->input('celular');
+        $responsable->direccion = $request->input('direccion');
+        $responsable->save();
+
+        DB::commit();
+        return redirect('adulto')->with('mensaje','editado');
+    } catch (\Exception $e) {
+        // Revertir la transacción en caso de error
+        DB::rollback();
+        return redirect('adulto')->with('mensaje', 'error');
+    }
+        //$datosAdulto = request()->except(['_token','_method']);
+        
+        /* if ($request->hasFile('foto')){
             $adulto=Adulto::findOrFail($id);
             Storage::delete('public/'.$adulto->foto);
             $datosAdulto['foto'] = $request->file('foto')->store('uploads','public');
         }
 
-        // if ($request->hasFile('foto')){
-        //     $adulto=Adulto::findOrFail($id);
-        //     Storage::delete('public/'.$adulto->foto);
-        //     $datosAdulto['foto'] = $request->file('foto')->store('uploads','public');
-        // }
+         if ($request->hasFile('foto')){
+            $adulto=Adulto::findOrFail($id);
+             Storage::delete('public/'.$adulto->foto);
+             $datosAdulto['foto'] = $request->file('foto')->store('uploads','public');
+         } */
 
-        if ($datosAdulto['iggs'] === 'no') {
-            $datosAdulto['iggs_identificacion'] = null;
-        }
-
-        if ($datosAdulto['cuota'] === 'no') {
-            $datosAdulto['cuota_monto'] = null;
-        }
         
-        Adulto::where('id','=',$id)->update($datosAdulto);
+        /* Adulto::where('id','=',$id)->update($datosAdulto);
         $adulto=Adulto::findOrFail($id);
-        return redirect('adulto')->with('mensaje','editado');
+        return redirect('adulto')->with('mensaje','editado'); */
     }
 
     // eliminar registro

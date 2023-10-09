@@ -82,5 +82,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RolController::class);
     Route::resource('usuarios', UsuarioController::class);
     Route::get('adulto/inactivo', [AdultoController::class, 'inactivo'])->name('adulto.inactivo');
+    // Route::put('adulto/{adulto}', 'AdultoController@update')->name('adulto.update');
     Route::resource('adulto', AdultoController::class);
 });

@@ -4,14 +4,9 @@
     <h1 class="text-center bg-primary ">Edición de Adulto Mayor</h1>
 @stop
 
-
-
-
-
-
 @extends('layouts.app')
 
-@section('title', 'Nuevo Adulto')
+@section('title', 'Edicion Adulto')
 
 @section('content')
     <section class="section">
@@ -27,10 +22,9 @@
                         </div>
                         <div class="card-body border-info mb-6">
                             <div class="container">
-                                <form action="{{ url('/adulto/' . $adulto->id) }}" method="post" enctype="multipart/form-data"
-                                    class="px-4 py-2 border border-info rounded-lg" style="width: 300px height:75px">
+                                <form action="{{ url('/adulto/' . $adulto->id) }}" method="POST" enctype="multipart/form-data" class="px-4 py-2 border border-info rounded-lg" style="width: 300px height:75px">
                                     @csrf
-                                    {{ method_field('PATCH') }}
+                                    @method('PUT')
                                     @include('adulto.form', ['modo' => 'Editar', 'color' => 'outline-primary'])
                                 </form>
                             </div>

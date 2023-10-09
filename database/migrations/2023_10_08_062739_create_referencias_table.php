@@ -15,9 +15,7 @@ class CreateReferenciasTable extends Migration
     {
         Schema::create('referencias', function (Blueprint $table) {
             $table->id();
-            $table->string('procedencia',50)->nullanble(true);
-            $table->string('responsable',200)->nullanble(false);
-            $table->string('dpi_encargado',200)->nullanble(true);
+            $table->string('nombre_referencia',250)->nullanble(false);
             $table->string('telefono',25)->nullanble(false);
             $table->string('direccion',150)->nullanble(false);
             $table->foreignId('adulto_id')

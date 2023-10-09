@@ -35,11 +35,11 @@ class CreateAdultosTable extends Migration
            
             $table->string('firma_pariente',10)->nullanble(false);
             $table->string('firma_adulto',10)->nullanble(false);
-            $table->string('Motivo_ingreso',10)->nullanble(false);
+            $table->string('motivo_ingreso',200)->nullanble(false);
             $table->string('estado_actual',25)->nullanble(false);
             $table->string('foto')->nullable(true);
             $table->date('fecha_salida')->nullable(true);
-            $table->string('motivo',200)->nullable(true);
+            $table->string('motivo_salida')->nullable(true);
             $table->timestamps();
         });
     }

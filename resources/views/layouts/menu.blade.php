@@ -18,14 +18,16 @@
             <i class="text-logo fas fa-user"></i><span class="text-logo">Modulo Adultos Mayores</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+            @can('crear-adulto')
             <a class="{{ Request::is('adulto/create') ? 'bg-info' : 'bg-white' }}" href="{{ url('adulto/create') }}">
                 <i class="text-logo fas fa-user-plus"></i><span class="text-logo">Nuevo Adulto</span>
             </a>
+            @endcan
             <a class="{{ Request::is('adulto') ? 'bg-info' : 'bg-white' }}" href="{{ route('adulto.index') }}">
-                <i class="text-logo fas fa-users"></i><span class="text-logo">LIsta de adultos</span>
+                <i class="text-logo fas fa-users"></i><span class="text-logo">Lista de adultos</span>
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Eliminados</a>
+            <a class="dropdown-item" href="#">Lista Egresados</a>
         </div>
     @endcan
 

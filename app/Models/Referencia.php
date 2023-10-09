@@ -11,5 +11,7 @@ class Referencia extends Model
     public function adultosDatos(){
         //relacion uno a muchos
         return $this->belongsTo(Adulto::class, 'adulto_id');
-    } 
+    }  
+
+    
 }

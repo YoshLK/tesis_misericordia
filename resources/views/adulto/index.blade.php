@@ -1,97 +1,119 @@
-@extends('adminlte::page')
-
-@section('title', 'Adultos Mayores')
-<!--data table-->
-@section('plugins.Datatables', true)
-
-@section('content_header')
-    <h1 class="text-center bg-info ">Lista de Adultos Mayores</h1>
-@stop
+@extends('layouts.app')
+<link href="{{ asset('assets/js/DataTables/datatables.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/js/DataTables/datatables.min.css') }}" rel="stylesheet">
 
 @section('content')
-    <?php setlocale(LC_TIME, 'es_ES.UTF-8', 'es_ES', 'Spanish_Spain'); ?>
-    <a href="{{ url('adulto/create') }}" class="btn btn-outline-success"> + Registrar Nuevo Adulto Mayor</a>
-    <br />
-    <br />
-    <table id="adultos" class="table table-bordered  table-hover">
-        <caption>Lista de Adultos Mayores la Misericordia</caption>
-        <thead class="thead bg-info ">
-            <tr>
-                <th>Foto</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
-                <th>Edad</th>
-                <th>Ingreso</th>
-                <th>Estancia</th>
-                <th>Patologias</th>
-                <th>Medicina</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
+    <section class="section">
+        <div class="section-header">
+            <h3 class="page__heading">Lista adultos de Adultos Mayores</h3>
+        </div>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <?php setlocale(LC_TIME, 'es_ES.UTF-8', 'es_ES', 'Spanish_Spain'); ?>
+                            @can('crear-adulto')
+                                <a href="{{ url('adulto/create') }}" class="btn btn-outline-success"> + Registrar Nuevo Adulto
+                                    Mayor</a>
+                            @endcan
+                            <br />
+                            <br />
+                            <table id="adultos" class="table table-bordered  table-hover">
+                                <caption>Lista de Adultos Mayores la Misericordia</caption>
+                                <thead class="thead bg-info ">
+                                    <tr>
+                                        <th>Foto</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>Edad</th>
+                                        <th>Ingreso</th>
+                                        <th>Estancia</th>
+                                        <th>Patologias</th>
+                                        <th>Medicina</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-            @foreach ($adultos as $adulto)
-                <input name="contador" value="{{ $contador = (int) $loop->iteration - 1 }}" type="hidden">
-                <tr>
-                    <td>
-                        <img class="img-thumbnail img-fluid" src="{{ asset('storage') . '/' . $adulto->foto }}"
-                            width="100">
-                    </td>
-                    <td>{{ $adulto->primer_nombre }} {{ $adulto->segundo_nombre }}</td>
-                    <td>{{ $adulto->primer_apellido }} {{ $adulto->segundo_apellido }}</td>
-                    {{-- <td > {{ \Carbon\Carbon::parse($adulto->fecha_ingreso)->format('d/m/Y') }}</td> --}}
-                    <td>{{ $adulto->edad }}</td>
-                    <td>{{ $adulto->fecha_ingreso }}</td>
-                    <td>{{ $conteoTiempo[$contador] }}</td>
-                    <td class="px-4">
-                        @if (isset($adulto->historialDatos->id))
-                            @foreach ($adulto->historialDatos->patologiasDatos as $patologia)
-                                <li> {{ $patologia->nombre_patologia }}</li>
-                            @endforeach
-                        @endif
-                    </td>
-                    <td class="px-4">
-                        @if (isset($adulto->historialDatos->id))
-                            @foreach ($adulto->historialDatos->medicamentosDatos as $medicamento)
-                                <li>{{ $medicamento->nombre_medicamento . ' ' . $medicamento->cantidad_medicamento . ' ' . $medicamento->medida_medicamento . ' Frec: ' . $medicamento->frecuencia_tiempo . ' ' . $medicamento->frecuencia_dia }}
-                                </li>
-                            @endforeach
-                        @endif
-                    </td>
-                    <td>
-                        <a href="{{ url('/general/adulto_detalle/' . $adulto->id) }}"
-                            class="btn btn-xs btn-info text-light mx-1 shadow" title="Detalle">
-                            <i class="fa fa-lg fa-fw fa-eye"></i>Detalle
-                        </a>
-                        <a href="{{ url('/adulto/' . $adulto->id . '/edit') }}"
-                            class="btn btn-xs btn-primary   text-light   mx-1 shadow" title="Editar">
-                            <i class="fa fa-lg fa-fw fa-pen"></i>Editar
-                        </a>
-                        <form action="{{ route('adulto.destroy', $adulto->id) }}" class="d-inline formulario-eliminar"
-                            method="post">
-                            @csrf
-                            @method('DELETE')
-                            <input name="ruta" type="hidden">
-                            <input name="id" value="{{ $adulto->id }}" type="hidden">
-                            <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" title="Borrar"><i
-                                    class="fa fa-lg fa-fw fa-trash"></i>Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
+                                    @foreach ($adultos as $adulto)
+                                        <input name="contador" value="{{ $contador = (int) $loop->iteration - 1 }}"
+                                            type="hidden">
+                                        <tr>
+                                            <td>
+                                                <img class="img-thumbnail img-fluid"
+                                                    src="{{ asset('storage') . '/' . $adulto->foto }}" width="100">
+                                            </td>
+                                            <td>{{ $adulto->primer_nombre }} {{ $adulto->segundo_nombre }}</td>
+                                            <td>{{ $adulto->primer_apellido }} {{ $adulto->segundo_apellido }}</td>
+                                            {{-- <td > {{ \Carbon\Carbon::parse($adulto->fecha_ingreso)->format('d/m/Y') }}</td> --}}
+                                            <td>{{ $adulto->edad }}</td>
+                                            <td>{{ $adulto->fecha_ingreso }}</td>
+                                            <td>{{ $conteoTiempo[$contador] }}</td>
+                                            <td class="px-4">
+                                                @if (isset($adulto->historialDatos->id))
+                                                    @foreach ($adulto->historialDatos->patologiasDatos as $patologia)
+                                                        <li> {{ $patologia->nombre_patologia }}</li>
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                            <td class="px-4">
+                                                @if (isset($adulto->historialDatos->id))
+                                                    @foreach ($adulto->historialDatos->medicamentosDatos as $medicamento)
+                                                        <li>{{ $medicamento->nombre_medicamento . ' ' . $medicamento->cantidad_medicamento . ' ' . $medicamento->medida_medicamento . ' Frec: ' . $medicamento->frecuencia_tiempo . ' ' . $medicamento->frecuencia_dia }}
+                                                        </li>
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                            <td>
 
-        </tbody>
-    </table>
+                                                <a href="{{ url('/general/adulto_detalle/' . $adulto->id) }}"
+                                                    class="btn btn-xs btn-info text-light mx-1 shadow" title="Detalle">
+                                                    <i class="fa fa-lg fa-fw fa-eye"></i></a>
+                                                @can('editar-adulto')
+                                                    <a href="{{ url('/adulto/' . $adulto->id . '/edit') }}"
+                                                        class="btn btn-xs btn-primary   text-light   mx-1 shadow"
+                                                        title="Editar">
+                                                        <i class="fa fa-lg fa-fw fa-pen"></i></a>
+                                                @endcan
+                                                @can('borrar-adulto')
+                                                    <form action="{{ route('adulto.destroy', $adulto->id) }}"
+                                                        class="d-inline formulario-eliminar" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <input name="ruta" type="hidden">
+                                                        <input name="id" value="{{ $adulto->id }}" type="hidden">
+                                                        <button type="submit"
+                                                            class="btn btn-xs btn-default text-danger mx-1 shadow"
+                                                            title="Borrar"><i class="fa fa-lg fa-fw fa-trash"></i></button>
+                                                    </form>
+                                                @endcan
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection
 
 
-@stop
+@section('scripts')
+    <script src="{{ asset('assets/js/DataTables/datatables.min.js') }}"></script>
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
+    <script src="{{ asset('assets/js/DataTables/Buttons-2.4.2/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('assets/js/DataTables/JSZip-3.10.1/jszip.min.js') }}"></script>
+    <script src="{{ asset('assets/js/DataTables/pdfmake-0.2.7/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('assets/js/DataTables/pdfmake-0.2.7/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('assets/js/Buttons-2.4.2/js/buttons.html5.min.js') }}"></script>
 
-@section('js')
-
+    <script src="{{ asset('/assets/js/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
     <script>
         var fechaHoraActual = new Date();
         var formatoFechaHora = fechaHoraActual.toLocaleString();
@@ -116,7 +138,7 @@
                     }
                 },
                 responsive: "true",
-                dom: 'liBfrtp',
+                dom: 'iBfrtlp',
                 buttons: [{
                         extend: 'excelHtml5',
                         text: '<i class="fas fa-file-excel"></i>',
@@ -212,4 +234,13 @@
         });
     </script>
 
-@stop
+    @if (session('mensaje') == 'error')
+        <script>
+            Swal.fire(
+                'ERROE!',
+                'ERROR EN LA RECOPILACION DE DATOS.',
+                'success'
+            )
+        </script>
+    @endif
+@endsection
