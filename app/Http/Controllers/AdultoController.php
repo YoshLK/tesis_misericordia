@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Models\Adultos;
 use App\Models\Responsable;
+use App\Models\Condicion;
 
 class AdultoController extends Controller
 {   
@@ -45,7 +46,7 @@ class AdultoController extends Controller
         } else {
             $mesesText = "";
         }
-        $conteoTiempo[] = $aniosText . $mesesText . $dias_restantes ." Dias". " @". $diferencia->days;
+        $conteoTiempo[] = $aniosText . $mesesText . $dias_restantes ." Dias";
     }
         
     return view('adulto.index',$datos,compact('conteoTiempo'));
@@ -60,7 +61,11 @@ class AdultoController extends Controller
 
     //Recibe datos Guardar en la DB
     public function store(Request $request)
-    {
+    {/* $datoAdulto = request()->all();
+        $datosAdulto = request()->except('_token'); 
+        
+        return response()->json($datosAdulto );*/
+        DB::beginTransaction();
          $campos=[
             'fecha_ingreso' => 'required|date',
             'recibe' => 'required|string|max:150',
@@ -74,9 +79,9 @@ class AdultoController extends Controller
             'registro' => 'nullable|string|max:100',
             'lugar_origen' => 'required|string|max:200',
             'domicilio' => 'nullable|string|max:200',
-            'iggs' => 'required|string|max:10',
+            'iggs' => 'nullable|string|max:10',
             'iggs_identificacion' => 'nullable|string|max:100',
-            'cuota' => 'required|string|max:10',
+            'cuota' => 'nullable|string|max:10',
             'cuota_monto' => 'nullable|integer',
             'firma_pariente' => 'required|string|max:10',
             'firma_adulto' => 'required|string|max:10',
@@ -85,6 +90,20 @@ class AdultoController extends Controller
             'foto'=>'mimes:jpeg,png,jpg',
             'fecha_salida' => 'nullable|date',
             'motivo_salida' => 'nullable|string|max:200',
+            //campos responsable
+            'procedencia' => 'required|string|max:50',
+            'responsable' => 'required|string|max:200',
+            'dpi_encargado' => 'required|string|max:200',
+            'telefono' => 'nullable|string|max:25',
+            'celular' => 'required|string|max:25',
+            'direccion' => 'required|string|max:150',
+            //campos condicion fisica
+            'conciente' => 'nullable|string|max:5',
+            'camina' => 'nullable|string|max:5',
+            'habla' => 'nullable|string|max:5',
+            'vidente' => 'nullable|string|max:25',
+            'dificultad_motora' => 'nullable|string|max:20',
+            'observaciones' => 'nullable|string|max:250',
         ];
          $mensaje=[
              'required'=> 'El :attribute es requerido.'
@@ -92,7 +111,7 @@ class AdultoController extends Controller
 
          $this->validate($request, $campos, $mensaje); 
         
-         DB::beginTransaction();
+         
         //$datoAdulto = request()->all();
         //$datosAdulto = request()->except('_token');
        
@@ -142,6 +161,16 @@ class AdultoController extends Controller
         $responsable->adulto_id = $adulto->id;
         $responsable->save();
 
+        $condicionFisica = new Condicion;
+        $condicionFisica->conciente = $request->input('conciente');
+        $condicionFisica->camina = $request->input('camina');
+        $condicionFisica->habla = $request->input('habla');
+        $condicionFisica->vidente = $request->input('vidente');
+        $condicionFisica->dificultad_motora = $request->input('dificultad_motora');
+        $condicionFisica->observaciones = $request->input('observaciones');
+        $condicionFisica->adulto_id = $adulto->id;
+        $condicionFisica->save();
+
         DB::commit();
         return redirect('adulto')->with('mensaje','registrado');
 
@@ -165,7 +194,8 @@ class AdultoController extends Controller
         $adulto=Adulto::findOrFail($id);
 
         $responsable = $adulto->responsable;
-        return view('adulto.edit', compact('adulto', 'responsable'));
+        $condicion = $adulto->condicionFisica;
+        return view('adulto.edit', compact('adulto', 'responsable', 'condicion'));
     }
 
     // Actualizar la informacion editada
@@ -184,9 +214,9 @@ class AdultoController extends Controller
             'registro' => 'nullable|string|max:100',
             'lugar_origen' => 'required|string|max:200',
             'domicilio' => 'nullable|string|max:200',
-            'iggs' => 'required|string|max:10',
+            'iggs' => 'nullable|string|max:10',
             'iggs_identificacion' => 'nullable|string|max:100',
-            'cuota' => 'required|string|max:10',
+            'cuota' => 'nullable|string|max:10',
             'cuota_monto' => 'nullable|integer',
             'firma_pariente' => 'required|string|max:10',
             'firma_adulto' => 'required|string|max:10',
@@ -195,12 +225,27 @@ class AdultoController extends Controller
             'foto'=>'mimes:jpeg,png,jpg',
             'fecha_salida' => 'nullable|date',
             'motivo_salida' => 'nullable|string|max:200',
+            //campos responsable
+            'procedencia' => 'required|string|max:50',
+            'responsable' => 'required|string|max:200',
+            'dpi_encargado' => 'required|string|max:200',
+            'telefono' => 'nullable|string|max:25',
+            'celular' => 'required|string|max:25',
+            'direccion' => 'required|string|max:150',
+            //campos condicion fisica
+            'conciente' => 'nullable|string|max:5',
+            'camina' => 'nullable|string|max:5',
+            'habla' => 'nullable|string|max:5',
+            'vidente' => 'nullable|string|max:25',
+            'dificultad_motora' => 'nullable|string|max:20',
+            'observaciones' => 'nullable|string|max:250',
         ];
          $mensaje=[
              'required'=> 'El :attribute es requerido.'
          ];
 
          $this->validate($request, $campos, $mensaje); 
+        
 
          DB::beginTransaction();
          try {
@@ -250,6 +295,15 @@ class AdultoController extends Controller
         $responsable->celular = $request->input('celular');
         $responsable->direccion = $request->input('direccion');
         $responsable->save();
+
+        $condicion = $adulto->condicionFisica;
+        $condicion->conciente = $request->input('conciente');
+        $condicion->camina = $request->input('camina');
+        $condicion->habla = $request->input('habla');
+        $condicion->vidente = $request->input('vidente');
+        $condicion->dificultad_motora = $request->input('dificultad_motora');
+        $condicion->observaciones = $request->input('observaciones');
+        $condicion->save();
 
         DB::commit();
         return redirect('adulto')->with('mensaje','editado');

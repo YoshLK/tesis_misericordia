@@ -2,6 +2,8 @@
 <link href="{{ asset('assets/js/DataTables/datatables.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/js/DataTables/datatables.min.css') }}" rel="stylesheet">
 
+@section('title', 'Listado de Adultos')
+
 @section('content')
     <section class="section">
         <div class="section-header">

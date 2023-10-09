@@ -26,11 +26,11 @@ class CreateAdultosTable extends Migration
             $table->string('DPI',25)->nullanble(false);
             $table->string('registro',100)->nullable(true);
             $table->string('lugar_origen',200)->nullable(false);
-            $table->string('domicilio',200)->nullanble(true);
+            $table->string('domicilio',200)->nullable(true);
 
-            $table->string('iggs',10)->nullable(false);
+            $table->string('iggs',10)->nullable(true);
             $table->string('iggs_identificacion',100)->nullable(true);
-            $table->string('cuota',10)->nullable(false);
+            $table->string('cuota',10)->nullable(true);
             $table->integer('cuota_monto')->nullable(true);
            
             $table->string('firma_pariente',10)->nullanble(false);

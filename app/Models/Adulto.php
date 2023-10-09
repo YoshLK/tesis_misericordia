@@ -17,4 +17,10 @@ class Adulto extends Model
     {
         return $this->hasOne(Responsable::class);
     }
+
+    public function condicionFisica()
+    {
+        return $this->hasOne(Condicion::class);
+    }
+    
 }
