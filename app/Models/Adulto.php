@@ -34,5 +34,9 @@ class Adulto extends Model
      
         return $this->hasOne(Historial::class);
     }
+
+    public function patologiasDatos(){
+        return $this->hasMany(Patologia::class);
+    } 
     
 }

@@ -98,42 +98,7 @@ class AdultoController extends Controller
             'telefono' => 'nullable|string|max:25',
             'celular' => 'required|string|max:25',
             'direccion' => 'required|string|max:150',
-            //campos condicion fisica
-           /*  'conciente' => 'nullable|string|max:5',
-            'camina' => 'nullable|string|max:5',
-            'habla' => 'nullable|string|max:5',
-            'vidente' => 'nullable|string|max:25',
-            'dificultad_motora' => 'nullable|string|max:20',
-            'observaciones' => 'nullable|string|max:250', */
-
-           /*  //campos ficha
-            'enfermedad' => 'nullable|string|max:3',
-            'enfermedad_nombre' => 'nullable|string|max:200',
-            'medicamento' => 'nullable|string|max:3',
-            'medicamento_nombre' => 'nullable|string|max:200',
-            'duerme' => 'nullable|string|max:3',
-            'tic' => 'nullable|string|max:3',
-            'tic_nombre' => 'nullable|string|max:200',
-            'necesidades' => 'nullable|string|max:3',
-            'operacion' => 'nullable|string|max:3',
-            'operacion_nombre' => 'nullable|string|max:200',
-            'alchol' => 'nullable|string|max:3',
-            'fuma' => 'nullable|string|max:3',
-            'alergia_m' => 'nullable|string|max:3',
-            'alergia_medicina' => 'nullable|string|max:200',
-            'alergia_c' => 'nullable|string|max:3',
-            'alergia_comida' => 'nullable|string|max:200',
-            'fractura' => 'nullable|string|max:3',
-            'fractura_donde' => 'nullable|string|max:200',
-            'cicatriz' => 'nullable|string|max:3',
-            'cicatriz_donde' => 'nullable|string|max:200',
-            'tatuaje' => 'nullable|string|max:3',
-            'tatuaje_donde' => 'nullable|string|max:200',
-            'herida' => 'nullable|string|max:3',
-            'herida_donde' => 'nullable|string|max:200',
-            'fecha' => 'nullable|string|max:3',
-            'nombre' => 'nullable|string|max:3',
-            'lugar' => 'nullable|string|max:3', */
+          
         ];
          $mensaje=[
              'required'=> 'El :attribute es requerido.'

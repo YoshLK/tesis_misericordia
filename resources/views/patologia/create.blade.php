@@ -1,4 +1,4 @@
-<div class="modal fade" id="createPatologia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+ <div class="modal fade" id="createPatologia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -14,8 +14,6 @@
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <h5 class="modal-title bg-success col-md-7"> Datos de la patologia</h5>
-                    <input type="text" name="historial_id" value="{{ $adulto->historialDatos->id }}" required="true"
-                        style="visibility:hidden">
                     <input type="text" name="adulto_id" value="{{ $adulto->id }}" required="true"
                         style="visibility:hidden">
                     <div class="form-row ">
@@ -46,9 +44,9 @@
                         <textarea class="form-control" name="tratamiento_actual" rows="3" placeholder="Tratamiento "></textarea>
                     </div>
                     <div class="form-row ">
-                        <label>Anotaciones/Evolucion</label>
-                        <textarea class="form-control" name="notas_patologia" rows="10"
-                            placeholder="Información adicional relevante sobre la patología, síntomas, resultados o recomendaciones médicas."></textarea>
+                        <label>Notas</label>
+                        <textarea class="form-control" name="notas_patologia" rows=""
+                            placeholder="Notas adicionales"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -58,4 +56,4 @@
             </form>
         </div>
     </div>
-</div>
+</div> 

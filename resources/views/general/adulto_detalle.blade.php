@@ -509,20 +509,22 @@
    </div>
 </div>
 
-<div class="card" style="width: 95%;">
-   <h4> <p class="text-white bg-info px-5">REGISTRO MEDICO</p></h4>
-    <div class="card-body">
-@if (empty($adulto->historialDatos->id))
-<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#createHistorial">
-    + Ficha Medidas Corporales
-</button>
-@include('historial.create')
-@endif
-@if (isset($adulto->historialDatos->id))
 
+<div class="card" style="width: 100%;">
+   <div class="card-body"> 
+    @if (empty($adulto->historialDatos->id))
+    <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#createHistorial">
+        + Ficha Medidas Corporales
+    </button>
+    @include('historial.create')
+    @endif     
+<br>
+
+<!-- ficha medidas corporales-->
+@if (isset($adulto->historialDatos->id))
     <h3 class="bg-info px-5" style="width: 100%">MEDIDAS CORPORALES</h3>
     <div class="row px-5 mt-2">
-        <div class="col-3 ">
+        <div class="col-3">
             <h5>
                 <b>Peso:</b>
                 {{ $adulto->historialDatos->peso }} kg
@@ -536,8 +538,8 @@
         </div>
         <div class="col-4">
             <h5>
-                <b> Indice de Masa Corporal:</b>
-                {{ $adulto->historialDatos->altura }} mts
+                <b> Indice Masa Corporal:</b>
+                {{ $adulto->historialDatos->indice }}
             </h5>
         </div>
         <div class="col-2">
@@ -582,6 +584,78 @@
 @endif
 </div>
 </div>
+<div class="row">
+    <div class="col-4">
+        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#createPatologia">
+            + Patologias
+        </button>
+        @include('patologia.create')
+      
+    </div>
+    <div class="col-4">
+        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#createMedicamento">
+            + Medicamento
+        </button>
+        @include('medicamento.create')
+    </div>
+</div>
+<br>
+
+<!-- Ficha patologia-->
+<div class="card card-success">
+    @if ($adulto->patologiasDatos->count())
+        <h3>
+            <p class="text-white bg-success px-5">PATOLOGIAS</p>
+        </h3>
+        <div class="table table-auto">
+            <table class="table table-bordered  table-hover">
+                <thead class="thead table-success">
+                    <tr>
+                        <th>Patologia:</th>
+                        <th>Fecha de diagnostico:</th>
+                        <th>Gravedad:</th>
+                        <th>Tratamiento:</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($adulto->patologiasDatos as $patologia)
+                        <tr>
+                            <input name="contador" value="{{ $contadorPatologia = (int) $loop->iteration - 1 }}"
+                                type="hidden">
+                            <td>{{ $patologia->nombre_patologia }}</td>
+                            <td>{{ $patologia->fecha_diagnostico }}</td>
+                            <td>{{ $patologia->gravedad }}</td>
+                            <td>{{ $patologia->tratamiento_actual }}</td>
+                            <td>
+                                <button type="button" class="btn btn-success formulario" data-toggle="modal"
+                                    data-target="#detallePatologia{{ $contadorPatologia }}">
+                                    Notas
+                                </button>
+                                <button type="button" class="btn btn-outline-success formulario" data-toggle="modal"
+                                    data-target="#editPatologia{{ $patologia->id }}">
+                                    Editar
+                                </button>
+                                <form method="POST" action="{{ route('eliminar_patologia') }}"
+                                    class="d-inline formulario-eliminar">
+                                    @csrf
+                                    <input name="id" value="{{ $patologia->id }}" type="hidden">
+                                    <input name="ruta" value="{{ $adulto->id }}" type="hidden">
+                                    <button type="submit" class="btn btn-outline-danger"
+                                        data-toggle="modal">Borrar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        @include('patologia.edit') 
+                        @include('patologia.detalle')
+                    @endforeach
+                </tbody>
+            </table>
+            <div class="w-100 p-1" style="background-color: #28a745;"></div>
+        </div>
+    @endif
+
+
 
 @endsection
 
@@ -862,8 +936,8 @@
 
 
 
-@section('js')
-
+ @section('scripts')
+ <script src="{{ asset('/assets/js/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
     <script>
         function DiasMedicamento() {
             const filas = document.querySelectorAll('#medicamentos tbody tr');
@@ -949,7 +1023,7 @@
             })
         });
     </script>
-@stop
+@endsection
 
 <style>
     .color-logo {
@@ -960,4 +1034,4 @@
         color: #8e0432;
     }
 
-    </style
+</style>

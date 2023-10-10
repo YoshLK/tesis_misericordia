@@ -19,13 +19,13 @@
                     <div class="form-row ">
                         <div class="form-group col-md">
                             <label>Peso Kilogramos (kg)</label>
-                            <input type="text" name="peso" class="form-control"
-                                placeholder="Ingresar el peso del adulto mayor" required="true">
+                            <input step="any" name="peso" class="form-control"
+                                placeholder="Ingresar el peso del adulto mayor" step="any" required="true">
                         </div>
                         <div class="form-group col-md">
                             <label>Altura en metros (mts)</label>
-                            <input type="text" name="altura" class="form-control"
-                                placeholder="Ingresar la altura del adulto mayor" required="true">
+                            <input type="number" name="altura" class="form-control"
+                                placeholder="Ingresar la altura del adulto mayor" step="any" required="true">
                         </div>
                     </div>
                     <h6 class="modal-title bg-info text-white col-md-6">TALLAS DE VESTIMENTA</h6>
@@ -40,12 +40,12 @@
                     </div>
                     <div class="form-row ">
                         <label>Pantalon</label>
-                        <input type="text" name="piernas" class="form-control"
+                        <input type="number" name="piernas" class="form-control"
                             placeholder="Ingresar la talla de pantalon" required="true">
                     </div>
                     <div class="form-row ">
                         <label>Calzado</label>
-                        <input type="text" name="calzado" class="form-control"
+                        <input type="number" name="calzado" class="form-control"
                             placeholder="Ingresar la talla de calzado" required="true">
                     </div>
                

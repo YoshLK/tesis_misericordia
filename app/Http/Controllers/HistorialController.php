@@ -41,7 +41,13 @@ class HistorialController extends Controller
         ];
         $this->validate($request, $campos, $mensaje);
 
+        $peso = $request->input('peso');
+        $altura = $request->input('altura');
+        $indice = $peso / ($altura * $altura);
+        $indice = round($indice, 2);
         $datosHistorial = request()->except('_token');
+
+        $datosHistorial['indice'] = $indice;
         
         Historial::insert($datosHistorial);
         return redirect('/general/adulto_detalle/'.$request->adulto_id)->with('mensaje', 'registrado');
@@ -81,7 +87,13 @@ class HistorialController extends Controller
             'required'=> 'El :attribute es requerido.'
         ];
         $this->validate($request, $campos, $mensaje);
+
+        $peso = $request->input('peso');
+        $altura = $request->input('altura');
+        $indice = $peso / ($altura * $altura);
+        $indice = round($indice, 2);
         $datosHistorial = request()->except(['_token','_method']);
+        $datosHistorial['indice'] = $indice;
         Historial::where('id','=',$id)->update($datosHistorial);
         $historial=Historial::findOrFail($id);    
         return redirect( '/general/adulto_detalle/'.$request->adulto_id)->with('mensaje','editado');

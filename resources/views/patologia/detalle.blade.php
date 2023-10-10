@@ -12,14 +12,24 @@
             </div>
 
             <div class="modal-body" id="cont_modal">
-                <div class="form-row ">
-                    <div class="form-row ">
-                        <h6 class="modal-title bg-success text-white col-md-6">Anotaciones / Evolucion</h6>
-                        <textarea class="form-control" name="dificultad_motora" rows="10" placeholder="Notas de dificultades motoras">{{ $adulto->historialDatos->patologiasDatos[$contadorPatologia]->notas_patologia }} </textarea>
-                    </div>
+              
+                    
+                        <h6 class="modal-title bg-success text-white col-md-6">Notas</h6>
+                        <textarea class="form-control" name="dificultad_motora" rows="10" placeholder="Notas de dificultades motoras">{{ $adulto->patologiasDatos[$contadorPatologia]->notas_patologia }} </textarea>
+                
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
                     </div>
-                </div>
+            
             </div>
         </div>
+        <script>
+            $(document).ready(function() {
+                // Ajustar la altura del textarea en función del contenido
+                var textarea = document.getElementById('dificultad_motora');
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = (this.scrollHeight) + 'px';
+                });
+            });
+        </script>

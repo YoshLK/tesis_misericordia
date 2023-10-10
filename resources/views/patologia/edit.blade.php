@@ -15,8 +15,6 @@
                 {{ method_field('PATCH') }}
                 <div class="modal-body">
                     <h5 class="modal-title bg-success col-md-7"> Datos de la patologia</h5>
-                    <input type="text" name="historial_id" value="{{ $adulto->historialDatos->id }}" required="true"
-                        style="visibility:hidden">
                     <input type="text" name="adulto_id" value="{{ $adulto->id }}" required="true"
                         style="visibility:hidden">
                     <div class="form-row ">
@@ -50,7 +48,7 @@
                         <textarea class="form-control" name="tratamiento_actual" rows="3" placeholder="Tratamiento ">{{ $patologia->tratamiento_actual }}</textarea>
                     </div>
                     <div class="form-row ">
-                        <label>Anotaciones/Evolucion</label>
+                        <label>Notas</label>
                         <textarea class="form-control" name="notas_patologia" rows="10"
                             placeholder="Información adicional relevante sobre la patología, síntomas, resultados o recomendaciones médicas.">{{ $patologia->notas_patologia }}</textarea>
                     </div>
