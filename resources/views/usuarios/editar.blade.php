@@ -36,19 +36,19 @@
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <label for="email">E-mail</label>
+                                        <label for="email">Correo</label>
                                         <input type="text" name="email" value="{{ old('email', $user->email) }}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <label for="password">Password</label>
+                                        <label for="password">Contraseña</label>
                                         <input type="password" name="password" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <label for="confirm-password">Confirmar Password</label>
+                                        <label for="confirm-password">Confirmar Contraseña</label>
                                         <input type="password" name="confirm-password" class="form-control">
                                     </div>
                                 </div>

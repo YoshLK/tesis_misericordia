@@ -20,15 +20,15 @@
 <body>
 <div id="app">
     <section class="section">
-        <div class="container mt-5">
+        <div class="container mt-5 ">
             <div class="row">
                 <div class="col-md-6 offset-md-3">
-                    <div class="login-brand">
-                        <img src="{{ asset('img/logo.png') }}" alt="logo" width="100"
-                             class="shadow-light">
+                    <div class="login-brand color-logo">
+                        <img src="{{ asset('img/logo.jpg') }}" alt="logo" width="100"
+                             >
                     </div>
                     @yield('content')
-                    <div class="simple-footer">
+                    <div class="simple-footer color-logo">
 {{--                        Copyright &copy; {{ getSettingValue('application_name') }}  {{ date('Y') }}--}}
                     </div>
                 </div>
@@ -51,3 +51,13 @@
 <!-- Page Specific JS File -->
 </body>
 </html>
+
+<style>
+    .color-logo {
+        background-color: #8e0432;
+    }
+
+    .text-logo {
+        color: #8e0432;
+    }
+</style>

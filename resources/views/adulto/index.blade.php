@@ -31,8 +31,8 @@
                                         <th>Edad</th>
                                         <th>Ingreso</th>
                                         <th>Estancia</th>
-                                        <th>Patologias</th>
-                                        <th>Medicina</th>
+                                        {{-- <th>Patologias</th>
+                                        <th>Medicina</th> --}}
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -52,7 +52,7 @@
                                             <td>{{ $adulto->edad }}</td>
                                             <td>{{ $adulto->fecha_ingreso }}</td>
                                             <td>{{ $conteoTiempo[$contador] }}</td>
-                                            <td class="px-4">
+                                            {{-- <td class="px-4">
                                                 @if (isset($adulto->historialDatos->id))
                                                     @foreach ($adulto->historialDatos->patologiasDatos as $patologia)
                                                         <li> {{ $patologia->nombre_patologia }}</li>
@@ -66,7 +66,7 @@
                                                         </li>
                                                     @endforeach
                                                 @endif
-                                            </td>
+                                            </td> --}}
                                             <td>
 
                                                 <a href="{{ url('/general/adulto_detalle/' . $adulto->id) }}"
@@ -93,10 +93,9 @@
                                             </td>
                                         </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
-
+                            
                         </div>
                     </div>
                 </div>

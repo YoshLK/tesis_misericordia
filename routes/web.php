@@ -31,7 +31,7 @@ use App\Http\Controllers\UsuarioController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -45,9 +45,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //Route::get('adulto/inactivo', [AdultoController::class, 'inactivo'])->name('adulto.inactivo');
 //Route::resource('adulto', AdultoController::class);
 //referencias
-Route::resource('referencia', ReferenciaController::class);
+
 //historial
-Route::resource('historial', HistorialController::class);
+
 //patologia
 Route::resource('patologia', PatologiaController::class);
 Route::post('/eliminar_patologia', [PatologiaController::class, 'eliminar'])->name('eliminar_patologia');
@@ -55,9 +55,7 @@ Route::post('/eliminar_patologia', [PatologiaController::class, 'eliminar'])->na
 Route::resource('medicamento', MedicamentoController::class);
 Route::post('/eliminar_medicamento', [MedicamentoController::class, 'eliminar'])->name('eliminar_medicamento');
 
-//Ruta visualizar detalles
-Route::get('/general/adulto_detalle/{id}',[App\Http\Controllers\GeneralController::class, 'verAdulto']);
-Route::get('/general/personal_detalle/{id}',[App\Http\Controllers\GeneralController::class, 'verPersonal']);
+
 
 //Dashboard rutas
 Route::get('/grafica-medicinas', [DashboardController::class,'graficaMedicinas'])->name('grafica-medicinas');
@@ -86,4 +84,13 @@ Route::group(['middleware' => ['auth']], function() {
     //adulto
     Route::get('adulto/inactivo', [AdultoController::class, 'inactivo'])->name('adulto.inactivo');
     Route::resource('adulto', AdultoController::class);
+    //Ruta visualizar detalles
+    Route::get('/general/adulto_detalle/{id}',[App\Http\Controllers\GeneralController::class, 'verAdulto']);
+    Route::get('/general/personal_detalle/{id}',[App\Http\Controllers\GeneralController::class, 'verPersonal']);
+
+
+    //referencia
+    Route::resource('referencia', ReferenciaController::class);
+    Route::resource('historial', HistorialController::class);
+
 });

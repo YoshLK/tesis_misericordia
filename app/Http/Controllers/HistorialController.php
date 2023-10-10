@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Referencia;
+use App\Models\Historial;
 use Illuminate\Http\Request;
 
-
-class ReferenciaController extends Controller
+class HistorialController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('referencia');
+        //return view('historial/create');
     }
 
     /**
@@ -21,7 +20,7 @@ class ReferenciaController extends Controller
      */
     public function create()
     {
-        return view('referencia/create');
+        return view('historial/create');
     }
 
     /**
@@ -29,29 +28,29 @@ class ReferenciaController extends Controller
      */
     public function store(Request $request)
     {
-        
         $campos=[
-            'nombre_referencia'=>'required|string|max:250',
-            'telefono'=>'required|string|max:25',
-            'direccion'=>'required|string|max:150',
-            'adulto_id'=>'required|string',
+            'peso'=>'required',
+            'altura'=>'required',
+            'tronco'=>'required|string|max:5',
+            'piernas'=>'required|integer',
+            'calzado'=>'required|integer',
+            'adulto_id'=>'required|integer',
         ];
         $mensaje=[
             'required'=> 'El :attribute es requerido.'
         ];
         $this->validate($request, $campos, $mensaje);
 
-        $datosReferencia = request()->except('_token');
+        $datosHistorial = request()->except('_token');
         
-        Referencia::insert($datosReferencia);
+        Historial::insert($datosHistorial);
         return redirect('/general/adulto_detalle/'.$request->adulto_id)->with('mensaje', 'registrado');
-        
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Referencia $referencia)
+    public function show(Historial $historial)
     {
         //
     }
@@ -61,8 +60,8 @@ class ReferenciaController extends Controller
      */
     public function edit($id)
     {
-        $referencia=Referencia::findOrFail($id);
-        return view( '/general/adulto_detalle/'.$request->adulto_id , compact('referencia'));
+        $historial=Historial::findOrFail($id);
+        return view( '/general/adulto_detalle/'.$request->adulto_id , compact('historial'));
     }
 
     /**
@@ -71,28 +70,28 @@ class ReferenciaController extends Controller
     public function update(Request $request, $id)
     {
         $campos=[
-            'nombre_referencia'=>'required|string|max:250',
-            'telefono'=>'required|string|max:25',
-            'direccion'=>'required|string|max:150',
+            'peso'=>'required',
+            'altura'=>'required',
+            'tronco'=>'required|string|max:5',
+            'piernas'=>'required|integer',
+            'calzado'=>'required|integer',
+            'adulto_id'=>'required|integer',
         ];
-
         $mensaje=[
             'required'=> 'El :attribute es requerido.'
         ];
         $this->validate($request, $campos, $mensaje);
-        $datosReferencia = request()->except(['_token','_method']);
-        Referencia::where('id','=',$id)->update($datosReferencia);
-        $referencia=Referencia::findOrFail($id);    
+        $datosHistorial = request()->except(['_token','_method']);
+        Historial::where('id','=',$id)->update($datosHistorial);
+        $historial=Historial::findOrFail($id);    
         return redirect( '/general/adulto_detalle/'.$request->adulto_id)->with('mensaje','editado');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Historial $historial)
     {
-        $referencia=Referencia::findOrFail($id);
-        Referencia::destroy($id);
-        return redirect('/general/adulto_detalle/'.$referencia->adulto_id)->with('mensaje','eliminado');
+        //
     }
 }

@@ -18,26 +18,9 @@
                          style="visibility:hidden">
                      <div class="form-row ">
                          <div class="form-group col-md">
-                             <label>Primer Nombre</label>
-                             <input type="text" name="primer_nombre" class="form-control"
+                             <label>Nombre completo Referencia:</label>
+                             <input type="text" name="nombre_referencia" class="form-control"
                                  placeholder="Ingresar el primer nombre" required="true">
-                         </div>
-                         <div class="form-group col-md">
-                             <label>Segundo Nombre</label>
-                             <input type="text" name="segundo_nombre" class="form-control"
-                                 placeholder="Ingresar el segundo" required="true">
-                         </div>
-                     </div>
-                     <div class="form-row ">
-                         <div class="form-group col-md">
-                             <label>Primer Apellido</label>
-                             <input type="text" name="primer_apellido" class="form-control"
-                                 placeholder="Ingresar el apellido Paterno" required="true">
-                         </div>
-                         <div class="form-group col-md">
-                             <label>Segundo Apellido</label>
-                             <input type="text" name="segundo_apellido" class="form-control"
-                                 placeholder="Ingresar el apellido Materno" required="true">
                          </div>
                      </div>
                      <h5 class="modal-title bg-primary text-white col-md-6"> DATOS DE CONTACTO</h5>

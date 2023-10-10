@@ -17,29 +17,14 @@
                 <div class="modal-body" id="cont_modal">
                     <div class="form-row ">
                         <div class="form-group col-md">
-                            <label for="primer_nombre" class="col-form-label">Primer Nombre:</label>
-                            <input type="text" name="primer_nombre" class="form-control"
-                                value="{{ $referencia->primer_nombre }}" required="true">
+                            <label for="nombre_referencia" class="col-form-label">Nombre Referencai:</label>
+                            <input type="text" name="nombre_referencia" class="form-control"
+                                value="{{ $referencia->nombre_referencia }}" required="true">
                         </div>
-                        <div class="form-group col-md">
-                            <label for="rsegundo_nombre" class="col-form-label">Segundo Nombre:</label>
-                            <input type="text" name="segundo_nombre" class="form-control"
-                                value="{{ $referencia->segundo_nombre }}" required="true">
-                        </div>
+                        
                     </div>
 
-                    <div class="form-row ">
-                        <div class="form-group col-md">
-                            <label for="primer_apellido" class="col-form-label">Apellido Paterno:</label>
-                            <input type="text" name="primer_apellido" class="form-control"
-                                value="{{ $referencia->primer_apellido }}" required="true">
-                        </div>
-                        <div class="form-group col-md">
-                            <label for="segundo_apellido" class="col-form-label">Apellido Materno:</label>
-                            <input type="text" name="segundo_apellido" class="form-control"
-                                value="{{ $referencia->segundo_apellido }}" required="true">
-                        </div>
-                    </div>
+             
 
                     <div class="form-row">
                         <div class="form-group col-md">

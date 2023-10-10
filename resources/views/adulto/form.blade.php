@@ -20,6 +20,9 @@
         <h4> <span class="fas fa-calendar-alt  " style="color:black"> Fecha de Ingreso</span> </h4>
         <input type="date" class="form-control" id="fecha_ingreso" name="fecha_ingreso" placeholder="fecha_ingreso"
             value="{{ isset($adulto->fecha_ingreso) ? $adulto->fecha_ingreso : old('fecha_ingreso') }}" required>
+            <div class="invalid-feedback">
+                Por favor, ingresa tu nombre.
+              </div>
     </div>
 </div>
 <div class="form-row px-3 mt-2">

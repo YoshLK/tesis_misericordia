@@ -9,10 +9,7 @@ class Adulto extends Model
 {
     use HasFactory;
     //relacion uno a muhcos Adulto a Referencia
-    /* public function referenciaDatos(){
-        return $this->hasMany(Referencia::class);
-    } */
-
+    
     public function responsable()
     {
         return $this->hasOne(Responsable::class);
@@ -26,6 +23,16 @@ class Adulto extends Model
     public function ficha()
     {
         return $this->hasOne(Ficha::class);
+    }
+
+    public function referenciaDatos(){
+        return $this->hasMany(Referencia::class);
+    } 
+
+    //relacion uno a uno historial
+    public function historialDatos(){
+     
+        return $this->hasOne(Historial::class);
     }
     
 }

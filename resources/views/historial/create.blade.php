@@ -18,12 +18,12 @@
                         style="visibility:hidden">
                     <div class="form-row ">
                         <div class="form-group col-md">
-                            <label>Peso (kg)</label>
+                            <label>Peso Kilogramos (kg)</label>
                             <input type="text" name="peso" class="form-control"
                                 placeholder="Ingresar el peso del adulto mayor" required="true">
                         </div>
                         <div class="form-group col-md">
-                            <label>Altura (cm)</label>
+                            <label>Altura en metros (mts)</label>
                             <input type="text" name="altura" class="form-control"
                                 placeholder="Ingresar la altura del adulto mayor" required="true">
                         </div>
@@ -48,13 +48,7 @@
                         <input type="text" name="calzado" class="form-control"
                             placeholder="Ingresar la talla de calzado" required="true">
                     </div>
-                    <br>
-                    <div class="form-row ">
-                        <h6 class="modal-title bg-info text-white col-md-6">DIFICULTAD MOTORA</h6>
-                        <textarea class="form-control" name="dificultad_motora" rows="3" placeholder="Notas de dificultades motoras"></textarea>
-                    </div>
-
-
+               
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-info">Añadir Ficha Corporal</button>
