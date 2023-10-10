@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Adultos;
 use App\Models\Responsable;
 use App\Models\Condicion;
+use App\Models\Ficha;
 
 class AdultoController extends Controller
 {   
@@ -61,7 +62,7 @@ class AdultoController extends Controller
 
     //Recibe datos Guardar en la DB
     public function store(Request $request)
-    {/* $datoAdulto = request()->all();
+    { /* $datoAdulto = request()->all();
         $datosAdulto = request()->except('_token'); 
         
         return response()->json($datosAdulto );*/
@@ -98,12 +99,41 @@ class AdultoController extends Controller
             'celular' => 'required|string|max:25',
             'direccion' => 'required|string|max:150',
             //campos condicion fisica
-            'conciente' => 'nullable|string|max:5',
+           /*  'conciente' => 'nullable|string|max:5',
             'camina' => 'nullable|string|max:5',
             'habla' => 'nullable|string|max:5',
             'vidente' => 'nullable|string|max:25',
             'dificultad_motora' => 'nullable|string|max:20',
-            'observaciones' => 'nullable|string|max:250',
+            'observaciones' => 'nullable|string|max:250', */
+
+           /*  //campos ficha
+            'enfermedad' => 'nullable|string|max:3',
+            'enfermedad_nombre' => 'nullable|string|max:200',
+            'medicamento' => 'nullable|string|max:3',
+            'medicamento_nombre' => 'nullable|string|max:200',
+            'duerme' => 'nullable|string|max:3',
+            'tic' => 'nullable|string|max:3',
+            'tic_nombre' => 'nullable|string|max:200',
+            'necesidades' => 'nullable|string|max:3',
+            'operacion' => 'nullable|string|max:3',
+            'operacion_nombre' => 'nullable|string|max:200',
+            'alchol' => 'nullable|string|max:3',
+            'fuma' => 'nullable|string|max:3',
+            'alergia_m' => 'nullable|string|max:3',
+            'alergia_medicina' => 'nullable|string|max:200',
+            'alergia_c' => 'nullable|string|max:3',
+            'alergia_comida' => 'nullable|string|max:200',
+            'fractura' => 'nullable|string|max:3',
+            'fractura_donde' => 'nullable|string|max:200',
+            'cicatriz' => 'nullable|string|max:3',
+            'cicatriz_donde' => 'nullable|string|max:200',
+            'tatuaje' => 'nullable|string|max:3',
+            'tatuaje_donde' => 'nullable|string|max:200',
+            'herida' => 'nullable|string|max:3',
+            'herida_donde' => 'nullable|string|max:200',
+            'fecha' => 'nullable|string|max:3',
+            'nombre' => 'nullable|string|max:3',
+            'lugar' => 'nullable|string|max:3', */
         ];
          $mensaje=[
              'required'=> 'El :attribute es requerido.'
@@ -171,6 +201,82 @@ class AdultoController extends Controller
         $condicionFisica->adulto_id = $adulto->id;
         $condicionFisica->save();
 
+        $ficha = new Ficha;
+        $ficha->enfermedad = $request->input('enfermedad');
+        $ficha->enfermedad_nombre = $request->input('enfermedad_nombre');
+        $ficha->medicamento = $request->input('medicamento');
+        $ficha->medicamento_nombre = $request->input('medicamento_nombre');
+        $ficha->duerme = $request->input('duerme');
+        $ficha->tic = $request->input('tic');
+        $ficha->tic_nombre = $request->input('tic_nombre');
+        $ficha->necesidades = $request->input('necesidades');
+        $ficha->operacion = $request->input('operacion');
+        $ficha->operacion_nombre = $request->input('operacion_nombre');
+        $ficha->alchol = $request->input('alchol');
+        $ficha->fuma = $request->input('fuma');
+        $ficha->alergia_m = $request->input('alergia_m');
+        $ficha->alergia_medicina = $request->input('alergia_medicina');
+        $ficha->alergia_c = $request->input('alergia_c');
+        $ficha->alergia_comida = $request->input('alergia_comida');
+        $ficha->fractura = $request->input('fractura');
+        $ficha->fractura_donde = $request->input('fractura_donde');
+        $ficha->cicatriz = $request->input('cicatriz');
+        $ficha->cicatriz_donde = $request->input('cicatriz_donde');
+        $ficha->tatuaje = $request->input('tatuaje');
+        $ficha->tatuaje_donde = $request->input('tatuaje_donde');
+        $ficha->herida = $request->input('herida');
+        $ficha->herida_donde = $request->input('herida_donde');
+        $ficha->fecha = $request->input('fecha');
+        $ficha->nombre = $request->input('nombre');
+        $ficha->lugar = $request->input('lugar');
+        $ficha->adulto_id = $adulto->id;
+
+        
+        if ($ficha->enfermedad === 'No') {
+            $ficha->enfermedad = null;
+            $ficha->enfermedad_nombre = null;
+        }
+
+        if ($ficha->medicamento === 'No') {
+            $ficha->medicamento = null;
+            $ficha->medicamento_nombre = null;
+        }
+        if ($ficha->tic === 'No') {
+            $ficha->tic = null;
+            $ficha->tic_nombre = null;
+        }
+        if ($ficha->operacion === 'No') {
+            $ficha->operacion = null;
+            $ficha->operacion_nombre = null;
+        }
+        if ($ficha->alergia_m === 'No') {
+            $ficha->alergia_m = null;
+            $ficha->alergia_medicina = null;
+        }
+        if ($ficha->alergia_c === 'No') {
+            $ficha->alergia_c = null;
+            $ficha->alergia_comida = null;
+        }
+
+        if ($ficha->fractura === 'No') {
+            $ficha->fractura = null;
+            $ficha->fractura_donde = null;
+        }
+        if ($ficha->cicatriz === 'No') {
+            $ficha->cicatriz = null;
+            $ficha->cicatriz_donde = null;
+        }
+        if ($ficha->tatuaje === 'No') {
+            $ficha->tatuaje = null;
+            $ficha->tatuaje_donde = null;
+        }
+        if ($ficha->herida === 'No') {
+            $ficha->herida = null;
+            $ficha->herida_donde = null;
+        }
+
+        $ficha->save();
+
         DB::commit();
         return redirect('adulto')->with('mensaje','registrado');
 
@@ -178,7 +284,7 @@ class AdultoController extends Controller
         // Revertir la transacción en caso de error
         DB::rollback();
         return redirect('adulto')->with('mensaje', 'error');
-    }
+    } 
     }
    
     // Visualizar detalle de un solo registro
@@ -195,7 +301,8 @@ class AdultoController extends Controller
 
         $responsable = $adulto->responsable;
         $condicion = $adulto->condicionFisica;
-        return view('adulto.edit', compact('adulto', 'responsable', 'condicion'));
+        $ficha = $adulto->ficha;
+        return view('adulto.edit', compact('adulto', 'responsable', 'condicion', 'ficha'));
     }
 
     // Actualizar la informacion editada
@@ -239,6 +346,7 @@ class AdultoController extends Controller
             'vidente' => 'nullable|string|max:25',
             'dificultad_motora' => 'nullable|string|max:20',
             'observaciones' => 'nullable|string|max:250',
+            'enfermedad_nombre' => 'nullable|string|max:250'
         ];
          $mensaje=[
              'required'=> 'El :attribute es requerido.'
@@ -278,11 +386,11 @@ class AdultoController extends Controller
             Storage::delete('public/'.$adultoFoto->foto);
             $adulto['foto'] = $request->file('foto')->store('uploads','public');
         }
-        if ($adulto->iggs === 'no') {
+        if ($adulto->iggs === 'No') {
             $adulto->iggs_identificacion = null;
         }
 
-        if ( $adulto->cuota === 'no') {
+        if ( $adulto->cuota === 'No') {
             $adulto->cuota_monto  = null;
         }
         $adulto->save();
@@ -304,6 +412,81 @@ class AdultoController extends Controller
         $condicion->dificultad_motora = $request->input('dificultad_motora');
         $condicion->observaciones = $request->input('observaciones');
         $condicion->save();
+
+        $ficha = $adulto->ficha;
+        $ficha->enfermedad = $request->input('enfermedad');
+        $ficha->enfermedad_nombre = $request->input('enfermedad_nombre');
+        $ficha->medicamento = $request->input('medicamento');
+        $ficha->medicamento_nombre = $request->input('medicamento_nombre');
+        $ficha->tic = $request->input('tic');
+        $ficha->tic_nombre = $request->input('tic_nombre');
+        $ficha->operacion = $request->input('operacion');
+        $ficha->operacion_nombre = $request->input('operacion_nombre');
+        $ficha->alergia_m = $request->input('alergia_m');
+        $ficha->alergia_medicina = $request->input('alergia_medicina');
+        $ficha->alergia_c = $request->input('alergia_c');
+        $ficha->alergia_comida = $request->input('alergia_comida');
+        $ficha->fractura = $request->input('fractura');
+        $ficha->fractura_donde = $request->input('fractura_donde');
+        $ficha->cicatriz = $request->input('cicatriz');
+        $ficha->cicatriz_donde = $request->input('cicatriz_donde');
+        $ficha->tatuaje = $request->input('tatuaje');
+        $ficha->tatuaje_donde = $request->input('tatuaje_donde');
+        $ficha->herida = $request->input('herida');
+        $ficha->herida_donde = $request->input('herida_donde');
+        $ficha->fecha = $request->input('fecha');
+        $ficha->nombre = $request->input('nombre');
+        $ficha->lugar = $request->input('lugar');
+        $ficha->duerme = $request->input('duerme');
+        $ficha->necesidades = $request->input('necesidades');
+        $ficha->alchol = $request->input('alchol');
+        $ficha->fuma = $request->input('fuma');
+        $ficha->adulto_id = $adulto->id;
+
+        if ($ficha->enfermedad === 'No') {
+            $ficha->enfermedad = null;
+            $ficha->enfermedad_nombre = null;
+        }
+
+        if ($ficha->medicamento === 'No') {
+            $ficha->medicamento = null;
+            $ficha->medicamento_nombre = null;
+        }
+        if ($ficha->tic === 'No') {
+            $ficha->tic = null;
+            $ficha->tic_nombre = null;
+        }
+        if ($ficha->operacion === 'No') {
+            $ficha->operacion = null;
+            $ficha->operacion_nombre = null;
+        }
+        if ($ficha->alergia_m === 'No') {
+            $ficha->alergia_m = null;
+            $ficha->alergia_medicina = null;
+        }
+        if ($ficha->alergia_c === 'No') {
+            $ficha->alergia_c = null;
+            $ficha->alergia_comida = null;
+        }
+
+        if ($ficha->fractura === 'No') {
+            $ficha->fractura = null;
+            $ficha->fractura_donde = null;
+        }
+        if ($ficha->cicatriz === 'No') {
+            $ficha->cicatriz = null;
+            $ficha->cicatriz_donde = null;
+        }
+        if ($ficha->tatuaje === 'No') {
+            $ficha->tatuaje = null;
+            $ficha->tatuaje_donde = null;
+        }
+        if ($ficha->herida === 'No') {
+            $ficha->herida = null;
+            $ficha->herida_donde = null;
+        }
+
+        $ficha->save();
 
         DB::commit();
         return redirect('adulto')->with('mensaje','editado');

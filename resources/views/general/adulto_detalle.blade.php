@@ -1,92 +1,434 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
-@section('title', 'Adultos Mayores')
-
-@section('content_header')
-
-    <h3 class="text-center">
-        <strong>FICHA DEL ADULTO MAYOR</strong>
-    </h3>
-@stop
+@section('title', 'Ficha Adulto')
 
 @section('content')
+    <section class="section">
+        <div class="section-header">
+            <h3 class="page__heading">Lista adultos de Adultos Mayores</h3>
+        </div>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- DATOS PERSONALES ADULTO-->
+                            <div class="card" style="width: 100%;">
+                                <h3 class="color-logo  px-5 text-white text-center" style="width: 100%">Datos Personales De {{$adulto->primer_nombre}} {{$adulto->primer_apellido}}</h3>
 
-    <!-- DATOS PERSONALES-->
-    <div class="card" style="width: 95%;">
-        <h3 class="bg-dark px-5" style="width: 100%">DATOS PERSONALES</h3>
-        <div class="row px-5 mt-2">
-            <div class="col-5">
-                <h5> <b> Nombre:</b> {{ $adulto->primer_nombre }} {{ $adulto->segundo_nombre }}
-                    {{ $adulto->primer_apellido }}
-                    {{ $adulto->segundo_apellido }}
-                </h5>
-            </div>
-            <div class="col-5">
-                @if (isset($adulto->foto))
-                    <img class="img-thumbnail img-fluid" src="{{ asset('storage') . '/' . $adulto->foto }}" width="100">
-                @endif
-            </div>
-            <div class="col-2">
-                <a href="{{ url('/adulto/' . $adulto->id . '/edit') }}" class="btn btn-outline-secondary">
-                    Editar
-                </a>
-            </div>
-        </div>
-        <div class="row px-5 mt-2">
-            <div class="col-4">
-                <b>
-                    <h5>DPI:
-                </b> {{ $adulto->DPI }}</span> </h5>
-            </div>
-            <div class="col-3">
-                <b>
-                    <h5>Procedencia:
-                </b> {{ $adulto->procedencia }}</span> </h5>
-            </div>
-            <div class="col-5">
-                <b>
-                    <h5>Fecha de ingreso:
-                </b> {{ $adulto->fecha_ingreso }}</span> </h5>
-            </div>
-        </div>
-        <br>
-        <div class="row px-5 mt-2">
-            <div class="col-5">
-                <b>
-                    <h5>Fecha de nacimiento:
-                </b> {{ $adulto->fecha_nacimiento }}</span> </h5>
-            </div>
-            <div class="col-3">
-                <b>
-                    <h5>Edad:
-                </b> {{ $adulto->edad }}</span></h5>
-            </div>
-            <div class="col-4">
-                <b>
-                    <h5>Estado:
-                </b> {{ $adulto->estado_actual }}</span> </h5>
-            </div>
-        </div>
-        @if ($adulto->estado_actual=="Inactivo")
-        <div class="row px-5 mt-2">
-            <div class="col-5">
-                <b>
-                    <h5>Fecha de salida: 
-                </b>{{ $adulto->fecha_salida }}</span> </h5>
-            </div>
-            <div class="col-5">
-                <b>
-                    <h5>Motivo: 
-                </b>{{ $adulto->motivo }}</span> </h5>
-            </div>
-        </div>
-        @endif
-        <div class="w-100 p-1" style="background-color: #343a40;"></div>
-        <br>
-    </div>
+                                <div class="row px-5 mt-2">
+                                    <div class="col-5">
+                                        <h5> <b class="text-dark"> Fecha de ingreso:</b> {{ $adulto->fecha_ingreso }}
+                                        </h5>
+                                    </div>
+                                    <div class="col-5">
+                                        <h5> <b class="text-dark">Recibe:</b> {{ $adulto->recibe }}
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="row px-5 mt-2">
+                                    <div class="col-5">
+                                        <h5> <b class="text-dark"> Nombre:</b> {{ $adulto->primer_nombre }}
+                                            {{ $adulto->segundo_nombre }}
+                                            {{ $adulto->primer_apellido }}
+                                            {{ $adulto->segundo_apellido }}
+                                        </h5>
+                                    </div>
+                                    <div class="col-5">
+                                        @if (isset($adulto->foto))
+                                            <b class="text-dark">Foto:</b>
+                                            <img class="img-thumbnail img-fluid"
+                                                src="{{ asset('storage') . '/' . $adulto->foto }}" width="100">
+                                        @endif
+                                    </div>
+                                    <div class="col-2">
+                                        <a href="{{ url('/adulto/' . $adulto->id . '/edit') }}"
+                                            class="btn btn-outline-dark">
+                                            Editar
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row px-5 mt-2">
+                                    <div class="col-3">
+                                        <h5>
+                                            <b class="text-dark">Edad:
+                                            </b> {{ $adulto->edad }} años</span>
+                                        </h5>
+                                    </div>
+                                    <div class="col-5">
+                                        <h5> <b class="text-dark">Fecha de Nacimiento:
+                                            </b>{{ $adulto->fecha_nacimiento }} </span> </h5>
+                                    </div>
+                                </div>
+                                <div class="row px-5 mt-2">
+                                    <div class="col-6">
+                                        <h5> <b class="text-dark">Cedula/DPI:
+                                            </b> {{ $adulto->DPI }}</span> </h5>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (empty($adulto->registro))
+                                            <b>
+                                                <h5 class="text-warning"> Registro no llenado
+                                            </b></h5>
+                                        @else
+                                            <h5><b class="text-dark">Registro:</b> {{ $adulto->registro }}</h5>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row px-5 mt-2">
+                                    <div class="col-9">
+                                        <h5>
+                                            <b class="text-dark"> Lugar de Origen:
+                                            </b> {{ $adulto->lugar_origen }}</span>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="row px-5 mt-2">
+                                    <div class="col-9">
+                                        @if (empty($adulto->domicilio))
+                                            <b>
+                                                <h5 class="text-warning"> Sin Domicilio
+                                            </b></h5>
+                                        @else
+                                            <h5><b class="text-dark">Domicilio:</b> {{ $adulto->domicilio }}</h5>
+                                        @endif
+                                    </div>
+                                </div>
 
-    <!-- REFERENCIAS -->
-    <div class="row">
+                                <div class="row px-5 mt-2">
+                                    <div class="col-6">
+                                        @if (empty($adulto->iggs) | ($adulto->iggs == 'No'))
+                                            <h5><b class="text-dark">IGGS :</b>No</h5>
+                                        @else
+                                            <h5><b class="text-dark">IGGS:</b> {{ $adulto->iggs_identificacion }}</h5>
+                                        @endif
+                                    </div>
+                                    <div class="col-6">
+                                        @if (empty($adulto->cuota) | ($adulto->cuota == 'No'))
+                                            <h5><b class="text-dark">Cuota :</b>No aporta</h5>
+                                        @else
+                                            <h5><b class="text-dark">Cuota: </b>Q. {{ $adulto->cuota_monto }}.00</h5>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <!-- DATOS DEL RESPONSABLE-->
+                                <h4 class="color-logo px-5 text-white text-center mt-4  " style="width: 50%">Datos del Responsable</h4>
+                                <div class="row px-5 mt-2">
+                                    <div class="col-4">
+                                        <h5>
+                                            <b class="text-dark">Referido Por:
+                                            </b> {{ $adulto->responsable->procedencia }}</span>
+                                        </h5>
+                                    </div>
+                                    <div class="col-8">
+                                        <h5>
+                                            <b class="text-dark">Responsable:</b>
+                                            {{ $adulto->responsable->responsable }}</span>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="row px-5 mt-2">
+                                    <div class="col-6">
+                                        <h5>
+                                            <b class="text-dark">DPI encargado (a):
+                                            </b> {{ $adulto->responsable->dpi_encargado }}</span>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="row px-5 mt-2">
+                                    <div class="col-6">
+                                        @if (empty($adulto->responsable->telefono))
+                                            <b>
+                                                <h5 class="text-warning">Sin Telefono de Domicilio
+                                            </b></h5>
+                                        @else
+                                            <h5><b class="text-dark">Telefono Domicilio:</b>
+                                                {{ $adulto->responsable->telefono }}</h5>
+                                        @endif
+                                    </div>
+                                    <div class="col-6">
+                                        <h5>
+                                            <b class="text-dark">Celular:</b>
+                                            {{ $adulto->responsable->celular }}</span>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="row px-5 mt-2">
+                                    <div class="col-12">
+                                        <h5>
+                                        <b class="text-dark">Domicilio Encargado:
+                                        </b> {{ $adulto->responsable->direccion }}</span></h5>
+                                    </div>
+                                </div>
+
+                                <!--CONCENTIMIENTO Y APROBACION-->
+                                <h4 class="color-logo px-5 text-white text-center mt-4" style="width: 50%">Consentimiento y Aprobación</h4>
+                                <div class="row px-5 mt-2">
+                                    <div class="col-6">
+                                        <h6>
+                                            <b class="text-dark">Firma Contrato de Ingreso Parientes:
+                                        </b>
+                                        @if ($adulto->firma_pariente == 'Si')
+                                            {{ $adulto->firma_pariente }}</span></h6>
+                                        @else
+                                            <span class="text-warning">{{ $adulto->firma_pariente }}</span></h6>
+                                        @endif
+                                    </div>
+                                    <div class="col-6">
+                            <h6>
+                                <b class="text-dark">Paciente esta de acuerdo con ingresar al Hogar:
+                                        </b>
+                                        @if ($adulto->firma_pariente == 'Si')
+                                            {{ $adulto->firma_pariente }}</span></h6>
+                                        @else
+                                            <span class="text-warning">{{ $adulto->firma_pariente }}</span></h6>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row px-5 mt-2">
+                                    <div class="col-6">
+                            <h5> 
+                                <b class="text-dark">Motivo de ingreso:
+                                        </b> {{ $adulto->motivo_ingreso }}</span></h5>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <!--CONDICION FISICA DE INGRESO-->
+                                <h4 class="color-logo px-5 text-white text-center mt-4" style="width: 50%">Condiciones Físicas de Ingreso</h4>
+                                <div class="row px-5 mt-2">
+                                    <div class="col-4">
+                                        @if (isset($adulto->condicionFisica->conciente))
+                                            <h5><b class="text-dark">Conciente:</b> {{ $adulto->condicionFisica->conciente }}</h5>
+                                            {{--  @else
+                                <h5><b>Conciente:¿-?</b></h5> --}}
+                                        @endif
+                                    </div>
+                                    <div class="col-4">
+                                        @if (isset($adulto->condicionFisica->camina))
+                                            <h5><b class="text-dark">Camina:</b> {{ $adulto->condicionFisica->camina }}</h5>
+                                        @endif
+                                    </div>
+                                    <div class="col-4">
+                                        @if (isset($adulto->condicionFisica->habla))
+                                            <h5><b class="text-dark">Habla:</b> {{ $adulto->condicionFisica->habla }}</h5>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row px-5 mt-2">
+
+                                    <div class="col-6">
+                                        @if (isset($adulto->condicionFisica->vidente))
+                                            <h5><b class="text-dark">Vidente:</b> {{ $adulto->condicionFisica->vidente }}</h5>
+                                        @endif
+                                    </div>
+                                    <div class="col-6">
+                                        @if (isset($adulto->condicionFisica->dificultad_motora))
+                                            <h5><b class="text-dark">Silla de Ruedas u Otros:</b>
+                                                {{ $adulto->condicionFisica->dificultad_motora }}</h5>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="row px-5 mt-2">
+                                    <div class="col-12">
+                                        @if (isset($adulto->condicionFisica->observaciones))
+                                            <h5><b class="text-dark">Observaciones:</b> {{ $adulto->condicionFisica->observaciones }}</h5>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                 <!--DATOS ADICIONALES FICHA -->
+                                 <h4 class="color-logo px-5 text-white text-center mt-4" style="width: 50%">Ficha De Ingreso</h4>
+                                  <!--Enfermedad -->
+                                 <div class="row px-5 mt-2">
+                                    @if (isset($adulto->ficha->enfermedad ) && $adulto->ficha->enfermedad=="Si" || $adulto->ficha->enfermedad=="No" )
+                                    <h6>
+                                        <b class="text-dark">Padece alguna Enfermedad:
+                                    </b>{{ $adulto->ficha->enfermedad }}: 
+                                    {{ $adulto->ficha->enfermedad_nombre }}</span> </h6>
+                                    @endif
+                                 </div>
+                                 <!--Medicamento -->
+                                 <div class="row px-5 mt-2">
+                                    @if (isset($adulto->ficha->medicamento ) && $adulto->ficha->medicamento=="Si" || $adulto->ficha->medicamento=="No" )
+                                    <h6>
+                                        <b class="text-dark">Toma algún medicamento:
+                                    </b>{{ $adulto->ficha->medicamento }}: 
+                                    {{ $adulto->ficha->medicamento_nombre }}</span> </h6>
+                                    @endif
+                                 </div>
+                                 <!--Duerme -->
+                                 <div class="row px-5 mt-2">
+                                    @if (isset($adulto->ficha->duerme ) && $adulto->ficha->duerme=="Si" || $adulto->ficha->duerme=="No" )
+                                    <h6>
+                                        <b class="text-dark">Duerme por las noches:
+                                    </b>{{ $adulto->ficha->duerme }}</span> </h6>
+                                    @endif
+                                 </div>
+                                 <!--tic o mania -->
+                                 <div class="row px-5 mt-2">
+                                    @if (isset($adulto->ficha->tic ) && $adulto->ficha->tic=="Si" || $adulto->ficha->tic=="No" )
+                                    <h6>
+                                        <b class="text-dark">Tiene algun tic o manía:
+                                    </b>{{ $adulto->ficha->tic }}: 
+                                    {{ $adulto->ficha->tic_nombre }}</span> </h6>
+                                    @endif
+                                 </div>
+                                 <!--Necesidades -->
+                                 <div class="row px-5 mt-2">
+                                    @if (isset($adulto->ficha->necesidades ) && $adulto->ficha->necesidades=="Si" || $adulto->ficha->necesidades=="No" )
+                                    <h6>
+                                        <b class="text-dark">Puede realizar sus necesidades Fisiologicas Solo:
+                                    </b>{{ $adulto->ficha->necesidades }}</span></h6>
+                                    @endif
+                                 </div>
+                                 <!--operacion-->
+                                 <div class="row px-5 mt-2">
+                                    @if (isset($adulto->ficha->operacion ) && $adulto->ficha->operacion=="Si" || $adulto->ficha->operacion=="No" )
+                                    <h6>
+                                        <b class="text-dark">Tiene alguna Operacion:
+                                    </b>{{ $adulto->ficha->operacion }}: 
+                                    {{ $adulto->ficha->operacion_nombre }}</span> </h6>
+                                    @endif
+                                 </div>
+                                 <!--Vicios-->
+                                 <div class="row  mt-2">
+                                    <div class="col-6 px-5">
+                                    @if (isset($adulto->ficha->alchol ) && $adulto->ficha->alchol=="Si" || $adulto->ficha->alchol=="No" )
+                                    <h6>
+                                        <b class="text-dark">Toma Bebidas alcohólicas:
+                                    </b>{{ $adulto->ficha->alchol }}
+                                    @endif
+                                    </div>
+                                    <div class="col-6">
+                                        @if (isset($adulto->ficha->fuma ) && $adulto->ficha->fuma=="Si" || $adulto->ficha->fuma=="No" )
+                                        <h6>
+                                            <b class="text-dark">Fuma:
+                                        </b>{{ $adulto->ficha->fuma }}
+                                        @endif
+                                        </div>
+                                 </div>
+                                  <!--ALergias-->
+                                  <div class="row px-5 mt-2">
+                                    @if (isset($adulto->ficha->alergia_m ) && $adulto->ficha->alergia_m=="Si" || $adulto->ficha->alergia_m=="No" )
+                                    <h6>
+                                        <b class="text-dark">Alergico a alguna medicina:
+                                    </b>{{ $adulto->ficha->alergia_m }}: 
+                                    {{ $adulto->ficha->alergia_medicina }}</span> </h6>
+                                    @endif
+                                 </div>
+                                 <!--Comida-->
+                                 <div class="row px-5 mt-2">
+                                    @if (isset($adulto->ficha->alergia_c ) && $adulto->ficha->alergia_c=="Si" || $adulto->ficha->alergia_c=="No" )
+                                    <h6>
+                                        <b class="text-dark">Alergico a alguna comida:
+                                    </b>{{ $adulto->ficha->alergia_c }}: 
+                                    {{ $adulto->ficha->alergia_comida }}</span> </h6>
+                                    @endif
+                                 </div>
+                                 <!--fractura-->
+                                 <div class="row px-5 mt-2">
+                                    @if (isset($adulto->ficha->fractura ) && $adulto->ficha->fractura=="Si" || $adulto->ficha->fractura=="No" )
+                                    <h6>
+                                        <b class="text-dark">Ha tenido alguna fractura:
+                                    </b>{{ $adulto->ficha->fractura }}: 
+                                    {{ $adulto->ficha->fractura_donde }}</span> </h6>
+                                    @endif
+                                 </div>
+                                 <!--cicatriz-->
+                                 <div class="row px-5 mt-2">
+                                    @if (isset($adulto->ficha->cicatriz ) && $adulto->ficha->cicatriz=="Si" || $adulto->ficha->cicatriz=="No" )
+                                    <h6>
+                                        <b class="text-dark">Tiene alguna cicatriz:
+                                    </b>{{ $adulto->ficha->cicatriz }}: 
+                                    {{ $adulto->ficha->cicatriz_donde }}</span> </h6>
+                                    @endif
+                                 </div>
+                                    <!--tatuaje-->
+                                 <div class="row px-5 mt-2">
+                                    @if (isset($adulto->ficha->tatuaje ) && $adulto->ficha->tatuaje=="Si" || $adulto->ficha->tatuaje=="No" )
+                                    <h6>
+                                        <b class="text-dark">Tiene algun tatuaje:
+                                    </b>{{ $adulto->ficha->tatuaje }}: 
+                                    {{ $adulto->ficha->tatuaje_donde }}</span> </h6>
+                                    @endif
+                                 </div>
+                                  <!--herida-->
+                                 <div class="row px-5 mt-2">
+                                    @if (isset($adulto->ficha->herida ) && $adulto->ficha->herida=="Si" || $adulto->ficha->herida=="No" )
+                                    <h6>
+                                        <b class="text-dark">Tiene alguna herida:
+                                    </b>{{ $adulto->ficha->herida }}: 
+                                    {{ $adulto->ficha->herida_donde }}</span> </h6>
+                                    @endif
+                                 </div>
+                                  <!--orientado-->
+                                 <div class="row mt-2">
+                                    <div class="col-4 px-5">
+                                    @if (isset($adulto->ficha->fecha ) && $adulto->ficha->fecha=="Si" || $adulto->ficha->fecha=="No" )
+                                    <h6>
+                                        <b class="text-dark">Orientado en Fecha:
+                                    </b>{{ $adulto->ficha->fecha }}
+                                    @endif
+                                    </div>
+                                    <div class="col-4 ">
+                                    @if (isset($adulto->ficha->nombre ) && $adulto->ficha->nombre=="Si" || $adulto->ficha->nombre=="No" )
+                                    <h6>
+                                        <b class="text-dark">Orientado en Nombre:
+                                    </b>{{ $adulto->ficha->nombre }}
+                                    @endif
+                                    </div>
+                                    <div class="col-4 ">
+                                    @if (isset($adulto->ficha->lugar ) && $adulto->ficha->lugar=="Si" || $adulto->ficha->lugar=="No" )
+                                    <h6>
+                                        <b class="text-dark">Orientado en Lugar:
+                                    </b>{{ $adulto->ficha->lugar }}
+                                    @endif
+                                    </div>
+                                 </div>
+
+                                  <!--Estado en el sistema-->
+                                 <div class="row px-5 mt-2">
+                                    <div class="col-12">
+                                        <b>
+                                            <h5 class="color-logo text-white text-center">Estado:
+                                        </b> {{ $adulto->estado_actual }}</span> </h5>
+                                    </div>
+                                    @if ($adulto->estado_actual == 'Inactivo')
+                                        <div class="row px-5 mt-2">
+                                            <div class="col-5">
+                                                <b>
+                                                    <h5>Fecha de salida:
+                                                </b>{{ $adulto->fecha_salida }}</span> </h5>
+                                            </div>
+                                            <div class="col-5">
+                                                <b>
+                                                    <h5>Motivo:
+                                                </b>{{ $adulto->motivo }}</span> </h5>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    </div>
+                                </div>
+
+                                <div class="w-100 p-1" style="background-color: #8e0432;"></div>
+                                <br>
+                            </div>
+
+                            <!-- card finaliz ficha del adulto-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection
+
+
+<!-- REFERENCIAS -->
+{{--  <div class="row">
         <div class="col-3">
             <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#createReferencia">
                 + Añadir Referencia
@@ -147,10 +489,10 @@
                 </tbody>
             </table>
             <div class="w-100 p-1" style="background-color: #007bff;"></div>
-    @endif
+    @endif --}}
 
-    <!-- DATOS FICHA CORPORALES-->
-    <br>
+<!-- DATOS FICHA CORPORALES-->
+{{-- <br>
     @if (isset($adulto->historialDatos->id))
         <div class="card" style="width: 95%;">
             <h3 class="bg-info px-5" style="width: 100%">MEDIDAS CORPORALES</h3>
@@ -207,10 +549,10 @@
             <br>
             <div class="w-100 p-1" style="background-color: #17a2b8;"></div>
     @endif
-    </div>
+    </div> --}}
 
-    <!-- PATOLOGIAS - MEDICINA - ALERGIAS-->
-    @if (isset($adulto->historialDatos->id))
+<!-- PATOLOGIAS - MEDICINA - ALERGIAS-->
+{{--  @if (isset($adulto->historialDatos->id))
         <div class="row">
             <div class="col-3">
                 <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#createPatologia">
@@ -231,11 +573,11 @@
             </div>
         </div>
         <br>
-    @endif
+    @endif --}}
 
 
-    <!--PATOLOGIAS TABLA-->
-    @if (isset($adulto->historialDatos->id))
+<!--PATOLOGIAS TABLA-->
+{{-- @if (isset($adulto->historialDatos->id))
     <div class="card card-success">
     @if ($adulto->historialDatos->patologiasDatos->count())
         <h3>
@@ -289,9 +631,9 @@
         </div>
     @endif
     @endif
-</div>
-    <!--TABLA MEDICAMENTO-->
-    @if (isset($adulto->historialDatos->id))
+</div> --}}
+<!--TABLA MEDICAMENTO-->
+{{-- @if (isset($adulto->historialDatos->id))
     <div class="card card-secondary">
     @if ($adulto->historialDatos->medicamentosDatos->count())
         <h3>
@@ -353,14 +695,10 @@
     @endif
     @endif
 </div>
-
-@stop
-
+ --}}
 
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
+
 
 
 
@@ -424,7 +762,7 @@
     @if (session('mensaje') == 'eliminado')
         <script>
             Swal.fire({
-                position:'top-center',
+                position: 'top-center',
                 icon: 'error',
                 title: 'Registro Eliminado!',
                 showConfirmButton: true,
@@ -453,3 +791,12 @@
         });
     </script>
 @stop
+
+<style>
+    .color-logo {
+        background-color: #8e0432;
+    }
+    .text-logo {
+        color: #8e0432;
+    }
+</style

@@ -22,5 +22,10 @@ class Adulto extends Model
     {
         return $this->hasOne(Condicion::class);
     }
+
+    public function ficha()
+    {
+        return $this->hasOne(Ficha::class);
+    }
     
 }

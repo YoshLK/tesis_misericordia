@@ -238,11 +238,12 @@
 
     @if (session('mensaje') == 'error')
         <script>
-            Swal.fire(
-                'ERROE!',
-                'ERROR EN LA RECOPILACION DE DATOS.',
-                'success'
-            )
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Error de entrada de datos',
+
+            })
         </script>
     @endif
 @endsection
