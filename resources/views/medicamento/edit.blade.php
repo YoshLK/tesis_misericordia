@@ -16,8 +16,6 @@
                 {{ method_field('PATCH') }}
                 <div class="modal-body">
                     <h5 class="modal-title bg-secondary col-md-7"> Datos del Medicamento</h5>
-                    <input type="text" name="historial_id" value="{{ $adulto->historialDatos->id }}" required="true"
-                        style="visibility:hidden">
                     <input type="text" name="adulto_id" value="{{ $adulto->id }}" required="true"
                         style="visibility:hidden">
                     <div class="form-row ">
@@ -40,14 +38,14 @@
                             <label>Dosis medida</label>
                             <select class="form-control" name="medida_medicamento" id="medida_medicamento"
                                 class="form-control rounded-pill">
-                                <option>{{ $medicamento->medida_medicamento }}</option>
-                                <option>Unidad</option>
-                                <option>Miligramos (mg)</option>
-                                <option>Mililitros (ml)</option>
-                                <option>Litros(L)</option>
-                                <option>Gotas</option>
-                                <option>Cuchara</option>
-                                <option>Microgramos(mcg)</option>
+                                <option value="UI">Unidad UI</option>
+                                <option value="mg">Miligramos (mg)</option>
+                                <option value="ml" >Mililitros (ml)</option>
+                                <option value="L" >Litros(L)</option>
+                                <option value="Gotas" >Gotas</option>
+                                <option value="Cucharadita" >Cucharadita</option>
+                                <option value="Cuchara" >Cuchara</option>
+                                <option value="mcg" >Microgramos(mcg)</option>
                                 <option>Otra</option>
                             </select>
                         </div>
@@ -57,10 +55,14 @@
                             <label>Via de administracion</label>
                             <select class="form-control" name="via_administracion" id="via_administracion"
                                 class="form-control rounded-pill">
-                                <option>{{ $medicamento->via_administracion }}</option>
                                 <option>Vía Oral</option>
                                 <option>Vía Intravenosa</option>
                                 <option>Vía Rectal</option>
+                                <option>Vía Subcutánea</option>
+                                <option>Vía Tópica</option>
+                                <option>Vía Sublingual</option>
+                                <option>Vía Otica</option>oftálmica
+                                <option>Vía Oftálmica</option>
                                 <option>Otra</option>
                             </select>
                         </div>
@@ -76,13 +78,8 @@
                             <label>Tiempo</label>
                             <select class="form-control" name="frecuencia_dia" id="frecuencia_dia"
                                 class="form-control rounded-pill">
-                                <option>{{ $medicamento->frecuencia_dia }}</option>
-                                <option>Horas</option>
-                                <option>Por Dia</option>
-                                <option>Dias</option>
-                                <option>Semana</option>
-                                <option>Mes</option>
-                                <option>Otra</option>
+                                <option value="hrs">Horas</option>
+                                <option value="dias">Dias</option>
                             </select>
                         </div>
                     </div>

@@ -5,42 +5,47 @@
 @section('title', 'Listado de Adultos')
 
 @section('content')
-    <section class="section">
-        <div class="section-header">
-            <h3 class="page__heading">Lista adultos de Adultos Mayores</h3>
-        </div>
-        <div class="section-body">
+<section class="section">
+    <div class="section-header">
+        <h3 class="page__heading">Lista adultos de Adultos Mayores</h3>
+    </div>
+    <div class="section-body">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
                             <?php setlocale(LC_TIME, 'es_ES.UTF-8', 'es_ES', 'Spanish_Spain'); ?>
                             @can('crear-adulto')
-                                <a href="{{ url('adulto/create') }}" class="btn btn-outline-success"> + Registrar Nuevo Adulto
-                                    Mayor</a>
+                            <a href="{{ url('adulto/create') }}" class="btn btn-success mb-3">
+                                + Registrar Nuevo Adulto Mayor
+                            </a>
                             @endcan
-                            <br />
-                            <br />
-                            <table id="adultos" class="table table-bordered  table-hover">
-                                <caption>Lista de Adultos Mayores la Misericordia</caption>
-                                <thead class="thead bg-info ">
-                                    <tr>
-                                        <th>Foto</th>
-                                        <th>Nombres</th>
-                                        <th>Apellidos</th>
-                                        <th>Edad</th>
-                                        <th>Ingreso</th>
-                                        <th>Estancia</th>
-                                        {{-- <th>Patologias</th>
-                                        <th>Medicina</th> --}}
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    @foreach ($adultos as $adulto)
-                                        <input name="contador" value="{{ $contador = (int) $loop->iteration - 1 }}"
-                                            type="hidden">
+                            <label for="filtroEdad">Filtro por edades:</label> 
+                                <label for="edadMin">Edad Mínima:</label>
+                                <input type="number" id="edadMin" min="0">
+                                <label for="edadMax">Edad Máxima:</label>
+                                <input type="number" id="edadMax" min="0">
+                            <div class="table-responsive">
+                                <table id="adultos" class="table-sm table-bordered table-hover text-dark">
+                                    <caption>Lista de Adultos Mayores la Misericordia</caption>
+                                    <thead class="thead bg-info">
+                                        <tr>
+                                            <th>Foto</th>
+                                            <th>Nombres</th>
+                                            <th>Apellidos</th>
+                                            <th>Edad</th>
+                                            <th>Responsable</th>
+                                            <th>Ingreso</th>
+                                            <th>Estancia</th>
+                                            <th>Patologias</th>
+                                            <th>Medicina</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($adultos as $adulto)
+                                        <input name="contador" value="{{ $contador = (int) $loop->iteration - 1 }}" type="hidden">
                                         <tr>
                                             <td>
                                                 <img class="img-thumbnail img-fluid"
@@ -48,60 +53,58 @@
                                             </td>
                                             <td>{{ $adulto->primer_nombre }} {{ $adulto->segundo_nombre }}</td>
                                             <td>{{ $adulto->primer_apellido }} {{ $adulto->segundo_apellido }}</td>
-                                            {{-- <td > {{ \Carbon\Carbon::parse($adulto->fecha_ingreso)->format('d/m/Y') }}</td> --}}
                                             <td>{{ $adulto->edad }}</td>
+                                            <td>{{$adulto->responsable->responsable.' '.$adulto->responsable->telefono.' '.$adulto->responsable->celular}}</td>
                                             <td>{{ $adulto->fecha_ingreso }}</td>
                                             <td>{{ $conteoTiempo[$contador] }}</td>
-                                            {{-- <td class="px-4">
-                                                @if (isset($adulto->historialDatos->id))
-                                                    @foreach ($adulto->historialDatos->patologiasDatos as $patologia)
-                                                        <li> {{ $patologia->nombre_patologia }}</li>
-                                                    @endforeach
-                                                @endif
-                                            </td>
-                                            <td class="px-4">
-                                                @if (isset($adulto->historialDatos->id))
-                                                    @foreach ($adulto->historialDatos->medicamentosDatos as $medicamento)
-                                                        <li>{{ $medicamento->nombre_medicamento . ' ' . $medicamento->cantidad_medicamento . ' ' . $medicamento->medida_medicamento . ' Frec: ' . $medicamento->frecuencia_tiempo . ' ' . $medicamento->frecuencia_dia }}
-                                                        </li>
-                                                    @endforeach
-                                                @endif
-                                            </td> --}}
                                             <td>
-
+                                                @foreach ($adulto->patologiasDatos as $patologia)
+                                                <li>{{ $patologia->nombre_patologia }}</li>
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                 @foreach ($adulto->medicamentosDatos as $medicamento)
+                                                <li>{{ $medicamento->nombre_medicamento.' '.$medicamento->cantidad_medicamento.' '.$medicamento->medida_medicamento.' Freq: '.$medicamento->frecuencia_tiempo.' '.$medicamento->frecuencia_dia }}
+                                                </li>
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                @can('ver-adulto')
                                                 <a href="{{ url('/general/adulto_detalle/' . $adulto->id) }}"
-                                                    class="btn btn-xs btn-info text-light mx-1 shadow" title="Detalle">
-                                                    <i class="fa fa-lg fa-fw fa-eye"></i></a>
+                                                    class="btn btn-info text-light mx-1 shadow" title="Detalle">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                                @endcan
                                                 @can('editar-adulto')
-                                                    <a href="{{ url('/adulto/' . $adulto->id . '/edit') }}"
-                                                        class="btn btn-xs btn-primary   text-light   mx-1 shadow"
-                                                        title="Editar">
-                                                        <i class="fa fa-lg fa-fw fa-pen"></i></a>
+                                                <a href="{{ url('/adulto/' . $adulto->id . '/edit') }}"
+                                                    class="btn btn-primary text-light mx-1 shadow" title="Editar">
+                                                    <i class="fa fa-pen"></i>
+                                                </a>
                                                 @endcan
                                                 @can('borrar-adulto')
-                                                    <form action="{{ route('adulto.destroy', $adulto->id) }}"
-                                                        class="d-inline formulario-eliminar" method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <input name="ruta" type="hidden">
-                                                        <input name="id" value="{{ $adulto->id }}" type="hidden">
-                                                        <button type="submit"
-                                                            class="btn btn-xs btn-default text-danger mx-1 shadow"
-                                                            title="Borrar"><i class="fa fa-lg fa-fw fa-trash"></i></button>
-                                                    </form>
+                                                <form action="{{ route('adulto.destroy', $adulto->id) }}"
+                                                    class="d-inline formulario-eliminar" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input name="ruta" type="hidden">
+                                                    <input name="id" value="{{ $adulto->id }}" type="hidden">
+                                                    <button type="submit" class="btn btn-default text-danger mx-1 shadow"
+                                                        title="Borrar"><i class="fa fa-trash"></i></button>
+                                                </form>
                                                 @endcan
                                             </td>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 @endsection
 
 
@@ -115,7 +118,7 @@
     <script src="{{ asset('assets/js/Buttons-2.4.2/js/buttons.html5.min.js') }}"></script>
 
     <script src="{{ asset('/assets/js/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
-    <script>
+    {{-- <script>
         var fechaHoraActual = new Date();
         var formatoFechaHora = fechaHoraActual.toLocaleString();
         var tituloConFechaHora = 'Adultos Mayores La Misericordia: ' + formatoFechaHora;
@@ -147,7 +150,7 @@
                         className: 'btn btn-success',
                         title: tituloConFechaHora,
                         exportOptions: {
-                            columns: [1, 2, 3, 4, 5, 6, 7],
+                            columns: [1, 2, 3, 4, 5, 6, 7, 8],
                         },
                     },
                     {
@@ -157,7 +160,7 @@
                         className: 'btn btn-danger',
                         title: tituloConFechaHora,
                         exportOptions: {
-                            columns: [1, 2, 3, 4, 5, 6, 7],
+                            columns: [1, 2, 3, 4, 5, 6, 7, 8],
                         },
                     },
                     {
@@ -167,14 +170,99 @@
                         className: 'btn btn-info',
                         title: tituloConFechaHora,
                         exportOptions: {
-                            columns: [1, 2, 3, 4, 5, 6, 7],
+                            columns: [1, 2, 3, 4, 5, 6, 7, 8],
                         },
                     },
                 ],
             });
         });
-    </script>
+    </script>  --}}
 
+<script>
+   $(document).ready(function() {
+    var fechaHoraActual = new Date();
+    var formatoFechaHora = fechaHoraActual.toLocaleString();
+    var tituloConFechaHora = 'Adultos Mayores La Misericordia: ' + formatoFechaHora;
+
+    $('#adultos').DataTable({
+        language: {
+            "processing": "Procesando...",
+                    "lengthMenu": "Mostrar _MENU_ registros",
+                    "zeroRecords": "No se encontraron resultados",
+                    "emptyTable": "Ningún dato disponible en esta tabla",
+                    "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "search": "Buscar:",
+                    "loadingRecords": "Cargando...",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+        },
+        responsive: true,
+        dom: 'lBfrtip', // Se ha eliminado "i" para espacio entre botones
+        buttons: [{
+            extend: 'excelHtml5',
+                        text: '<i class="fas fa-file-excel"></i>',
+                        titleAttr: 'Exportar a excel',
+                        className: 'btn btn-success',
+                        title: tituloConFechaHora,
+                        exportOptions: {
+                            columns: [1, 2, 3, 4, 5, 6, 7, 8],
+                        },
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class="fas fa-file-pdf"></i>',
+                        titleAttr: 'Exportar a PDF',
+                        className: 'btn btn-danger',
+                        title: tituloConFechaHora,
+                        exportOptions: {
+                            columns: [1, 2, 3, 4, 5, 6, 7, 8],
+                        },
+                    },
+                    {
+                        extend: 'print',
+                        text: '<i class="fas fa-print"></i>',
+                        titleAttr: 'Imprimir',
+                        className: 'btn btn-info',
+                        title: tituloConFechaHora,
+                        exportOptions: {
+                            columns: [1, 2, 3, 4, 5, 6, 7, 8],
+                        },
+        }],
+        columnDefs: [{
+            type: 'numeric', // Tipo numérico
+            targets: [3], // Índice de la columna de edad (cambia según tu configuración)
+        }],
+    });
+
+    // Configurar el filtro por rango de edades
+    $.fn.dataTable.ext.search.push(
+        function(settings, data, dataIndex) {
+            var min = $('#edadMin').val(); // Valor mínimo del campo de entrada
+            var max = $('#edadMax').val(); // Valor máximo del campo de entrada
+            var age = data[3]; // Índice de la columna de edad (cambia según tu configuración)
+
+            if ((min === '' && max === '') ||
+                (min === '' && age <= max) ||
+                (min <= age && '' === max) ||
+                (min <= age && age <= max)) {
+                return true;
+            }
+            return false;
+        }
+    );
+
+    // Detectar cambios en los campos de entrada y aplicar el filtro
+    $('#edadMin, #edadMax').on('change', function() {
+        $('#adultos').DataTable().draw();
+    });
+});
+</script>
 
 
     @if (session('mensaje') == 'registrado')

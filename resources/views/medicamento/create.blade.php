@@ -1,4 +1,4 @@
-{{-- <div class="modal fade" id="createMedicamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+ <div class="modal fade" id="createMedicamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -14,8 +14,6 @@
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <h5 class="modal-title bg-secondary col-md-7"> Datos del Medicamento</h5>
-                    <input type="text" name="historial_id" value="{{ $adulto->historialDatos->id }}" required="true"
-                        style="visibility:hidden">
                     <input type="text" name="adulto_id" value="{{ $adulto->id }}" required="true"
                         style="visibility:hidden">
                     <div class="form-row ">
@@ -29,20 +27,21 @@
                     <div class="form-row ">
                         <div class="form-group col-md">
                             <label>Dosis cantidad</label>
-                            <input type="text" name="cantidad_medicamento" class="form-control"
+                            <input type="number" name="cantidad_medicamento" step="any" class="form-control"
                                 placeholder="Dosis en numeros" required="true">
                         </div>
                         <div class="form-group col-md">
                             <label>Dosis medida</label>
                             <select class="form-control" name="medida_medicamento" id="medida_medicamento"
                                 class="form-control rounded-pill">
-                                <option>Unidad</option>
-                                <option>Miligramos (mg)</option>
-                                <option>Mililitros (ml)</option>
-                                <option>Litros(L)</option>
-                                <option>Gotas</option>
-                                <option>Cuchara</option>
-                                <option>Microgramos(mcg)</option>
+                                <option value="UI">Unidad UI</option>
+                                <option value="mg">Miligramos (mg)</option>
+                                <option value="ml" >Mililitros (ml)</option>
+                                <option value="L" >Litros(L)</option>
+                                <option value="Gotas" >Gotas</option>
+                                <option value="Cucharadita" >Cucharadita</option>
+                                <option value="Cuchara" >Cuchara</option>
+                                <option value="mcg" >Microgramos(mcg)</option>
                                 <option>Otra</option>
                             </select>
                         </div>
@@ -55,6 +54,11 @@
                                 <option>Vía Oral</option>
                                 <option>Vía Intravenosa</option>
                                 <option>Vía Rectal</option>
+                                <option>Vía Subcutánea</option>
+                                <option>Vía Tópica</option>
+                                <option>Vía Sublingual</option>
+                                <option>Vía Otica</option>oftálmica
+                                <option>Vía Oftálmica</option>
                                 <option>Otra</option>
                             </select>
                         </div>
@@ -62,19 +66,15 @@
                     <div class="form-row ">
                         <div class="form-group col-md">
                             <label>Frecuencia</label>
-                            <input type="text" name="frecuencia_tiempo" class="form-control"
+                            <input type="number" name="frecuencia_tiempo" class="form-control"
                                 placeholder="Frecuencia en numeros" required="true">
                         </div>
                         <div class="form-group col-md">
                             <label>Tiempo</label>
                             <select class="form-control" name="frecuencia_dia" id="frecuencia_dia"
                                 class="form-control rounded-pill">
-                                <option>Horas</option>
-                                <option>Por Dia</option>
-                                <option>Dias</option>
-                                <option>Semana</option>
-                                <option>Mes</option>
-                                <option>Otra</option>
+                                <option value="hrs">Horas</option>
+                                <option value="dias">Dias</option>
                             </select>
                         </div>
                     </div>
@@ -103,4 +103,3 @@
         </div>
     </div>
 </div>
- --}}

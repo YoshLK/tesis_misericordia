@@ -14,7 +14,7 @@ use App\Models\Ficha;
 class AdultoController extends Controller
 {   
     function __construct(){
-        $this->middleware('permission:ver-adulto|crear-adulto|editar-adulto|borrar-adulto', ['only'=>['index']]);
+        $this->middleware('permission:ver-adulto',['only'=>['index']]);
         $this->middleware('permission:crear-adulto',['only'=>['create', 'store']]);
         $this->middleware('permission:editar-adulto',['only'=>['edit', 'update']]);
         $this->middleware('permission:borrar-adulto',['only'=>['destroy']]);

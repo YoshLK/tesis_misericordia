@@ -48,12 +48,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //historial
 
-//patologia
-Route::resource('patologia', PatologiaController::class);
-Route::post('/eliminar_patologia', [PatologiaController::class, 'eliminar'])->name('eliminar_patologia');
-//medicamento
-Route::resource('medicamento', MedicamentoController::class);
-Route::post('/eliminar_medicamento', [MedicamentoController::class, 'eliminar'])->name('eliminar_medicamento');
+
+
 
 
 
@@ -88,9 +84,16 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/general/adulto_detalle/{id}',[App\Http\Controllers\GeneralController::class, 'verAdulto']);
     Route::get('/general/personal_detalle/{id}',[App\Http\Controllers\GeneralController::class, 'verPersonal']);
 
+    //patologia
+    Route::resource('patologia', PatologiaController::class);
+    Route::post('/eliminar_patologia', [PatologiaController::class, 'eliminar'])->name('eliminar_patologia');
 
     //referencia
     Route::resource('referencia', ReferenciaController::class);
     Route::resource('historial', HistorialController::class);
+
+    //medicamento
+    Route::resource('medicamento', MedicamentoController::class);
+    Route::post('/eliminar_medicamento', [MedicamentoController::class, 'eliminar'])->name('eliminar_medicamento');
 
 });

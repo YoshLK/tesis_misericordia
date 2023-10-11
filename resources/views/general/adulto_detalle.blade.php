@@ -42,12 +42,14 @@
                                                 src="{{ asset('storage') . '/' . $adulto->foto }}" width="100">
                                         @endif
                                     </div>
+                                    @can('editar-adulto')
                                     <div class="col-2">
                                         <a href="{{ url('/adulto/' . $adulto->id . '/edit') }}"
                                             class="btn btn-outline-dark">
                                             Editar
                                         </a>
                                     </div>
+                                    @endcan
                                 </div>
                                 <div class="row px-5 mt-2">
                                     <div class="col-3">
@@ -441,17 +443,12 @@
                             <div class="w-100 p-1" style="background-color: #8e0432;"></div>
                             <br>
                         </div>
-
                         <!-- card finaliz ficha del adulto-->
-
-         
-
-
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+</section>
 
    <div class="card text-left">
      <div class="card-body">
@@ -459,10 +456,12 @@
         <p class="text-white bg-primary px-5">REFERENCIAS</p></h4>
         <div class="row">
             <div class="col-3">
+                @can('crear-adulto')
                 <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#createReferencia">
                     + Añadir Referencia
                 </button>
                 @include('referencia.create')
+                @endcan
             </div>
         </div>
         <br>
@@ -485,17 +484,20 @@
                                 <td>{{ $referencia->telefono }}</td>
                                 <td>{{ $referencia->direccion }}</td>
                                 <td>
+                                    @can('editar-adulto')
                                     <button type="button" class="btn btn-outline-primary formulario" data-toggle="modal"
                                         data-target="#editReferencia{{ $referencia->id }}">
-                                        Editar
+                                        <i class="fa fa-pen"></i>
                                     </button>
-                                    |
+                                    @endcan
+                                    @can('borrar-adulto')
                                     <form action="{{ route('referencia.destroy', $referencia->id) }}"
                                         class="d-inline formulario-eliminar" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger">Borrar</button>
+                                        <button type="submit" class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
                                     </form>
+                                    @endcan
                                 </td>
                             </tr>
                             <!--modal editar--->
@@ -504,25 +506,28 @@
                     </tbody>
                 </table>
                 <div class="w-100 p-1" style="background-color: #007bff;"></div>
+            </div>
         @endif
-     </div>
+    
    </div>
 </div>
 
 
 <div class="card" style="width: 100%;">
-   <div class="card-body"> 
+    <h3 class="bg-info text-white px-5" style="width: 100%">MEDIDAS CORPORALES</h3>
+    <div class="card-body"> 
     @if (empty($adulto->historialDatos->id))
+    @can('crear-adulto')
     <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#createHistorial">
-        + Ficha Medidas Corporales
+        + Agregar - Ficha Medidas Corporales
     </button>
     @include('historial.create')
+    @endcan
     @endif     
-<br>
 
 <!-- ficha medidas corporales-->
 @if (isset($adulto->historialDatos->id))
-    <h3 class="bg-info px-5" style="width: 100%">MEDIDAS CORPORALES</h3>
+    
     <div class="row px-5 mt-2">
         <div class="col-3">
             <h5>
@@ -543,11 +548,13 @@
             </h5>
         </div>
         <div class="col-2">
+            @can('editar-adulto')
             <button type="button" class="btn btn-outline-info" data-toggle="modal"
                 data-target="#editHistorial{{ $adulto->historialDatos->id }}">
-                + Editar Ficha Corporal
+                <i class="fa fa-pen">Editar Ficha Corporal</i>
             </button>
             @include('historial.edit')
+            @endcan
         </div>
     </div>
     <h5 class="bg-info px-5 text-center" style="width: 20%"><b>Tallas</b></h5>
@@ -584,80 +591,162 @@
 @endif
 </div>
 </div>
-<div class="row">
+<!-- Ficha patologia-->
+<div class="card card-success" style="width: 100%;">
+    <h3><p class="text-white bg-success px-5">PATOLOGIAS</p></h3>
     <div class="col-4">
+        @can('crear-adulto')
         <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#createPatologia">
-            + Patologias
+            + Agregar - Patologias
         </button>
         @include('patologia.create')
-      
+        @endcan
     </div>
+    <div class="mt-4"></div>
+        @if ($adulto->patologiasDatos->count())
+            <div class="table table-auto">
+                <table class="table table-bordered  table-hover">
+                    <thead class="thead table-success">
+                        <tr>
+                            <th>Patologia:</th>
+                            <th>Fecha de diagnostico:</th>
+                            <th>Gravedad:</th>
+                            <th>Tratamiento:</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($adulto->patologiasDatos as $patologia)
+                            <tr>
+                                <input name="contador" value="{{ $contadorPatologia = (int) $loop->iteration - 1 }}"
+                                    type="hidden">
+                                <td>{{ $patologia->nombre_patologia }}</td>
+                                <td>{{ $patologia->fecha_diagnostico }}</td>
+                                <td>{{ $patologia->gravedad }}</td>
+                                <td>{{ $patologia->tratamiento_actual }}</td>
+                                <td>
+                                    @can('ver-adulto')
+                                    <button type="button" class="btn btn-success formulario" data-toggle="modal"
+                                        data-target="#detallePatologia{{ $contadorPatologia }}">
+                                        Observaciones
+                                    </button>
+                                    @endcan
+                                    @can('editar-adulto')
+                                    <button type="button" class="btn btn-outline-success formulario" data-toggle="modal"
+                                        data-target="#editPatologia{{ $patologia->id }}">
+                                        <i class="fa fa-pen"></i>
+                                    </button>
+                                    @endcan
+                                    @can('borrar-adulto')
+                                    <form method="POST" action="{{ route('eliminar_patologia') }}"
+                                        class="d-inline formulario-eliminar">
+                                        @csrf
+                                        <input name="id" value="{{ $patologia->id }}" type="hidden">
+                                        <input name="ruta" value="{{ $adulto->id }}" type="hidden">
+                                        <button type="submit" class="btn btn-outline-danger"
+                                            data-toggle="modal"><i class="fa fa-trash"></i></button>
+                                    </form>
+                                    @endcan
+                                </td>
+                            </tr>
+                            @include('patologia.edit') 
+                            @include('patologia.detalle')
+                        @endforeach
+                    </tbody>
+                </table>
+                <div class="w-100 p-1" style="background-color: #28a745;"></div>
+            </div>
+            @endif
+</div>
+
+
+
+
+<!-- Ficha MEDICAMENTOS-->
+<div class="card card-secondary" style="width: 100%;">
+    <h3><p class="bg-secondary px-5">MEDICAMENTOS</p></h3>
     <div class="col-4">
+        @can('crear-adulto')
         <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#createMedicamento">
-            + Medicamento
+            + Añadir Medicamento
         </button>
+        @endcan
+        <div class="mt-4"></div>
         @include('medicamento.create')
     </div>
-</div>
-<br>
-
-<!-- Ficha patologia-->
-<div class="card card-success">
-    @if ($adulto->patologiasDatos->count())
-        <h3>
-            <p class="text-white bg-success px-5">PATOLOGIAS</p>
-        </h3>
-        <div class="table table-auto">
-            <table class="table table-bordered  table-hover">
-                <thead class="thead table-success">
+    @if ($adulto->medicamentosDatos->count())
+        <table id="medicamentos" class="table-sm table-bordered table-hover">
+            <thead class="thead table-secondary">
+                <tr>
+                    <th>Medicamento</th>
+                    <th>Dosis</th>
+                    <th>Frecuencia</th>
+                    <th>Administracion</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Final</th>
+                    <th>Conteo Dias</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($adulto->medicamentosDatos as $medicamento)
                     <tr>
-                        <th>Patologia:</th>
-                        <th>Fecha de diagnostico:</th>
-                        <th>Gravedad:</th>
-                        <th>Tratamiento:</th>
-                        <th>Acciones</th>
+                        <input name="contador" value="{{ $contadorMedicamento = (int) $loop->iteration - 1 }}"
+                            type="hidden">
+                        <td>{{ $medicamento->nombre_medicamento }}</td>
+                        <td>{{ $medicamento->cantidad_medicamento }} {{ $medicamento->medida_medicamento }}</td>
+                        <td>{{ $medicamento->frecuencia_tiempo }} {{ $medicamento->frecuencia_dia }}</td>
+                        <td>{{ $medicamento->via_administracion }}</td>
+                        <td class="fecha-inicio">{{ $medicamento->fecha_inicio }}</td>
+                        <td class="fecha-fin">{{ $medicamento->fecha_fin }}</td>
+                        <td class="resultado"></td>
+                        <td>
+                            @can('ver-adulto')
+                            <button type="button" class="btn btn-info" data-toggle="modal"
+                                data-target="#detalleMedicamento{{ $contadorMedicamento }}">
+                                Notas
+                            </button>
+                            @endcan
+                            @can('editar-adulto')
+                            <button type="button" class="btn btn-outline-info" data-toggle="modal"
+                                data-target="#editMedicamento{{ $medicamento->id }}">
+                                <i class="fa fa-pen"></i>
+                            </button>
+                            @endcan
+                            @can('borrar-adulto')
+                            <form method="POST" action="{{ route('eliminar_medicamento') }}"
+                                class="d-inline formulario-eliminar">
+                                @csrf
+                                <input name="id" value="{{ $medicamento->id }}" type="hidden">
+                                <input name="ruta" value="{{ $adulto->id }}" type="hidden">
+                                <button type="submit" class="btn btn-outline-danger"
+                                    data-toggle="modal"><i class="fa fa-trash"></i></button>
+                            </form>
+                            @endcan
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach ($adulto->patologiasDatos as $patologia)
-                        <tr>
-                            <input name="contador" value="{{ $contadorPatologia = (int) $loop->iteration - 1 }}"
-                                type="hidden">
-                            <td>{{ $patologia->nombre_patologia }}</td>
-                            <td>{{ $patologia->fecha_diagnostico }}</td>
-                            <td>{{ $patologia->gravedad }}</td>
-                            <td>{{ $patologia->tratamiento_actual }}</td>
-                            <td>
-                                <button type="button" class="btn btn-success formulario" data-toggle="modal"
-                                    data-target="#detallePatologia{{ $contadorPatologia }}">
-                                    Notas
-                                </button>
-                                <button type="button" class="btn btn-outline-success formulario" data-toggle="modal"
-                                    data-target="#editPatologia{{ $patologia->id }}">
-                                    Editar
-                                </button>
-                                <form method="POST" action="{{ route('eliminar_patologia') }}"
-                                    class="d-inline formulario-eliminar">
-                                    @csrf
-                                    <input name="id" value="{{ $patologia->id }}" type="hidden">
-                                    <input name="ruta" value="{{ $adulto->id }}" type="hidden">
-                                    <button type="submit" class="btn btn-outline-danger"
-                                        data-toggle="modal">Borrar</button>
-                                </form>
-                            </td>
-                        </tr>
-                        @include('patologia.edit') 
-                        @include('patologia.detalle')
-                    @endforeach
-                </tbody>
-            </table>
-            <div class="w-100 p-1" style="background-color: #28a745;"></div>
+                    @include('medicamento.edit')
+                    @include('medicamento.detalle')
+                @endforeach
+            </tbody>
+         
+        </table>
+        <div class="card-body ml-4">
+            @can('ver-adulto')
+            <button type="button" class="btn btn-info float-right" id="calcularDiasMedicamento">Calcular Dias de Medicación</button>
+            @endcan
         </div>
-    @endif
+    
+    <div class="w-100 p-1" style="background-color: #6c757d;"></div>
+@endif
+</div>
+
 
 
 
 @endsection
+
+
 
 
 <!-- REFERENCIAS -->

@@ -48,7 +48,7 @@
                         <textarea class="form-control" name="tratamiento_actual" rows="3" placeholder="Tratamiento ">{{ $patologia->tratamiento_actual }}</textarea>
                     </div>
                     <div class="form-row ">
-                        <label>Notas</label>
+                        <label>Observaciones</label>
                         <textarea class="form-control" name="notas_patologia" rows="10"
                             placeholder="Información adicional relevante sobre la patología, síntomas, resultados o recomendaciones médicas.">{{ $patologia->notas_patologia }}</textarea>
                     </div>

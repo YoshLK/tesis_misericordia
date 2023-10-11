@@ -27,7 +27,9 @@
                 <i class="text-logo fas fa-users"></i><span class="text-logo">Lista de adultos</span>
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Lista Egresados</a>
+            <a class="{{ Request::is('adulto/inactivo') ? 'bg-info' : 'bg-white' }}" href="{{ route('adulto.inactivo') }}">
+                <i class="text-logo fas fa-users"></i><span class="text-logo">Lista de egresados</span>
+            </a>
         </div>
     @endcan
 

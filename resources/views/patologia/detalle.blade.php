@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header" style="background-color: #28a745 !important;">
                 <h3 class="modal-title" style="color: #fff; text-align: center;">
-                    NOTAS PATOLOGIA
+                    OBSERVACIONES PATOLOGIA
                 </h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -14,7 +14,7 @@
             <div class="modal-body" id="cont_modal">
               
                     
-                        <h6 class="modal-title bg-success text-white col-md-6">Notas</h6>
+                        <h6 class="modal-title bg-success text-white col-md-6">Observaciones</h6>
                         <textarea class="form-control" name="dificultad_motora" rows="10" placeholder="Notas de dificultades motoras">{{ $adulto->patologiasDatos[$contadorPatologia]->notas_patologia }} </textarea>
                 
                     <div class="modal-footer">

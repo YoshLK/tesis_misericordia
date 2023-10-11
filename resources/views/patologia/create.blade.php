@@ -44,7 +44,7 @@
                         <textarea class="form-control" name="tratamiento_actual" rows="3" placeholder="Tratamiento "></textarea>
                     </div>
                     <div class="form-row ">
-                        <label>Notas</label>
+                        <label>Observaciones</label>
                         <textarea class="form-control" name="notas_patologia" rows=""
                             placeholder="Notas adicionales"></textarea>
                     </div>

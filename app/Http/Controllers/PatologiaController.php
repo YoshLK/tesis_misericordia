@@ -72,13 +72,12 @@ class PatologiaController extends Controller
             'gravedad'=>'required|string|max:25',
             'tratamiento_actual'=>'required|string|max:150',
             'notas_patologia'=>'nullable|string',
-            'adulto_id'=>'required|integer',
         ];
         $mensaje=[
             'required'=> 'El :attribute es requerido.'
         ];
         $this->validate($request, $campos, $mensaje);
-        $datosPatologia = request()->except(['_token','_method','adulto_id']);
+        $datosPatologia = request()->except(['_token','_method']);
         Patologia::where('id','=',$id)->update($datosPatologia);
         $patologia=Patologia::findOrFail($id);    
         return redirect( '/general/adulto_detalle/'.$request->adulto_id)->with('mensaje','editado');
