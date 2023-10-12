@@ -14,7 +14,7 @@
                         <div class="card-body">
                             <!-- DATOS PERSONALES ADULTO-->
                             <div class="card" style="width: 100%;">
-                                <h3 class="color-logo  px-5 text-white text-center" style="width: 100%">Datos Personales De
+                                <h3 class="color-logo  px-5 text-white text-center" style="width: 100%">Ficha de ingreso Del Adulto Mayor -
                                     {{ $adulto->primer_nombre }} {{ $adulto->primer_apellido }}</h3>
 
                                 <div class="row px-5 mt-2">

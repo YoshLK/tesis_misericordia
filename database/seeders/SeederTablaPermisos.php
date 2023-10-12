@@ -23,17 +23,24 @@ class SeederTablaPermisos extends Seeder
             'editar-rol',
             'borrar-rol',
 
-            //Operacions sobre tabla adultos
-            'ver-adulto',
-            'crear-adulto',
-            'editar-adulto',
-            'borrar-adulto',
-
             //Operacions sobre tabla Usuarios
             'ver-usuario',
             'crear-usuario',
             'editar-usuario',
             'borrar-usuario',
+
+            //Operacions sobre tabla adultos
+            'ver-adulto',
+            'crear-adulto',
+            'editar-adulto',
+            'borrar-adulto',
+            
+            //Operacions sobre tabla adultos
+            'ver-personal',
+            'crear-personal',
+            'editar-personal',
+            'borrar-personal',
+
         ];
 
         foreach($permisos as $permiso) {

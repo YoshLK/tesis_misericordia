@@ -59,10 +59,7 @@ Route::get('/conteo-activos', [DashboardController::class,'conteoActivos'])->nam
 Route::get('dashboard', [DashboardController::class, 'adultosDashboard'])->name('dashboard');
 
 
-//RUTAS PERSONAL GENERAL PERSONAL
-Route::resource('personal', PersonalController::class);
-//horarios
-Route::resource('horario', HorarioController::class);
+
 
 
 //RUTAS DONADOR GENERAL DONADOR
@@ -96,4 +93,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('medicamento', MedicamentoController::class);
     Route::post('/eliminar_medicamento', [MedicamentoController::class, 'eliminar'])->name('eliminar_medicamento');
 
+    //RUTAS PERSONAL GENERAL PERSONAL
+    Route::get('personal/inactivo', [PersonalController::class, 'inactivo'])->name('personal.inactivo');
+    Route::resource('personal', PersonalController::class);
+    //horarios
+    Route::resource('horario', HorarioController::class);
 });

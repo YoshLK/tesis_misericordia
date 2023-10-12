@@ -38,6 +38,7 @@
                             <label>Dosis medida</label>
                             <select class="form-control" name="medida_medicamento" id="medida_medicamento"
                                 class="form-control rounded-pill">
+                                <option>{{ $medicamento->medida_medicamento }}</option>
                                 <option value="UI">Unidad UI</option>
                                 <option value="mg">Miligramos (mg)</option>
                                 <option value="ml" >Mililitros (ml)</option>
@@ -55,13 +56,14 @@
                             <label>Via de administracion</label>
                             <select class="form-control" name="via_administracion" id="via_administracion"
                                 class="form-control rounded-pill">
+                                <option>{{ $medicamento->via_administracion }}</option>
                                 <option>Vía Oral</option>
                                 <option>Vía Intravenosa</option>
                                 <option>Vía Rectal</option>
                                 <option>Vía Subcutánea</option>
                                 <option>Vía Tópica</option>
                                 <option>Vía Sublingual</option>
-                                <option>Vía Otica</option>oftálmica
+                                <option>Vía Otica</option>
                                 <option>Vía Oftálmica</option>
                                 <option>Otra</option>
                             </select>
@@ -78,6 +80,7 @@
                             <label>Tiempo</label>
                             <select class="form-control" name="frecuencia_dia" id="frecuencia_dia"
                                 class="form-control rounded-pill">
+                                <option>{{ $medicamento->frecuencia_dia }}</option>
                                 <option value="hrs">Horas</option>
                                 <option value="dias">Dias</option>
                             </select>

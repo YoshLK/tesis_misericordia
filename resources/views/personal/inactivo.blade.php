@@ -7,7 +7,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h3 class="page__heading">Lista del personal "La Misericordia"</h3>
+        <h3 class="page__heading">Lista del personal EGRESADOS "La Misericordia"</h3>
     </div>
     <div class="section-body">
         <div class="container">
@@ -20,8 +20,8 @@
                             @endcan
                             <br />
                             <br />
-                            <table id="personalsTable" class="table table-bordered table-hover text-dark">
-                                <thead class="thead table-info ">
+                            <table id="personalsTable" class="table-sm table-bordered table-hover text-dark">
+                                <thead class="thead bg-danger">
                                     <tr>
                                         <th>Foto</th>
                                         <th>Nombres</th>
@@ -34,7 +34,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($personals as $personal)
+                                    @foreach ($personalInactivos as $personal)
                                     <input name="contador" value="{{ $contador = (int) $loop->iteration - 1 }}" type="hidden">
                                         <tr>
                                             <td>

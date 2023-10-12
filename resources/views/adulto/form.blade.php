@@ -163,15 +163,15 @@
     <div class="form-group col-6">
         <label for="procedencia" class=" text-dark font-weight-bold"
             style="font-size: 16px; margin-bottom: 5px;">Referido por:</label>
-        <select class="form-control" name="procedencia" id="procedencia" class="form-control" required>
-            <option>{{ isset($responsable->procedencia) ? $responsable->procedencia : old('procedencia') }}</option>
-            <option>No Referido</option>
-            <option>PNC</option>
-            <option>BCVBG</option>
-            <option>HRO</option>
-            <option>PDH</option>
-            <option>PGN</option>
-        </select>
+            <select class="form-control" name="procedencia" id="procedencia" class="form-control" required>
+                <option value="">Seleccione una opción</option>
+                <option value="No Referido" {{ (isset($responsable->procedencia) && $responsable->procedencia == 'No Referido') ? 'selected' : '' }}>No Referido</option>
+                <option value="PNC" {{ (isset($responsable->procedencia) && $responsable->procedencia == 'PNC') ? 'selected' : '' }}>PNC</option>
+                <option value="BCVBG" {{ (isset($responsable->procedencia) && $responsable->procedencia == 'BCVBG') ? 'selected' : '' }}>BCVBG</option>
+                <option value="HRO" {{ (isset($responsable->procedencia) && $responsable->procedencia == 'HRO') ? 'selected' : '' }}>HRO</option>
+                <option value="PDH" {{ (isset($responsable->procedencia) && $responsable->procedencia == 'PDH') ? 'selected' : '' }}>PDH</option>
+                <option value="PGN" {{ (isset($responsable->procedencia) && $responsable->procedencia == 'PGN') ? 'selected' : '' }}>PGN</option>
+            </select>            
     </div>
 </div>
 <div class="form-row px-3 mt-2">
@@ -342,17 +342,17 @@
 <div class="col-4">
     <label for="estado_actual" class="text-logo font-weight-bold px-3 mt-6" style="font-size: 25px; margin-bottom: 5px;">Estado</label>
     <select class="form-control" name="estado_actual" id="estado_actual" class="form-control" required>
-        <option> {{ isset($adulto->estado_actual) ? $adulto->estado_actual : old('estado_actual') }}</option>
-        <option>Activo</option>
-        <option>Inactivo</option>
-    </select>
+        <option value="">Seleccione una opción</option>
+        <option value="Activo" {{ (isset($adulto->estado_actual) && $adulto->estado_actual == 'Activo') ? 'selected' : '' }}>Activo</option>
+        <option value="Inactivo" {{ (isset($adulto->estado_actual) && $adulto->estado_actual == 'Inactivo') ? 'selected' : '' }}>Inactivo</option>
+    </select>    
 </div>
 
-<div class="col-auto">
-    <label id="fecha_salida" style="display: none;">Fecha de salida: <input type="date" name="fecha_salida"
+<div class="col-auto ">
+    <label id="fecha_salida" style="display: none;" class="text-dark">Fecha de salida: <input type="date" name="fecha_salida"
             class="form-control"
             value="{{ isset($adulto->fecha_salida) ? $adulto->fecha_salida : old('fecha_salida') }}"></label>
-    <label id="motivo" style="display: none;">Motivo de salida: <input type="text" name="motivo_salida"
+    <label id="motivo_salida" style="display: none;" class="text-dark">Motivo de salida: <input type="text" name="motivo_salida"
             class="form-control"
             value="{{ isset($adulto->motivo_salida) ? $adulto->motivo_salida : old('motivo_salida') }}"></label>
 </div>

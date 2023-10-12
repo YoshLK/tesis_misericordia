@@ -7,7 +7,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h3 class="page__heading">Lista adultos de Adultos Mayores</h3>
+        <h3 class="page__heading">Lista adultos de Adultos Mayores "La Misericordia"</h3>
     </div>
     <div class="section-body">
         <div class="container">

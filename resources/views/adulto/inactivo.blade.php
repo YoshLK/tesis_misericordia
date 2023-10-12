@@ -7,7 +7,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h3 class="page__heading">Lista adultos de EGRESADOS Adultos Mayores</h3>
+        <h3 class="page__heading">Lista Adultos Mayores EGRESADOS "La Misericordia"</h3>
     </div>
     <div class="section-body">
         <div class="container">
@@ -34,8 +34,8 @@
                                             <th>Responsable</th>
                                             <th>Ingreso</th>
                                             <th>Estancia</th>
-                                            <th>Patologias</th>
-                                            <th>Medicina</th>
+                                            <th>Fech salida</th>
+                                            <th>Motivo</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -53,17 +53,8 @@
                                             <td>{{$adulto->responsable->responsable.' '.$adulto->responsable->telefono.' '.$adulto->responsable->celular}}</td>
                                             <td>{{ $adulto->fecha_ingreso }}</td>
                                             <td>{{ $conteoTiempo[$contador] }}</td>
-                                            <td>
-                                                @foreach ($adulto->patologiasDatos as $patologia)
-                                                <li>{{ $patologia->nombre_patologia }}</li>
-                                                @endforeach
-                                            </td>
-                                            <td>
-                                                 @foreach ($adulto->medicamentosDatos as $medicamento)
-                                                <li>{{ $medicamento->nombre_medicamento.' '.$medicamento->cantidad_medicamento.' '.$medicamento->medida_medicamento.' Freq: '.$medicamento->frecuencia_tiempo.' '.$medicamento->frecuencia_dia }}
-                                                </li>
-                                                @endforeach
-                                            </td>
+                                            <td>{{$adulto->fecha_salida}}</td>
+                                            <td>{{$adulto->motivo_salida}}</td>
                                             <td>
                                                 <a href="{{ url('/general/adulto_detalle/' . $adulto->id) }}"
                                                     class="btn btn-info text-light mx-1 shadow" title="Detalle">

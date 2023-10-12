@@ -140,6 +140,7 @@ class AdultoController extends Controller
         $adulto->motivo_ingreso = $request->input('motivo_ingreso');
         $adulto->estado_actual = $request->input('estado_actual');
         $adulto->fecha_salida = $request->input('fecha_salida');
+        $adulto->motivo_salida = $request->input('motivo_salida');
         //$adulto->foto = $request->input('foto');
         if ($request->hasFile('foto')){
             $adulto['foto'] = $request->file('foto')->store('uploads','public');
@@ -345,6 +346,7 @@ class AdultoController extends Controller
         $adulto->motivo_ingreso = $request->input('motivo_ingreso');
         $adulto->estado_actual = $request->input('estado_actual');
         $adulto->fecha_salida = $request->input('fecha_salida');
+        $adulto->motivo_salida = $request->input('motivo_salida');
 
         if ($request->hasFile('foto')){
             $adultoFoto=Adulto::findOrFail($id);

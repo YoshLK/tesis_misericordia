@@ -10,157 +10,190 @@
         </div>
     @endif
 </h5>
-<h3 class="text-center">
-    <b> FORMULARIO PERSONAL<b>
-</h3>
-<div class="row-auto px-5">
-    <h3> <span class="fas fa-user  {{ $ColorFormato }}"> Nombre del empleado</span> </h3>
+
+<h4> <span class="font-weight-bold px-3 mt-6 text-logo text-center" style="font-size: 25px; margin-bottom: 5px;">
+        FORMULARIO - PERSONAL OPERATIVO</span>
+</h4>
+
+<div class="form-auto px-3 mt-3">
+    <h4> <span class="fas fa-user   text-dark"> Nombre del personal:</span> </h4>
 </div>
-<div class="row px-5 mt-2">
-    <div class="col-auto">
+
+<div class="form-row px-3">
+    <div class="col-3">
         <input type="text" name="primer_nombre" id="primer_nombre"
-            value="{{ isset($personal->primer_nombre) ? $personal->primer_nombre : old('primer_nombre') }}"
-            placeholder="Primer Nombre" class="form-control rounded-pill">
+        value="{{ isset($personal->primer_nombre) ? $personal->primer_nombre : old('primer_nombre') }}"
+            placeholder="Primer Nombre" class="form-control" required>
     </div>
-    <div class="col-auto">
+    <div class="col-3">
         <input type="text"name="segundo_nombre" id="segundo_nombre"
             value="{{ isset($personal->segundo_nombre) ? $personal->segundo_nombre : old('segundo_nombre') }}"
-            placeholder="Segundo Nombre" class="form-control rounded-pill">
+            placeholder="Segundo Nombre" class="form-control" required>
     </div>
-    <div class="col-auto">
+    <div class="col-3">
         <input type="text"name="primer_apellido" id="primer_apellido"
-            value="{{ isset($personal->primer_apellido) ? $personal->primer_apellido : old('primer_apellido') }}"
-            placeholder="Apellido Paterno" class="form-control rounded-pill">
+        value="{{ isset($personal->primer_apellido) ? $personal->primer_apellido : old('primer_apellido') }}"
+            placeholder="Apellido Paterno" class="form-control" required>
     </div>
-    <div class="col-auto">
+    <div class="col-3">
         <input type="text"name="segundo_apellido" id="segundo_apellido"
-            value="{{ isset($personal->segundo_apellido) ? $personal->segundo_apellido : old('segundo_apellido') }}"
-            placeholder="Apellido Materno" class="form-control rounded-pill">
+        value="{{ isset($personal->segundo_apellido) ? $personal->segundo_apellido : old('segundo_apellido') }}"
+            placeholder="Apellido Materno" class="form-control" required>
     </div>
 </div>
-<div class="row-auto px-5 py-4">
-    <h3> <span class="fas fa-address-card {{ $ColorFormato }}"> DATOS PERSONALES</span> </h3>
-</div>
-<div class="row px-5">
+
+<h4 class="mt-4"> <span class="text-logo font-weight-bold px-3 mt-6 " style="font-size: 25px; margin-bottom: 5px;">
+    DATOS PERSONALES</span>
+</h4>
+
+<div class="form-row px-2 mt-4">
     <div class="col-4">
-        <label for="DPI">DPI</label>
+        <h4> <span class=" text-dark font-weight-bold" style="font-size: 16px; margin-bottom: 5px;">DPI</span>
+        </h4>
         <input type="text"name="DPI" id="DPI"
-            value="{{ isset($personal->DPI) ? $personal->DPI : old('DPI') }}" placeholder="Ingresar DPI"
-            class="form-control rounded-pill center">
+        value="{{ isset($personal->DPI) ? $personal->DPI : old('DPI') }}" placeholder="Ingresar DPI"
+            class="form-control center" required>
     </div>
-    <div class="col-4">
+    <div class="col-3">
         @if (isset($personal->foto))
             <img class="img-thumbnail img-fluid" src="{{ asset('storage') . '/' . $personal->foto }}" width="100">
         @endif
-        <label for="foto" class="px-2">Fotografia</label>
+        <h4> <span class="fas fa-camera  text-dark" style="font-size: 16px; margin-bottom: 5px;">Fotografia</span> </h4>
         <input type="file" name="foto" id="selectFoto" accept="image/*"
-            class="form-control rounded-pill btn-outline-primary">
+            class="form-control btn-outline-primary">
     </div>
-    <div class="col-2">
+    <div class="col-3">
         <label id="cambio" style="display: none;">Remplazo
             <img class="mw-100" id="viewFoto"></label>
     </div>
 </div>
-<br>
-<div class="row px-5 mt-3">
-    <div class="col-4">
-        <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+
+<div class="form-row px-3 mt-4">
+    <div class="form-group col-4">
+        <h4> <span class=" text-dark font-weight-bold" style="font-size: 16px; margin-bottom: 5px;">Fecha de nacimiento: 
+        </span> </h4>
         <input type="date"name="fecha_nacimiento" id="fecha_nacimiento"
-            value="{{ isset($personal->fecha_nacimiento) ? $personal->fecha_nacimiento : old('fecha_nacimiento') }}"
-            class="form-control rounded-pill">
+        value="{{ isset($personal->fecha_nacimiento) ? $personal->fecha_nacimiento : old('fecha_nacimiento') }}"
+        class="form-control" required>
     </div>
-    <div class="col-3 px-3">
-        <label for="edad">Edad</label>
+    <div class="form-group col-4">
+        <h4> <span class=" text-dark font-weight-bold" style="font-size: 16px; margin-bottom: 5px;">Edad:</span>
+        </h4>
         <input type="number"name="edad" id="edad"
-            value="{{ isset($personal->edad) ? $personal->edad : old('edad') }}" class="form-control rounded-pill">
+            value="{{ isset($personal->edad) ? $personal->edad : old('edad') }}" class="form-control" required>
+    </div>
+    <div class="form-group col-4">
+        <h4> <span class=" text-dark font-weight-bold" style="font-size: 16px; margin-bottom: 5px;">Estado civil:</span>
+        </h4>
+        <select class="form-control" name="estado_civil" id="estado_civil" class="form-control rounded-pill" required>
+            <option value="">Seleccione una opción</option>
+            <option value="Soltero/a" {{ (isset($personal->estado_civil) && $personal->estado_civil == 'Soltero/a') ? 'selected' : '' }}>Soltero/a</option>
+            <option value="Casado/a" {{ (isset($personal->estado_civil) && $personal->estado_civil == 'Casado/a') ? 'selected' : '' }}>Casado/a</option>
+            <option value="Divorciado/a" {{ (isset($personal->estado_civil) && $personal->estado_civil == 'Divorciado/a') ? 'selected' : '' }}>Divorciado/a</option>
+            <option value="Viudo/a" {{ (isset($personal->estado_civil) && $personal->estado_civil == 'Viudo/a') ? 'selected' : '' }}>Viudo/a</option>
+        </select>        
     </div>
 </div>
-<div class="row px-5 mt-3">
-    <div class="col-8 mt-2">
-        <label for="direccion">Dirección</label>
+
+<div class="form-row px-3 mt-4">
+    <div class="form-group col-6">
+        <h4> <span class=" text-dark font-weight-bold" style="font-size: 16px; margin-bottom: 5px;">Direccion: 
+        </span> </h4>
         <input type="text"name="direccion" id="direccion"
             value="{{ isset($personal->direccion) ? $personal->direccion : old('direccion') }}"
-            placeholder="Direccion donde reside" class="form-control rounded-pill">
+            placeholder="Direccion donde reside" class="form-control" required>
     </div>
-    <div class="col-4 mt-2">
-        <label for="telefono">Telefono</label>
+    <div class="form-group col-6">
+        <h4> <span class=" text-dark font-weight-bold" style="font-size: 16px; margin-bottom: 5px;">Telefono:</span>
+        </h4>
         <input type="text"name="telefono" id="telefono"
             value="{{ isset($personal->telefono) ? $personal->telefono : old('telefono') }}"
-            placeholder="Numero telefonico" class="form-control rounded-pill">
+            placeholder="Numero telefonico" class="form-control" required>
     </div>
 </div>
-<div class="row-auto px-5 py-4">
-    <h3> <span class="fas fa-file {{ $ColorFormato }}"> Iformacion de contratacion</span> </h3>
-</div>
-<div class="row px-5">
-    <div class="col-4">
-        <label for="titulo">Titulo Academico</label>
+
+<h4 class="mt-4"> <span class="text-logo font-weight-bold px-3 mt-6 " style="font-size: 25px; margin-bottom: 5px;">
+    INFORMACION DE CONTRATO</span>
+</h4>
+<div class="form-row px-3 mt-4">
+    <div class="form-group col-4">
+        <h4> <span class=" text-dark font-weight-bold" style="font-size: 16px; margin-bottom: 5px;">Titulo academico: 
+        </span> </h4>
         <input type="text"name="titulo" id="titulo"
-            value="{{ isset($personal->titulo) ? $personal->titulo : old('titulo') }}" placeholder="Titulo academico"
-            class="form-control rounded-pill">
+        value="{{ isset($contrato->titulo) ? $contrato->titulo : old('titulo') }}" placeholder="Titulo academico"
+        class="form-control" required>
     </div>
-    <div class="col-4 mt-2">
-        <label for="cargo">Cargo</label>
+    <div class="form-group col-4">
+        <h4> <span class=" text-dark font-weight-bold" style="font-size: 16px; margin-bottom: 5px;">Cargo:</span>
+        </h4>
         <input type="text"name="cargo" id="cargo"
-            value="{{ isset($personal->cargo) ? $personal->cargo : old('cargo') }}" placeholder="Cargo operativo"
-            class="form-control rounded-pill">
+            value="{{ isset($contrato->cargo) ? $contrato->cargo : old('cargo') }}" placeholder="Cargo operativo"
+            class="form-control" required>
     </div>
-    <div class="col-4 mt-2">
-        <label for="salario">Salario</label>
+    <div class="form-group col-4">
+        <h4> <span class=" text-dark font-weight-bold" style="font-size: 16px; margin-bottom: 5px;">Salario:</span>
+        </h4>
         <input type="number"name="salario" id="salario"
-            value="{{ isset($personal->salario) ? $personal->salario : old('salario') }}"
-            placeholder="Monto del Salario" class="form-control rounded-pill">
+        value="{{ isset($contrato->salario) ? $contrato->salario : old('salario') }}"
+        placeholder="Monto del Salario" class="form-control" required>     
     </div>
 </div>
-<div class="row px-5 mt-3">
-    <div class="col-3">
-        <label for="impuesto">Impuesto</label>
-        <select class="form-control" name="impuesto" id="impuesto" class="form-control rounded-pill">
-            <option> {{ isset($personal->impuesto) ? $personal->impuesto : old('impuesto') }}</option>
-            <option>Aplica</option>
-            <option>No aplica</option>
-        </select>
+
+<div class="form-row px-3 mt-4">
+    <div class="form-group col-4">
+        <h4> <span class=" text-dark font-weight-bold" style="font-size: 16px; margin-bottom: 5px;">Aplica Impuesto: 
+        </span> </h4>
+        <select class="form-control" name="impuesto" id="impuesto" class="form-control rounded-pill" required>
+            <option value="">Seleccione una opción</option>
+            <option value="Aplica" {{ (isset($contrato->impuesto) && $contrato->impuesto === 'Aplica') ? 'selected' : '' }}>Aplica</option>
+            <option value="No aplica" {{ (isset($contrato->impuesto) && $contrato->impuesto === 'No aplica') ? 'selected' : '' }}>No aplica</option>
+        </select>        
     </div>
-    <div class="col-6">
-        <label for="sat">Identificacion Tributaria / Motivo</label>
+    <div class="form-group col-4">
+        <h4> <span class=" text-dark font-weight-bold" style="font-size: 16px; margin-bottom: 5px;">Identificacion Triburatia / Motivo</span>
+        </h4>
         <input type="text"name="sat" id="sat"
-            value="{{ isset($personal->sat) ? $personal->sat : old('sat') }}" placeholder="Identificacion SAT"
-            class="form-control rounded-pill">
+            value="{{ isset($contrato->sat) ? $contrato->sat : old('sat') }}" placeholder="Identificacion SAT"
+            class="form-control rounded-pill" required>
     </div>
 </div>
-<div class="row px-5 mt-3">
-    <div class="col-4">
-        <label for="fecha_contratacion">Fecha de Contratacion</label>
+
+<div class="form-row px-3 mt-4">
+    <div class="form-group col-4">
+        <h4> <span class=" text-dark font-weight-bold" style="font-size: 16px; margin-bottom: 5px;">Fecha Contratacion: 
+        </span> </h4>
         <input type="date"name="fecha_contratacion" id="fecha_contratacion"
-            value="{{ isset($personal->fecha_contratacion) ? $personal->fecha_contratacion : old('fecha_contratacion') }}"
-            class="form-control rounded-pill">
+            value="{{ isset($contrato->fecha_contratacion) ? $contrato->fecha_contratacion : old('fecha_contratacion') }}"
+            class="form-control rounded-pill" required>    
     </div>
-    <div class="col-4">
-        <label for="estado_actual">Estado</label>
-        <select class="form-control" name="estado_actual" id="estado_actual" class="form-control rounded-pill">
-            <option> {{ isset($personal->estado_actual) ? $personal->estado_actual : old('estado_actual') }}</option>
-            <option>Activo</option>
-            <option>Inactivo</option>
-        </select>
-    </div>
-    <div class="col-5">
-        <label id="fecha_salida" style="display: none;">Fecha de salida: <input type="date" name="fecha_salida"
-                class="form-control rounded-pill"
-                value="{{ isset($personal->fecha_salida) ? $personal->fecha_salida : old('fecha_salida') }}"></label>
+    <div class="form-group col-4">
+        <h4> <span class=" text-dark font-weight-bold" style="font-size: 16px; margin-bottom: 5px;">Estado</span>
+        </h4>
+        <select class="form-control" name="estado_actual" id="estado_actual" class="form-control rounded-pill" required>
+            <option value="">Seleccione una opción</option>
+            <option value="Activo" {{ (isset($personal->estado_actual) && $personal->estado_actual === 'Activo') ? 'selected' : '' }}>Activo</option>
+            <option value="Inactivo" {{ (isset($personal->estado_actual) && $personal->estado_actual === 'Inactivo') ? 'selected' : '' }}>Inactivo</option>
+        </select>        
     </div>
 </div>
+<div class="col-5">
+    <label id="fecha_salida" style="display: none;" class="text-dark">Fecha de salida: <input type="date" name="fecha_salida"
+            class="form-control rounded-pill"
+            value="{{ isset($personal->fecha_salida) ? $personal->fecha_salida : old('fecha_salida') }}"></label>
+</div>
+
+
 
 <div class="row px-3 py-3">
     <div class="col-auto">
-        <x-adminlte-button class="btn-flat rounded-pill" type="submit" label="{{ $modo }} datos"
-            theme="{{ $color }}" icon="fas fa-lg fa-save" />
+        <button class="btn btn-outline-success" type="submit">Guardar Datos <i class="fas fa-save"></i></button>
     </div>
-    <div class="col-auto">
-        <a class="btn btn-outline-danger rounded-pill" href="{{ url('personal') }}"> Cancelar</a>
-    </div>
+<div class="col-auto">
+    <a class="btn btn-outline-danger rounded-pill" href="{{ url('personal') }}"> Cancelar</a>
+</div>   
+        
 </div>
-
-@section('js')
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const selectEstado = document.getElementById('estado_actual');
@@ -202,4 +235,15 @@
             cambioFoto.style.display = 'block';
         });
     </script>
-@stop
+
+
+<style>
+    .color-logo {
+        background-color: #8e0432;
+        color: #8e0432;
+    }
+
+    .text-logo {
+        color: #8e0432;
+    }
+</style>
