@@ -41,6 +41,12 @@ class SeederTablaPermisos extends Seeder
             'editar-personal',
             'borrar-personal',
 
+            //Operacions sobre tabla adultos
+            'ver-donacion',
+            'crear-donacion',
+            'editar-donacion',
+            'borrar-donacion',
+
         ];
 
         foreach($permisos as $permiso) {

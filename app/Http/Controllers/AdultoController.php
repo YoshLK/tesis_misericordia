@@ -197,7 +197,7 @@ class AdultoController extends Controller
         $ficha->lugar = $request->input('lugar');
         $ficha->adulto_id = $adulto->id;
 
-        
+       /*  
         if ($ficha->enfermedad === 'No') {
             $ficha->enfermedad = null;
             $ficha->enfermedad_nombre = null;
@@ -239,7 +239,7 @@ class AdultoController extends Controller
         if ($ficha->herida === 'No') {
             $ficha->herida = null;
             $ficha->herida_donde = null;
-        }
+        } */
 
         $ficha->save();
 
@@ -410,7 +410,7 @@ class AdultoController extends Controller
         $ficha->fuma = $request->input('fuma');
         $ficha->adulto_id = $adulto->id;
 
-        if ($ficha->enfermedad === 'No') {
+        /* if ($ficha->enfermedad === 'No') {
             $ficha->enfermedad = null;
             $ficha->enfermedad_nombre = null;
         }
@@ -451,12 +451,12 @@ class AdultoController extends Controller
         if ($ficha->herida === 'No') {
             $ficha->herida = null;
             $ficha->herida_donde = null;
-        }
+        } */
 
         $ficha->save();
 
         DB::commit();
-        return redirect('adulto')->with('mensaje','editado');
+        return redirect('/general/adulto_detalle/'.$adulto->id)->with('mensaje','editado');
     } catch (\Exception $e) {
         // Revertir la transacción en caso de error
         DB::rollback();

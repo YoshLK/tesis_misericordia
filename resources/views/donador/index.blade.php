@@ -1,78 +1,97 @@
-@extends('adminlte::page')
+@extends('layouts.app')
+<link href="{{ asset('assets/js/DataTables/datatables.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/js/DataTables/datatables.min.css') }}" rel="stylesheet">
 
-@section('title', 'Donadores')
-
-@section('plugins.Datatables', true)
-
-@section('content_header')
-    <h1 class="text-center bg-danger ">Registros Donadores</h1>
-@stop
+@section('title', 'Listado de Adultos')
 
 @section('content')
 
-    <div class="col-3">
-        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#createDonador">
-            + Añadir Donador
-        </button>
-        @include('donador.create')
-    </div><br />
-    <br />
-    <table id="donadoresTable" class="table table-wite">
-        <thead class="thead table-info ">
-            <tr>
-                <th>Donador</th>
-                <th>Organizacion</th>
-                <th>Telefono</th>
-                <th>No. Donaciones</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="section-header">
+        <h3 class="text-center">Donaciones "La Misericordia"</h3>
+    </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="col-3">
+                                @can('crear-donacion')
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#createDonador">
+                                     <i class="fa fa-heart text-danger"></i>Añadir Donador
+                                </button>
+                                @endcan
+                            </div><br />
+                            <br />
+                            <table id="donadoresTable" class="table table-wite">
+                                <thead class="thead table-info ">
+                                    <tr>
+                                        <th>Donador</th>
+                                        <th>Organizacion</th>
+                                        <th>Telefono</th>
+                                        <th>No. Donaciones</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        
+                                    @foreach ($donadores as $donador)
+                                        <tr>
+                                            <td>{{ $donador->nombre_donador }}</td>
+                                            <td>{{ $donador->organizacion }}</td>
+                                            <td>{{ $donador->telefono_donador }}</td>
+                                            <td>{{$donador->total_donaciones}}</td>
+                                            <td>
+                                                @can('crear-donacion')
+                                                <button type="button" class="btn btn-outline-warning formulario" data-toggle="modal"
+                                                    data-target="#createDonacion{{ $donador->id }}">
+                                                    <i class="far fa-lg fa-heart"></i>
+                                                </button>
+                                                @endcan
+                                                @can('editar-donacion')
+                                                <button type="button" class="btn btn-outline-primary formulario" data-toggle="modal"
+                                                    data-target="#editDonador{{ $donador->id }}">
+                                                    <i class="fa fa-lg fa-fw fa-pen"></i>
+                                                </button>
+                                                @endcan
+                                                @can('borrar-donacion')
+                                                <form action="{{ route('donador.destroy', $donador->id) }}" class="d-inline formulario-eliminar"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input name="id" value="{{ $donador->id }}" type="hidden">
+                                                    <button type="submit" class="btn btn-outline-danger formulario" title="Borrar"><i
+                                                            class="fa fa-lg fa-fw fa-trash"></i></button>
+                                                </form>
+                                                @endcan
+                                            </td>
+                                        </tr>
+                                        @include('donador.edit')
+                                        @include('donacion.create')
+                                        @include('donador.create')
+                                    @endforeach
+                                </tbody>
+                            </table> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
 
-            @foreach ($donadores as $donador)
-                <tr>
-                    <td>{{ $donador->nombre_donador }}</td>
-                    <td>{{ $donador->organizacion }}</td>
-                    <td>{{ $donador->telefono_donador }}</td>
-                    <td>{{$donador->total_donaciones}}</td>
-                    <td>
-                        <button type="button" class="btn btn-outline-warning formulario" data-toggle="modal"
-                            data-target="#createDonacion{{ $donador->id }}">
-                            <i class="far fa-lg fa-heart"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-primary formulario" data-toggle="modal"
-                            data-target="#editDonador{{ $donador->id }}">
-                            <i class="fa fa-lg fa-fw fa-pen"></i>
-                        </button>
-                        <form action="{{ route('donador.destroy', $donador->id) }}" class="d-inline formulario-eliminar"
-                            method="post">
-                            @csrf
-                            @method('DELETE')
-                            <input name="id" value="{{ $donador->id }}" type="hidden">
-                            <button type="submit" class="btn btn-outline-danger formulario" title="Borrar"><i
-                                    class="fa fa-lg fa-fw fa-trash"></i></button>
-                        </form>
-                    </td>
-                </tr>
-                @include('donador.edit')
-                @include('donacion.create')
-            @endforeach
+@endsection
 
 
-            
-        </tbody>
-    </table>
-    <br>
+@section('scripts')
+<script src="{{ asset('assets/js/DataTables/datatables.min.js') }}"></script>
 
-@stop
+<script src="{{ asset('assets/js/DataTables/Buttons-2.4.2/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/js/DataTables/JSZip-3.10.1/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/js/DataTables/pdfmake-0.2.7/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/js/DataTables/pdfmake-0.2.7/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/js/Buttons-2.4.2/js/buttons.html5.min.js') }}"></script>
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
+<script src="{{ asset('/assets/js/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 
-@section('js')
-
-    <script>
+     <script>
         $(document).ready(function() {
             $('#donadoresTable').DataTable({
                 language: {
@@ -115,7 +134,7 @@
                 ],
             });
         });
-    </script>
+    </script> 
 
     @if (session('mensaje') == 'registrado')
         <script>
@@ -175,4 +194,4 @@
         });
     </script>
 
-@stop
+@endsection

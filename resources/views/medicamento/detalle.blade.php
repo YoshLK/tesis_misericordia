@@ -15,7 +15,7 @@
                 <div class="form-row ">
                     <div class="form-row ">
                         <h6 class="modal-title bg-secondary text-white col-md-6">Notas / Anotaciones</h6>
-                        <textarea class="form-control" name="nota_medicamento" rows="10" placeholder="Notas de dificultades motoras">{{ $adulto->medicamentosDatos[$contadorMedicamento]->nota_medicamento }} </textarea>
+                        <textarea class="form-control" name="nota_medicamento" rows="10" placeholder="Notas de dificultades motoras" disabled>{{ $adulto->medicamentosDatos[$contadorMedicamento]->nota_medicamento }} </textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>

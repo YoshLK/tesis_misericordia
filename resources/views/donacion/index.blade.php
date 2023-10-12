@@ -1,14 +1,15 @@
-@extends('adminlte::page')
+@extends('layouts.app')
+<link href="{{ asset('assets/js/DataTables/datatables.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/js/DataTables/datatables.min.css') }}" rel="stylesheet">
 
-@section('title', 'Donaciones')
-
-@section('plugins.Datatables', true)
-
-@section('content_header')
-    <h1 class="text-center bg-danger ">Registros Donaciones</h1>
-@stop
+@section('title', 'Listado de Adultos')
 
 @section('content')
+
+    <div class="section-header">
+        <h3 class="text-center">Lista De Donaciones "La Misericordia"</h3>
+    </div>
+    
 
     <!--Tabla Donaciones-->
     <table id="donacionesTable" class="table table-wite">
@@ -17,7 +18,6 @@
                 <th>Nombre del donador</th>
                 <th>Tipo de Donacion</th>
                 <th>Descripcion</th>
-                <th>Cantidad</th>
                 <th>Fech-Registro</th>
                 <th>Fech-Modificacion</th>
                 <th>Acciones</th>
@@ -30,14 +30,16 @@
                     <td>{{ $donacion->nombre_donador }}</td>
                     <td>{{ $donacion->tipo_donacion }}</td>
                     <td>{{ $donacion->descripcion }}</td>
-                    <td>{{ $donacion->cantidad }}</td>
                     <td>{{ $donacion->created_at }}</td>
                     <td>{{ $donacion->updated_at }}</td>
                     <td>
+                        @can('editar-donacion')
                         <button type="button" class="btn btn-outline-primary formulario" data-toggle="modal"
                             data-target="#editDonacion{{ $donacion->id }}">
                             <i class="fa fa-lg fa-fw fa-pen"></i>
                         </button>
+                        @endcan
+                        @can('borrar-donacion')
                         <form action="{{ route('donacion.destroy', $donacion->id) }}" class="d-inline formulario-eliminar"
                             method="post">
                             @csrf
@@ -46,6 +48,7 @@
                             <button type="submit" class="btn btn-outline-danger formulario" title="Borrar"><i
                                     class="fa fa-lg fa-fw fa-trash"></i></button>
                         </form>
+                        @endcan
                     </td>
                 </tr>
                 @include('donacion.edit')
@@ -53,13 +56,21 @@
         </tbody>
     </table>
 
-@stop
+@endsection
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
 
-@section('js')
+
+
+@section('scripts')
+<script src="{{ asset('assets/js/DataTables/datatables.min.js') }}"></script>
+
+<script src="{{ asset('assets/js/DataTables/Buttons-2.4.2/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/js/DataTables/JSZip-3.10.1/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/js/DataTables/pdfmake-0.2.7/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/js/DataTables/pdfmake-0.2.7/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/js/Buttons-2.4.2/js/buttons.html5.min.js') }}"></script>
+
+<script src="{{ asset('/assets/js/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 
     <script>
         $(document).ready(function() {
@@ -164,4 +175,4 @@
         });
     </script>
 
-@stop
+@endsection

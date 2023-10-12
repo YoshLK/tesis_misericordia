@@ -3,6 +3,7 @@
 @section('title', 'Ficha Adulto')
 
 @section('content')
+@can('ver-adulto')
     <section class="section">
         <div class="section-header">
             <h3 class="page__heading">Lista adultos de Adultos Mayores</h3>
@@ -254,10 +255,11 @@
                                 </div>
 
                                 <!--DATOS ADICIONALES FICHA -->
-                                <h4 class="color-logo px-5 text-white text-center mt-4" style="width: 50%">Ficha De
+                                <h4 class="color-logo px-5 text-white text-center mt-4" style="width: 100%">Ficha De
                                     Ingreso</h4>
-                                <!--Enfermedad -->
+                                <!--Enfermedad / Medicamento-->
                                 <div class="row px-5 mt-2">
+                                    <div class="col-6">
                                     @if ((isset($adulto->ficha->enfermedad) && $adulto->ficha->enfermedad == 'Si') || $adulto->ficha->enfermedad == 'No')
                                         <h6>
                                             <b class="text-dark">Padece alguna Enfermedad:
@@ -265,63 +267,67 @@
                                             {{ $adulto->ficha->enfermedad_nombre }}</span>
                                         </h6>
                                     @endif
-                                </div>
-                                <!--Medicamento -->
-                                <div class="row px-5 mt-2">
-                                    @if ((isset($adulto->ficha->medicamento) && $adulto->ficha->medicamento == 'Si') || $adulto->ficha->medicamento == 'No')
+                                    </div>
+                                    <div class="col-6">
+                                        @if ((isset($adulto->ficha->medicamento) && $adulto->ficha->medicamento == 'Si') || $adulto->ficha->medicamento == 'No')
                                         <h6>
                                             <b class="text-dark">Toma algún medicamento:
                                             </b>{{ $adulto->ficha->medicamento }}:
                                             {{ $adulto->ficha->medicamento_nombre }}</span>
                                         </h6>
                                     @endif
+                                    </div>
                                 </div>
-                                <!--Duerme -->
+                                <!--Duerme / tic o mania-->
                                 <div class="row px-5 mt-2">
-                                    @if ((isset($adulto->ficha->duerme) && $adulto->ficha->duerme == 'Si') || $adulto->ficha->duerme == 'No')
+                                    <div class="col-6">
+                                        @if ((isset($adulto->ficha->duerme) && $adulto->ficha->duerme == 'Si') || $adulto->ficha->duerme == 'No')
                                         <h6>
                                             <b class="text-dark">Duerme por las noches:
                                             </b>{{ $adulto->ficha->duerme }}</span>
                                         </h6>
-                                    @endif
-                                </div>
-                                <!--tic o mania -->
-                                <div class="row px-5 mt-2">
-                                    @if ((isset($adulto->ficha->tic) && $adulto->ficha->tic == 'Si') || $adulto->ficha->tic == 'No')
+                                        @endif
+                                    </div>
+                                    <div class="col-6">
+                                        @if ((isset($adulto->ficha->tic) && $adulto->ficha->tic == 'Si') || $adulto->ficha->tic == 'No')
                                         <h6>
                                             <b class="text-dark">Tiene algun tic o manía:
                                             </b>{{ $adulto->ficha->tic }}:
                                             {{ $adulto->ficha->tic_nombre }}</span>
                                         </h6>
-                                    @endif
+                                        @endif
+                                    </div>
                                 </div>
-                                <!--Necesidades -->
+
+                                 <!--Necesidades / Operacion-->
                                 <div class="row px-5 mt-2">
-                                    @if ((isset($adulto->ficha->necesidades) && $adulto->ficha->necesidades == 'Si') || $adulto->ficha->necesidades == 'No')
+                                    <div class="col-6">
+                                        @if ((isset($adulto->ficha->necesidades) && $adulto->ficha->necesidades == 'Si') || $adulto->ficha->necesidades == 'No')
                                         <h6>
                                             <b class="text-dark">Puede realizar sus necesidades Fisiologicas Solo:
                                             </b>{{ $adulto->ficha->necesidades }}</span>
                                         </h6>
-                                    @endif
-                                </div>
-                                <!--operacion-->
-                                <div class="row px-5 mt-2">
-                                    @if ((isset($adulto->ficha->operacion) && $adulto->ficha->operacion == 'Si') || $adulto->ficha->operacion == 'No')
+                                        @endif
+                                    </div>
+                                    <div class="col-6">  
+                                        @if ((isset($adulto->ficha->operacion) && $adulto->ficha->operacion == 'Si') || $adulto->ficha->operacion == 'No')
                                         <h6>
                                             <b class="text-dark">Tiene alguna Operacion:
                                             </b>{{ $adulto->ficha->operacion }}:
                                             {{ $adulto->ficha->operacion_nombre }}</span>
                                         </h6>
-                                    @endif
-                                </div>
-                                <!--Vicios-->
-                                <div class="row  mt-2">
-                                    <div class="col-6 px-5">
-                                        @if ((isset($adulto->ficha->alchol) && $adulto->ficha->alchol == 'Si') || $adulto->ficha->alchol == 'No')
-                                            <h6>
-                                                <b class="text-dark">Toma Bebidas alcohólicas:
-                                                </b>{{ $adulto->ficha->alchol }}
                                         @endif
+                                    </div>
+                                </div>
+                               
+                                <!--Vicios-->
+                                <div class="row px-5 mt-2">
+                                    <div class="col-6">
+                                        @if ((isset($adulto->ficha->alchol) && $adulto->ficha->alchol == 'Si') || $adulto->ficha->alchol == 'No')
+                                        <h6>
+                                            <b class="text-dark">Toma Bebidas alcohólicas:
+                                            </b>{{ $adulto->ficha->alchol }}
+                                    @endif
                                     </div>
                                     <div class="col-6">
                                         @if ((isset($adulto->ficha->fuma) && $adulto->ficha->fuma == 'Si') || $adulto->ficha->fuma == 'No')
@@ -331,69 +337,77 @@
                                         @endif
                                     </div>
                                 </div>
-                                <!--ALergias-->
+
+
+                                <!--ALergias comida/ medicina-->
                                 <div class="row px-5 mt-2">
-                                    @if ((isset($adulto->ficha->alergia_m) && $adulto->ficha->alergia_m == 'Si') || $adulto->ficha->alergia_m == 'No')
+                                    <div class="col-6">
+                                        @if ((isset($adulto->ficha->alergia_m) && $adulto->ficha->alergia_m == 'Si') || $adulto->ficha->alergia_m == 'No')
                                         <h6>
                                             <b class="text-dark">Alergico a alguna medicina:
                                             </b>{{ $adulto->ficha->alergia_m }}:
                                             {{ $adulto->ficha->alergia_medicina }}</span>
                                         </h6>
                                     @endif
-                                </div>
-                                <!--Comida-->
-                                <div class="row px-5 mt-2">
-                                    @if ((isset($adulto->ficha->alergia_c) && $adulto->ficha->alergia_c == 'Si') || $adulto->ficha->alergia_c == 'No')
+                                    </div>
+                                    <div class="col-6">
+                                        @if ((isset($adulto->ficha->alergia_c) && $adulto->ficha->alergia_c == 'Si') || $adulto->ficha->alergia_c == 'No')
                                         <h6>
                                             <b class="text-dark">Alergico a alguna comida:
                                             </b>{{ $adulto->ficha->alergia_c }}:
                                             {{ $adulto->ficha->alergia_comida }}</span>
                                         </h6>
                                     @endif
+                                    </div>
                                 </div>
-                                <!--fractura-->
+
+                                <!--fractura / cicatriz-->
                                 <div class="row px-5 mt-2">
-                                    @if ((isset($adulto->ficha->fractura) && $adulto->ficha->fractura == 'Si') || $adulto->ficha->fractura == 'No')
+                                    <div class="col-6">
+                                        @if ((isset($adulto->ficha->fractura) && $adulto->ficha->fractura == 'Si') || $adulto->ficha->fractura == 'No')
                                         <h6>
                                             <b class="text-dark">Ha tenido alguna fractura:
                                             </b>{{ $adulto->ficha->fractura }}:
                                             {{ $adulto->ficha->fractura_donde }}</span>
                                         </h6>
                                     @endif
-                                </div>
-                                <!--cicatriz-->
-                                <div class="row px-5 mt-2">
-                                    @if ((isset($adulto->ficha->cicatriz) && $adulto->ficha->cicatriz == 'Si') || $adulto->ficha->cicatriz == 'No')
+                                    </div>
+                                    <div class="col-6">
+                                        @if ((isset($adulto->ficha->cicatriz) && $adulto->ficha->cicatriz == 'Si') || $adulto->ficha->cicatriz == 'No')
                                         <h6>
                                             <b class="text-dark">Tiene alguna cicatriz:
                                             </b>{{ $adulto->ficha->cicatriz }}:
                                             {{ $adulto->ficha->cicatriz_donde }}</span>
                                         </h6>
                                     @endif
+                                    </div>
                                 </div>
-                                <!--tatuaje-->
+                                
+                                <!--tatuaje / herida -->
                                 <div class="row px-5 mt-2">
-                                    @if ((isset($adulto->ficha->tatuaje) && $adulto->ficha->tatuaje == 'Si') || $adulto->ficha->tatuaje == 'No')
+                                    <div class="col-6">
+                                        @if ((isset($adulto->ficha->tatuaje) && $adulto->ficha->tatuaje == 'Si') || $adulto->ficha->tatuaje == 'No')
                                         <h6>
                                             <b class="text-dark">Tiene algun tatuaje:
                                             </b>{{ $adulto->ficha->tatuaje }}:
                                             {{ $adulto->ficha->tatuaje_donde }}</span>
                                         </h6>
                                     @endif
-                                </div>
-                                <!--herida-->
-                                <div class="row px-5 mt-2">
-                                    @if ((isset($adulto->ficha->herida) && $adulto->ficha->herida == 'Si') || $adulto->ficha->herida == 'No')
+                                    </div>
+                                    <div class="col-6">
+                                        @if ((isset($adulto->ficha->herida) && $adulto->ficha->herida == 'Si') || $adulto->ficha->herida == 'No')
                                         <h6>
                                             <b class="text-dark">Tiene alguna herida:
                                             </b>{{ $adulto->ficha->herida }}:
                                             {{ $adulto->ficha->herida_donde }}</span>
                                         </h6>
                                     @endif
+                                    </div>
                                 </div>
+                                
                                 <!--orientado-->
-                                <div class="row mt-2">
-                                    <div class="col-4 px-5">
+                                <div class="row px-5 mt-2">
+                                    <div class="col-4 ">
                                         @if ((isset($adulto->ficha->fecha) && $adulto->ficha->fecha == 'Si') || $adulto->ficha->fecha == 'No')
                                             <h6>
                                                 <b class="text-dark">Orientado en Fecha:
@@ -741,286 +755,8 @@
 @endif
 </div>
 
-
-
-
+@endcan
 @endsection
-
-
-
-
-<!-- REFERENCIAS -->
-{{--  <div class="row">
-        <div class="col-3">
-            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#createReferencia">
-                + Añadir Referencia
-            </button>
-            @include('referencia.create')
-        </div>
-        <div class="col-3">
-            <!--BOTON MEDIDAS CORPORALES -->
-            @if (empty($adulto->historialDatos->id))
-                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#createHistorial">
-                    + Ficha Medidas Corporales
-                </button>
-                @include('historial.create')
-            @endif
-        </div>
-    </div>
-    <br>
-    @if ($adulto->referenciaDatos->count())
-        <h3>
-            <p class="text-white bg-primary px-5">REFERENCIAS</p>
-        </h3>
-        <div class="table-responsive">
-            <table class="table table-bordered  table-hover">
-                <thead class="thead table-primary">
-                    <tr>
-                        <th>#</th>
-                        <th>Nombre de la referencia:</th>
-                        <th>Telefono</th>
-                        <th>Direccion</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($adulto->referenciaDatos as $referencia)
-                        <tr>
-                            <td>{{ $referencia->id }} </td>
-                            <td>{{ $referencia->primer_nombre }} {{ $referencia->segundo_nombre }}
-                                {{ $referencia->primer_apellido }} {{ $referencia->segundo_apellido }}</td>
-                            <td>{{ $referencia->telefono }}</td>
-                            <td>{{ $referencia->direccion }}</td>
-                            <td>
-                                <button type="button" class="btn btn-outline-primary formulario" data-toggle="modal"
-                                    data-target="#editReferencia{{ $referencia->id }}">
-                                    Editar
-                                </button>
-                                |
-                                <form action="{{ route('referencia.destroy', $referencia->id) }}"
-                                    class="d-inline formulario-eliminar" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-outline-danger">Borrar</button>
-                                </form>
-                            </td>
-                        </tr>
-                        <!--modal editar--->
-                        @include('referencia.edit')
-                    @endforeach
-                </tbody>
-            </table>
-            <div class="w-100 p-1" style="background-color: #007bff;"></div>
-    @endif --}}
-
-<!-- DATOS FICHA CORPORALES-->
-{{-- <br>
-    @if (isset($adulto->historialDatos->id))
-        <div class="card" style="width: 95%;">
-            <h3 class="bg-info px-5" style="width: 100%">MEDIDAS CORPORALES</h3>
-            <div class="row px-5 mt-2">
-                <div class="col-4 ">
-                    <h5>
-                        <b>Peso:</b>
-                        {{ $adulto->historialDatos->peso }} kg
-                    </h5>
-                </div>
-                <div class="col-4">
-                    <h5>
-                        <b> Altura:</b>
-                        {{ $adulto->historialDatos->altura }} cm
-                    </h5>
-                </div>
-                <div class="col-4">
-                    <button type="button" class="btn btn-outline-info" data-toggle="modal"
-                        data-target="#editHistorial{{ $adulto->historialDatos->id }}">
-                        + Editar Ficha Corporal
-                    </button>
-                    @include('historial.edit')
-                </div>
-            </div>
-            <h5 class="bg-info px-5 text-center" style="width: 20%"><b>Tallas</b></h5>
-            <div class="row px-5">
-                <div class="col-4">
-                    <h5>
-                        <b>Camisa:</b>
-                        {{ $adulto->historialDatos->tronco }}
-                    </h5>
-                </div>
-                <div class="col-4">
-                    <h5>
-                        <b>Patanlon:</b>
-                        {{ $adulto->historialDatos->piernas }}
-                    </h5>
-                </div>
-                <div class="col-4">
-                    <h5>
-                        <b>Calzado:</b>
-                        {{ $adulto->historialDatos->calzado }}
-                    </h5>
-                </div>
-            </div>
-            @if (isset($adulto->historialDatos->dificultad_motora))
-                <h5 class="bg-info px-5 text-center" style="width: 25%"><b>Dificultad Motora</b></h5>
-                <div class="row px-5">
-                    <h5>
-                        {{ $adulto->historialDatos->dificultad_motora }}
-                    </h5>
-                </div>
-            @endif
-            <br>
-            <div class="w-100 p-1" style="background-color: #17a2b8;"></div>
-    @endif
-    </div> --}}
-
-<!-- PATOLOGIAS - MEDICINA - ALERGIAS-->
-{{--  @if (isset($adulto->historialDatos->id))
-        <div class="row">
-            <div class="col-3">
-                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#createPatologia">
-                    + Patologias
-                </button>
-                @include('patologia.create')
-            </div>
-            <div class="col-3">
-                <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#createMedicamento">
-                    + Medicamento
-                </button>
-                @include('medicamento.create')
-            </div>
-            <div class="col-3">
-                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#createAlergias">
-                    + Alergias
-                </button>
-            </div>
-        </div>
-        <br>
-    @endif --}}
-
-
-<!--PATOLOGIAS TABLA-->
-{{-- @if (isset($adulto->historialDatos->id))
-    <div class="card card-success">
-    @if ($adulto->historialDatos->patologiasDatos->count())
-        <h3>
-            <p class="text-white bg-success px-5">PATOLOGIAS</p>
-        </h3>
-        <div class="table table-auto">
-            <table class="table table-bordered  table-hover">
-                <thead class="thead table-success">
-                    <tr>
-                        <th>Patologia:</th>
-                        <th>Fecha de diagnostico:</th>
-                        <th>Gravedad:</th>
-                        <th>Tratamiento:</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($adulto->historialDatos->patologiasDatos as $patologia)
-                        <tr>
-                            <input name="contador" value="{{ $contadorPatologia = (int) $loop->iteration - 1 }}"
-                                type="hidden">
-                            <td>{{ $patologia->nombre_patologia }}</td>
-                            <td>{{ $patologia->fecha_diagnostico }}</td>
-                            <td>{{ $patologia->gravedad }}</td>
-                            <td>{{ $patologia->tratamiento_actual }}</td>
-                            <td>
-                                <button type="button" class="btn btn-success formulario" data-toggle="modal"
-                                    data-target="#detallePatologia{{ $contadorPatologia }}">
-                                    Notas
-                                </button>
-                                <button type="button" class="btn btn-outline-success formulario" data-toggle="modal"
-                                    data-target="#editPatologia{{ $patologia->id }}">
-                                    Editar
-                                </button>
-                                <form method="POST" action="{{ route('eliminar_patologia') }}"
-                                    class="d-inline formulario-eliminar">
-                                    @csrf
-                                    <input name="id" value="{{ $patologia->id }}" type="hidden">
-                                    <input name="ruta" value="{{ $adulto->id }}" type="hidden">
-                                    <button type="submit" class="btn btn-outline-danger"
-                                        data-toggle="modal">Borrar</button>
-                                </form>
-                            </td>
-                        </tr>
-                        @include('patologia.edit')
-                        @include('patologia.detalle')
-                    @endforeach
-                </tbody>
-            </table>
-            <div class="w-100 p-1" style="background-color: #28a745;"></div>
-        </div>
-    @endif
-    @endif
-</div> --}}
-<!--TABLA MEDICAMENTO-->
-{{-- @if (isset($adulto->historialDatos->id))
-    <div class="card card-secondary">
-    @if ($adulto->historialDatos->medicamentosDatos->count())
-        <h3>
-            <p class="text-white bg-secondary px-5">MEDICAMENTOS</p>
-        </h3>
-        <div class="table table-auto">
-            <table id="medicamentos" class="table table-bordered  table-hover">
-                <thead class="thead table-secondary">
-                    <tr>
-                        <th>Medicamento</th>
-                        <th>Dosis</th>
-                        <th>Frecuencia</th>
-                        <th>Administracion</th>
-                        <th>Fecha Inicio</th>
-                        <th>Fecha Final</th>
-                        <th>Conteo Dias</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($adulto->historialDatos->medicamentosDatos as $medicamento)
-                        <tr>
-                            <input name="contador" value="{{ $contadorMedicamento = (int) $loop->iteration - 1 }}"
-                                type="hidden">
-                            <td>{{ $medicamento->nombre_medicamento }}</td>
-                            <td>{{ $medicamento->cantidad_medicamento }} {{ $medicamento->medida_medicamento }}</td>
-                            <td>{{ $medicamento->frecuencia_tiempo }} {{ $medicamento->frecuencia_dia }}</td>
-                            <td>{{ $medicamento->via_administracion }}</td>
-                            <td class="fecha-inicio">{{ $medicamento->fecha_inicio }}</td>
-                            <td class="fecha-fin">{{ $medicamento->fecha_fin }}</td>
-                            <td class="resultado"></td>
-                            <td>
-                                <button type="button" class="btn btn-secondary formulario" data-toggle="modal"
-                                    data-target="#detalleMedicamento{{ $contadorMedicamento }}">
-                                    Notas
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary formulario" data-toggle="modal"
-                                    data-target="#editMedicamento{{ $medicamento->id }}">
-                                    Editar
-                                </button>
-                                <form method="POST" action="{{ route('eliminar_medicamento') }}"
-                                    class="d-inline formulario-eliminar">
-                                    @csrf
-                                    <input name="id" value="{{ $medicamento->id }}" type="hidden">
-                                    <input name="ruta" value="{{ $adulto->id }}" type="hidden">
-                                    <button type="submit" class="btn btn-outline-danger"
-                                        data-toggle="modal">Borrar</button>
-                                </form>
-                            </td>
-                        </tr>
-                        @include('medicamento.edit')
-                        @include('medicamento.detalle')
-                    @endforeach
-                </tbody>
-            </table>
-            <button id="calcularDiasMedicamento">Calcular Diferencias</button>
-            <div class="w-100 p-1" style="background-color: #6c757d;"></div>
-        </div>
-    @endif
-    @endif
-</div>
- --}}
-
-
-
 
 
 

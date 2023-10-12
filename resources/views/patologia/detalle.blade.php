@@ -15,7 +15,7 @@
               
                     
                         <h6 class="modal-title bg-success text-white col-md-6">Observaciones</h6>
-                        <textarea class="form-control" name="dificultad_motora" rows="10" placeholder="Notas de dificultades motoras">{{ $adulto->patologiasDatos[$contadorPatologia]->notas_patologia }} </textarea>
+                        <textarea class="form-control" name="dificultad_motora" rows="10" placeholder="Notas de dificultades motoras" disabled>{{ $adulto->patologiasDatos[$contadorPatologia]->notas_patologia }} </textarea>
                 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>

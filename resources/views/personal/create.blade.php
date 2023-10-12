@@ -5,7 +5,7 @@
 @section('content')
     <section class="section">
         <div class="section-header text-logo">
-            <h3 class="page__heading" >REGISTRO DE NUEVO ADULTO</h3>
+            <h3 class="page__heading" >REGISTRO DE NUEVO PERSONAL "LA MiSERICORDIA"</h3>
         </div>
         <div class="section-body">
             <div class="row">

@@ -145,7 +145,8 @@
 @endsection
 
 
-
+@section('scripts')
+ <script src="{{ asset('/assets/js/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 {{--  <div class="card" style="width: 95%;">
         <h3 class="bg-primary px-5 mt-2" style="width: 100%">Horario</h3>
         <div class="col-3 ">
@@ -251,3 +252,4 @@
         })
     });
 </script>
+@endsection

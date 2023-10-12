@@ -19,23 +19,18 @@
                         <label>Tipo de donacion</label>
                         <select class="form-control" name="tipo_donacion" id="tipo_donacion"
                             class="form-control rounded-pill">
-                            <option>Especie</option>
+                            <option>Viveres</option>
                             <option>Medicamento</option>
                             <option>Prendas</option>
                             <option>Voluntariado</option>
                             <option>Monetaria</option>
-                            <option>Varios</option>
+                            <option>Otros</option>
                         </select>
                     </div>
                     <div class="form-row ">
                         <label>Descripcion</label>
                         <textarea class="form-control" name="descripcion" rows="3"
                             placeholder="Descripción general de la donación" required="true"></textarea>
-                    </div>
-                    <div class="form-row ">
-                        <label>Cantidad</label>
-                        <input type="text" name="cantidad" class="form-control"
-                            placeholder="Cantidad de la donacion">
                     </div>
                 </div>
                 <div class="modal-footer">

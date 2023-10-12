@@ -200,7 +200,7 @@ class PersonalController extends Controller
         $contrato->sat = $request->input('sat');
         $contrato->save();
 
-        return redirect('personal')->with('mensaje','editado');
+        return redirect('/general/personal_detalle/'.$personal->id)->with('mensaje','editado');
     }
 
     /**

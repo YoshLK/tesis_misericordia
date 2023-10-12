@@ -43,9 +43,9 @@
                                             <td>{{ $personal->primer_nombre }} {{ $personal->segundo_nombre }}</td>
                                             <td>{{ $personal->primer_apellido }} {{ $personal->segundo_apellido }}</td>
                                             <td>{{$personal->telefono}}      </td>
-                                            <td class="fecha-inicio">{{ $personal->contrato->fecha_contratacion }}</td>
-                                            <td class="resultado">{{ $conteoTiempo[$contador] }}</td> 
-                                            <td class="fecha-fin">{{ $personal->fecha_salida }}</td>
+                                            <td>{{ $personal->contrato->fecha_contratacion }}</td>
+                                            <td>{{ $conteoTiempo[$contador] }}</td> 
+                                            <td>{{ $personal->contrato->cargo }}</td>
                                             <td>
                                                  @can('ver-personal')
                                                 <a href="{{ url('/general/personal_detalle/' . $personal->id) }}"
@@ -84,7 +84,7 @@
         </div>
     </div>
 </section>
-<button id="calcularTiempo">Calcular Tiempo</button>
+{{-- <button id="calcularTiempo">Calcular Tiempo</button> --}}
 @endsection
 
 
@@ -99,7 +99,7 @@
 
 <script src="{{ asset('/assets/js/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 
-    <script>
+  {{--   <script>
         function TiempoContrato() {
             const filas = document.querySelectorAll('#personalsTable tbody tr');
 
@@ -184,7 +184,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('calcularTiempo').addEventListener('click', TiempoContrato);
         });
-    </script>
+    </script> --}}
 
     <script>
         $(document).ready(function() {

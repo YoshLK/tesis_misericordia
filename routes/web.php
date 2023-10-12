@@ -59,16 +59,7 @@ Route::get('/conteo-activos', [DashboardController::class,'conteoActivos'])->nam
 Route::get('dashboard', [DashboardController::class, 'adultosDashboard'])->name('dashboard');
 
 
-
-
-
-//RUTAS DONADOR GENERAL DONADOR
-Route::resource('donador', DonadorController::class);
-//donacion
-Route::resource('donacion', DonacionController::class);
-
 //rutas limitadas 
-
 Route::group(['middleware' => ['auth']], function() {
     //roles y persmisos
     Route::resource('roles', RolController::class);
@@ -98,4 +89,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('personal', PersonalController::class);
     //horarios
     Route::resource('horario', HorarioController::class);
+
+    //RUTAS DONADOR GENERAL DONADOR
+    Route::resource('donador', DonadorController::class);
+    //donacion
+    Route::resource('donacion', DonacionController::class);
 });
