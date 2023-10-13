@@ -16,12 +16,22 @@ class CreateDonacionsTable extends Migration
         Schema::create('donacions', function (Blueprint $table) {
             $table->id();
             $table->string('tipo_donacion',100)->nullanble(false);
-            $table->string('descripcion',250)->nullable(false);
+            $table->string('descripcion',250)->nullanble(false);
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreignId('donador_id')
                   ->nullable()
                   ->constrained('donadors')
                   ->cascadeOnUpdate()
                   ->cascadeonDelete();
+            
+            $table->softDeletes();
+            $table->foreign('created_by')
+                  ->references('id')
+                  ->on('users');
+            $table->foreign('updated_by')
+                  ->references('id')
+                  ->on('users');
             $table->timestamps();
         });
     }

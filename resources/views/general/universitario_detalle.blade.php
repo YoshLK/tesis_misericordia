@@ -12,126 +12,96 @@
                         <div class="card-body">
                             <!-- DATOS PERSONALES-->
                             <div class="card" style="width: 95%;">
-                                <h3 class="bg-primary  px-5 text-white text-center" style="width: 100%">Datos De Personal -
-                                    {{ $personal->primer_nombre }} {{ $personal->primer_apellido }}</h3>
+                                <h3 class="bg-primary  px-5 text-white text-center" style="width: 100%">Datos Del Universitario -
+                                    {{ $universitario->primer_nombre }} {{ $universitario->primer_apellido }}</h3>
                                 <div class="row px-5 mt-2">
                                     <div class="col-5">
-                                        <h5> <b class="text-dark"> Nombre:</b> {{ $personal->primer_nombre }}
-                                            {{ $personal->segundo_nombre }}
-                                            {{ $personal->primer_apellido }}
-                                            {{ $personal->segundo_apellido }}
+                                        <h5> <b class="text-dark"> Nombre:</b> {{ $universitario->primer_nombre }}
+                                            {{ $universitario->segundo_nombre }}
+                                            {{ $universitario->primer_apellido }}
+                                            {{ $universitario->segundo_apellido }}
                                         </h5>
                                     </div>
-                                    <div class="col-5">
-                                        @if (isset($personal->foto))
-                                            <img class="img-thumbnail img-fluid"
-                                                src="{{ asset('storage') . '/' . $personal->foto }}" width="100">
-                                        @endif
-                                    </div>
-                                    @can('editar-personal')
+                                   
                                         <div class="col-2">
-                                            <a href="{{ url('/personal/' . $personal->id . '/edit') }}"
-                                                class="btn btn-outline-secondary">
+                                            <a href="{{ url('/universitario/' . $universitario->id . '/edit') }}"
+                                                class="btn btn-outline-info">
                                                 Editar
                                             </a>
                                         </div>
-                                    @endcan
+                                  
                                 </div>
                                 <div class="row px-5 mt-2">
                                     <div class="col-3">
                                         <b class="text-dark">
                                             <h5>DPI:
-                                        </b> {{ $personal->DPI }}</span> </h5>
+                                        </b> {{ $universitario->DPI }}</span> </h5>
                                     </div>
                                     <div class="col-3">
                                         <b class="text-dark">
-                                            <h5>Telefono:
-                                        </b> {{ $personal->telefono }}</span> </h5>
+                                            <h5>Eddad:
+                                        </b> {{ $universitario->edad }}</span> </h5>
                                     </div>
                                     <div class="col-6">
                                         <b class="text-dark">
-                                            <h5>Direccion:
-                                        </b> {{ $personal->direccion }}</span> </h5>
+                                            <h5>Telefono:
+                                        </b> {{ $universitario->telefono }}</span> </h5>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row px-5 mt-2">
-                                    <div class="col-5">
+                                    <div class="col-6">
                                         <b class="text-dark">
-                                            <h5>Fecha de nacimiento:
-                                        </b class="text-dark"> {{ $personal->fecha_nacimiento }}</span> </h5>
+                                            <h5>Universidad:
+                                        </b class="text-dark"> {{ $universitario->universidad }}</span> </h5>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-6">
                                         <b class="text-dark">
-                                            <h5>Edad:
-                                        </b> {{ $personal->edad }}</span></h5>
+                                            <h5>Carnet:
+                                        </b> {{ $universitario->no_carnet }}</span></h5>
+                                    </div>
+                                </div>
+                                <div class="row px-5 mt-2">
+                                    <div class="col-4">
+                                        <b class="text-dark">
+                                            <h5>Practica:
+                                        </b> {{ $universitario->practica }}</span> </h5>
                                     </div>
                                     <div class="col-4">
                                         <b class="text-dark">
-                                            <h5>Estado civil:
-                                        </b> {{ $personal->estado_civil }}</span></h5>
+                                            <h5>Fecha Inicio:
+                                        </b> {{ $universitario->fecha_incio }}</span></h5>
                                     </div>
-                                </div>
-
-                                <div class="row-auto px-5 py-2">
-                                    <h3> <span class="fas fa-file badge bg-primary text-white rounded-pill"> Informacion de
-                                            contratacion</span> </h3>
-                                </div>
-                                <div class="row px-5 mt-2">
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <b class="text-dark">
-                                            <h5>Fecha de incio:
-                                        </b> {{ $personal->contrato->fecha_contratacion }}</span> </h5>
-                                    </div>
-                                    <div class="col-6">
-                                        <b class="text-dark">
-                                            <h5>Titulo Academico:
-                                        </b> {{ $personal->contrato->titulo }}</span></h5>
+                                            <h5>Fecha Final:
+                                        </b> {{ $universitario->fecha_final }}</span></h5>
                                     </div>
                                 </div>
                                 <div class="row px-5 mt-2">
                                     <div class="col-6">
                                         <b class="text-dark">
-                                            <h5>Cargo:
-                                        </b> {{ $personal->contrato->cargo }}</span> </h5>
+                                            <h5>Consentimiento:
+                                        </b> {{ $universitario->consentimiento }}</span> </h5>
                                     </div>
                                     <div class="col-6">
+                                        @if ( $universitario->consentimiento == 'Si')
                                         <b class="text-dark">
-                                            <h5>Salario:
-                                        </b> Q. {{ $personal->contrato->salario }}.00</span></h5>
-                                    </div>
-                                </div>
-                                <div class="row px-5 mt-2">
-                                    <div class="col-6 mt-2">
-                                        <b class="text-dark">
-                                            <h5>Aplica a impuestos:
-                                        </b> {{ $personal->contrato->impuesto }}</span> </h5>
-                                    </div>
-                                    <div class="col-6 mt-2">
-                                        @if ($personal->contrato->impuesto == 'Aplica')
-                                            <b class="text-dark">
-                                                <h5>Informacion Tributaria:
-                                            </b> {{ $personal->contrato->sat }}</span></h5>
+                                            <h5>No. Consentimento:
+                                        </b> {{ $universitario->no_consentimiento }}</span></h5>
                                         @else
-                                            <b class="text-dark">
-                                                <h5>Motivo:
-                                            </b> {{ $personal->contrato->sat }}</span></h5>
-                                        @endif
+                                        <b class="text-dark">
+                                            <h5>Motivo:
+                                        </b> {{ $universitario->no_consentimiento }}</span></h5>   
+                                    @endif
                                     </div>
                                 </div>
                                 <div class="row px-5 mt-2">
                                     <div class="col-6 mt-2">
                                         <b class="text-dark">
                                             <h5>Estado Actual:
-                                        </b> {{ $personal->estado_actual }}</span></h5>
+                                        </b> {{ $universitario->estado_actual }}</span></h5>
                                     </div>
-                                    @if ($personal->estado_actual == 'Inactivo')
-                                        <div class="col-6 mt-2">
-                                            <b class="text-dark">
-                                                <h5>Fecha de salida:
-                                            </b>{{ $personal->contrato->fecha_salida }}</span> </h5>
-                                        </div>
-                                    @endif
                                 </div>
                                 <div class="w-100 p-1" style="background-color: #6874ec;"></div>
                                 <br>

@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Donacion;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Events\DonacionUpdated;
+use App\Events\DonacionHistory;
+use Illuminate\Support\Facades\Auth;
 
 class DonacionController extends Controller
 {   
@@ -16,10 +20,12 @@ class DonacionController extends Controller
     }
     public function index()
     {
-        $donaciones = DB::table('donacions')
+         $donaciones = DB::table('donacions')
         ->join('donadors', 'donacions.donador_id', '=', 'donadors.id')
         ->select('donacions.*', 'donadors.nombre_donador')
-        ->get();
+        ->get(); 
+
+        $donaciones = Donacion::with(['createdBy', 'updatedBy'])->get();
         return view('donacion.index', [
             'donaciones' => $donaciones,
         ]); 
@@ -42,6 +48,7 @@ class DonacionController extends Controller
         $donacion->tipo_donacion = $request->input('tipo_donacion');
         $donacion->descripcion = $request->has('descripcion') ? $request->input('descripcion') : null;
         $donacion->donador_id = $request->input('donador_id');
+        $donacion->created_by = auth()->user()->id;
         $donacion->save();
         
         return redirect('donador')->with('mensaje', 'registrado');
@@ -76,9 +83,15 @@ class DonacionController extends Controller
             'required'=> 'El :attribute es requerido.'
         ];
         $this->validate($request, $campos, $mensaje);
-        $datosDonacion = request()->except('_token','_method');
-        Donacion::where('id','=',$id)->update($datosDonacion);
-        $donacion=Donacion::findOrFail($id);    
+        
+        $donacion=Donacion::findOrFail($id);
+        event(new DonacionUpdated($donacion, Auth::user()));
+        $donacion->tipo_donacion = $request->input('tipo_donacion');
+        $donacion->descripcion = $request->input('descripcion');
+        $donacion->updated_by = auth()->user()->id;
+        
+        $donacion->save();
+       
         return redirect()->route('donacion.index')->with('mensaje', 'editado');
     }
 
@@ -86,9 +99,13 @@ class DonacionController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($id)
-    {
-        $donacion=Donacion::findOrFail($id);
-        Donacion::destroy($id);
+    { 
+        $donacion = Donacion::findOrFail($id);
+        if ($donacion) {
+            $donacion->delete();   
+            event(new DonacionUpdated($donacion, Auth::user()));
+        }
+        $donacion->forceDelete();
         return redirect()->route('donacion.index')->with('mensaje', 'eliminado');
     }
 }

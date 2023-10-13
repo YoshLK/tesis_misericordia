@@ -18,6 +18,7 @@
                                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#createDonador">
                                      <i class="fa fa-heart text-danger"></i>Añadir Donador
                                 </button>
+                                @include('donador.create')
                                 @endcan
                             </div><br />
                             <br />
@@ -66,7 +67,6 @@
                                         </tr>
                                         @include('donador.edit')
                                         @include('donacion.create')
-                                        @include('donador.create')
                                     @endforeach
                                 </tbody>
                             </table> 

@@ -46,6 +46,13 @@ class SeederTablaPermisos extends Seeder
             'crear-donacion',
             'editar-donacion',
             'borrar-donacion',
+            'auditoria-donacion',
+
+            //Operacions sobre tabla adultos
+            'ver-universitario',
+            'crear-universitario',
+            'editar-universitario',
+            'borrar-universitario',
 
         ];
 

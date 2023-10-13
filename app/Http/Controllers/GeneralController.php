@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Adulto;
 use App\Models\Personal;
+use App\Models\Universitario;
 
 class GeneralController extends Controller
 {
@@ -25,6 +26,12 @@ class GeneralController extends Controller
     {       
         $personal=Personal::where('id','=',$id)->first();
         return view('general.personal_detalle', compact('personal'));
+    }
+
+    public function verUniversitario($id)  
+    {       
+        $universitario=Universitario::where('id','=',$id)->first();
+        return view('general.universitario_detalle', compact('universitario'));
     }
 
     

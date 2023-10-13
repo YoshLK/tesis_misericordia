@@ -773,11 +773,11 @@
                 const resultadoCell = filas[i].querySelector('.resultado');
 
                 let fechaFin;
-                let plus;
+                let plus =0;
 
                 if (!fechaFinCell.textContent) {
                     fechaFin = new Date();
-                    plus = 0;
+                    plus = -1;
                 } else {
                     fechaFin = new Date(fechaFinCell.textContent);
                     plus = 1;

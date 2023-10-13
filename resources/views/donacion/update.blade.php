@@ -2,61 +2,52 @@
 <link href="{{ asset('assets/js/DataTables/datatables.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/js/DataTables/datatables.min.css') }}" rel="stylesheet">
 
-@section('title', 'Listado de Adultos')
+@section('title', 'Donaciones modificadas')
 
 @section('content')
 
-    <div class="section-header">
-        <h3 class="text-center">Lista De Donaciones "La Misericordia"</h3>
-    </div>
-    
+<div class="section-header">
+    <h3 class="text-center">Modificaciones De Donaciones "La Misericordia"</h3>
+</div>
 
-    <!--Tabla Donaciones-->
-    <table id="donacionesTable" class="table table-wite">
-        <thead class="thead table-info ">
+
+<!--Tabla Donaciones-->
+<table id="donacionesTable" class="table table-wite">
+    <thead class="thead table-danger ">
+        <tr>
+            <th>Nombre del donador</th>
+            <th>Tipo de Donacion</th>
+            <th>Descripcion</th>
+            <th>Usuario Modica</th>
+            <th>Accion</th>
+            <th>Fecha de Modificacion</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach ($historial as $cambio)
             <tr>
-                <th>Nombre del donador</th>
-                <th>Tipo de Donacion</th>
-                <th>Descripcion</th>
-                <th>Creado Por</th>
-                <th>Modificado Por</th>
-                <th>Acciones</th>
+                <td>{{ $cambio->donador }}</td>
+                <td>{{ $cambio->tipo_donacion }}</td>
+                <td>{{ $cambio->descripcion }}</td>
+                <td>{{ $cambio->modifico }}</td>
+                <td>{{ $cambio->operation_type }}</td>
+                <td>{{ $cambio->created_at }}</td>
+                <td>
+                <form action="{{ route('eliminar_historial') }}" class="d-inline formulario-eliminar"
+                    method="post">
+                    @csrf
+                    <input name="id" value="{{ $cambio->id }}" type="hidden">
+                    <button type="submit" class="btn btn-outline-danger formulario" title="Borrar"><i
+                            class="fa fa-lg fa-fw fa-trash"></i></button>
+                </form>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-
-            @foreach ($donaciones as $donacion)
-                <tr>
-                    <td>{{ $donacion->donador->nombre_donador }}</td>
-                    <td>{{ $donacion->tipo_donacion }}</td>
-                    <td>{{ $donacion->descripcion }}</td>
-                    <td>{{ $donacion->createdBy->name }} {{ $donacion->created_at }}</td>
-        <td>
-            @if ($donacion->updatedBy)
-                {{ $donacion->updatedBy->name }} {{ $donacion->updated_at }}
-            @endif
-        </td>
-                    <td>
-                        @can('editar-donacion')
-                        <button type="button" class="btn btn-outline-primary formulario" data-toggle="modal"
-                            data-target="#editDonacion{{ $donacion->id }}">
-                            <i class="fa fa-lg fa-fw fa-pen"></i>
-                        </button>
-                        @endcan
-                        @can('borrar-donacion')
-                        <form  method="POST" action="{{ route('donacion.destroy', $donacion->id) }}" class="d-inline formulario-eliminar">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-outline-danger formulario" title="Borrar"><i
-                                    class="fa fa-lg fa-fw fa-trash"></i></button>
-                        </form>
-                        @endcan
-                    </td>
-                </tr>
-                @include('donacion.edit')
-            @endforeach
-        </tbody>
-    </table>
+           
+        @endforeach
+    </tbody>
+</table>
 
 @endsection
 

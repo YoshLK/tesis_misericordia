@@ -62,6 +62,7 @@ class DonadorController extends Controller
         $donacion->tipo_donacion = $request->input('tipo_donacion');
         $donacion->descripcion = $request->input('descripcion');
         $donacion->donador_id = $donador->id;
+        $donacion->created_by = auth()->user()->id;
         $donacion->save();
 
         return redirect('donador')->with('mensaje','registrado');
